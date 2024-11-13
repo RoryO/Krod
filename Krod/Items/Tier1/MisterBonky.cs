@@ -70,6 +70,14 @@ namespace Krod.Items.Tier1
                 def.descriptionToken = "MISTERBONKY_USED_DESC";
                 def.loreToken = "";
                 def.tier = ItemTier.NoTier;
+                def.tags = [
+                    ItemTag.CannotCopy,
+                    ItemTag.CannotDuplicate,
+                    ItemTag.CannotSteal,
+                    ItemTag.AIBlacklist,
+                    ItemTag.BrotherBlacklist,
+                    ItemTag.Utility
+                ];
                 def._itemTierDef = new ItemTierDef()
                 {
                     isDroppable = false,

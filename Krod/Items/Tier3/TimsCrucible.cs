@@ -18,6 +18,7 @@ namespace Krod.Items.Tier3
             def.pickupToken = "TIMS_CRUCIBLE_PICKUP";
             def.descriptionToken = "TIMS_CRUCIBLE_DESC";
             def.loreToken = "TIMS_CRUCIBLE_LORE";
+            def.tags = [ItemTag.Utility];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();

@@ -49,6 +49,7 @@ namespace Krod.Items.Tier2
             def.pickupToken = "DOUBLEFISH_PICKUP";
             def.descriptionToken = "DOUBLEFISH_DESC";
             def.loreToken = "DOUBLEFISH_LORE";
+            def.tags = [ItemTag.Damage];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();

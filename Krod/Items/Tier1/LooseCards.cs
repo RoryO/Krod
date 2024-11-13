@@ -40,6 +40,7 @@ namespace Krod.Items.Tier1
             def.pickupToken = "LOOSE_CARDS_PICKUP";
             def.descriptionToken = "LOOSE_CARDS_DESC";
             def.loreToken = "LOOSE_CARDS_LORE";
+            def.tags = [ItemTag.Damage];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
