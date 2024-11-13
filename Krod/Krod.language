@@ -1,0 +1,30 @@
+{
+  "strings": {
+    "LOOSE_CARDS_NAME": "Loose Culdcept Cards",
+    "LOOSE_CARDS_PICKUP": "Chance to cause a random debuff on hit. Debuff chosen at stage start.",
+    "LOOSE_CARDS_DESC":  "5% (+ 2.5% per stack) chance on hit to apply a random damage over time debuff. Debuff chosen on stage start.",
+
+    "MISTERBONKY_NAME": "Mister Bonky",
+    "MISTERBONKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
+    "MISTERBONKY_DESC":  "Blocks one hit dealing 25% or more damage. Consumed on use.",
+
+    "MISTERBONKY_USED_NAME": "Mister Bonky (deceased)",
+    "MISTERBONKY_USED_PICKUP":  "Oh no, Mister Bonky!",
+
+    "WOODHAT_NAME": "A Wood Hat",
+    "WOODHAT_PICKUP": "Adds armor with the power of wood!",
+    "WOODHAT_DESC":  "Adds 10 (+ 10 per stack) armor.",
+
+    "DOUBLEFISH_NAME": "Double Fish",
+    "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks",
+    "DOUBLEFISH_DESC":  "2.5% (+ 2.5% per stack) chance of duplicating an attack.",
+
+    "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
+    "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
+    "TIMS_CRUCIBLE_DESC": "Negates all fire damage. While on fire, increases armor by 20 (+20 per stack), attack speed by 30% (+ 30% per stack), and movement speed by 20% (+ 20% per stack). Using your utility skill lights you on fire for 2.5 (+ 0.5 seconds) per stack, maximum of 7.5 seconds.",
+
+    "JEFFS_SERVICE_NAME": "Jeff's Service Medal",
+    "JEFFS_SERVICE_PICKUP":  "Creates a formation of friendly Alpha Constructs.",
+    "JEFFS_SERVICE_DESC":  "Creates a formation of friendly Alpha Constructs."
+  }
+}
