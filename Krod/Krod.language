@@ -4,12 +4,12 @@
     "LOOSE_CARDS_PICKUP": "Chance to cause a random debuff on hit. Debuff chosen at stage start.",
     "LOOSE_CARDS_DESC":  "5% (+ 2.5% per stack) chance on hit to apply a random damage over time debuff. Debuff chosen on stage start.",
 
-    "MISTERBONKY_NAME": "Mister Bonky",
-    "MISTERBONKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
-    "MISTERBONKY_DESC":  "Blocks one hit dealing 25% or more damage. Consumed on use.",
+    "MISTERBOINKY_NAME": "Mister Boinky",
+    "MISTERBOINKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
+    "MISTERBOINKY_DESC":  "Blocks one hit dealing 25% or more damage. Consumed on use.",
 
-    "MISTERBONKY_USED_NAME": "Mister Bonky (deceased)",
-    "MISTERBONKY_USED_PICKUP":  "Oh no, Mister Bonky!",
+    "MISTERBOINKY_USED_NAME": "Mister Boinky (deceased)",
+    "MISTERBOINKY_USED_PICKUP":  "Oh no, Mister Boinky!",
 
     "WOODHAT_NAME": "A Wood Hat",
     "WOODHAT_PICKUP": "Adds armor with the power of wood!",

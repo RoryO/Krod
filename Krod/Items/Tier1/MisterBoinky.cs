@@ -8,9 +8,9 @@ using UnityEngine.Networking;
 
 namespace Krod.Items.Tier1
 {
-    public static class MisterBonky
+    public static class MisterBoinky
     {
-        public class MisterBonkyBehavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver 
+        public class MisterBoinkyBehavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver 
         {
             public void Awake()
             {
@@ -64,10 +64,10 @@ namespace Krod.Items.Tier1
             {
                 def = ScriptableObject.CreateInstance<ItemDef>();
                 def.canRemove = false;
-                def.name = "MISTERBONKY_USED_NAME";
-                def.nameToken = "MISTERBONKY_USED_NAME";
-                def.pickupToken = "MISTERBONKY_USED_PICKUP";
-                def.descriptionToken = "MISTERBONKY_USED_DESC";
+                def.name = "MISTERBOINKY_USED_NAME";
+                def.nameToken = "MISTERBOINKY_USED_NAME";
+                def.pickupToken = "MISTERBOINKY_USED_PICKUP";
+                def.descriptionToken = "MISTERBOINKY_USED_DESC";
                 def.loreToken = "";
                 def.tier = ItemTier.NoTier;
                 def.tags = [
@@ -95,11 +95,11 @@ namespace Krod.Items.Tier1
             Consumed.Awake();
             def = ScriptableObject.CreateInstance<ItemDef>();
             def.canRemove = true;
-            def.name = "MISTERBONKY_NAME";
-            def.nameToken = "MISTERBONKY_NAME";
-            def.pickupToken = "MISTERBONKY_PICKUP";
-            def.descriptionToken = "MISTERBONKY_DESC";
-            def.loreToken = "MISTERBONKY_LORE";
+            def.name = "MISTERBOINKY_NAME";
+            def.nameToken = "MISTERBOINKY_NAME";
+            def.pickupToken = "MISTERBOINKY_PICKUP";
+            def.descriptionToken = "MISTERBOINKY_DESC";
+            def.loreToken = "MISTERBOINKY_LORE";
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
@@ -111,7 +111,7 @@ namespace Krod.Items.Tier1
         {
             if (NetworkServer.active)
             {
-                self.AddItemBehavior<MisterBonkyBehavior>(self.inventory.GetItemCount(def));
+                self.AddItemBehavior<MisterBoinkyBehavior>(self.inventory.GetItemCount(def));
             }
             orig(self);
         }
