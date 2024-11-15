@@ -25,6 +25,15 @@
 
     "JEFFS_SERVICE_NAME": "Jeff's Service Medal",
     "JEFFS_SERVICE_PICKUP":  "Creates a formation of friendly Alpha Constructs.",
-    "JEFFS_SERVICE_DESC":  "Creates a formation of friendly Alpha Constructs."
+    "JEFFS_SERVICE_DESC": "Creates a formation of friendly Alpha Constructs.",
+
+    "AILEENS_EYE_NAME": "Aileen's Glass Eye",
+    "AILEENS_EYE_PICKUP": "Creates a scrapper. Cracks on use.",
+    "AILEENS_EYE_DESC": "Creates a scrapper. Cracks on use.",
+    "AILEENS_EYE_LORE": "",
+
+    "AILEENS_EYE_CRACKED_NAME": "Aileen's Glass Eye (cracked)",
+    "AILEENS_EYE_CRACKED_PICKUP": "Scraps targeted item.",
+    "AILEENS_EYE_CRACKED_DESC": "Scraps targeted item."
   }
 }
