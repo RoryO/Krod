@@ -53,7 +53,7 @@ namespace Krod.Items.Tier1
         {
             if (!damageInfo.rejected || !(damageInfo.procCoefficient <= 0))
             {
-                CharacterBody cb = damageInfo.attacker.GetComponent<CharacterBody>();
+                CharacterBody cb = damageInfo?.attacker?.GetComponent<CharacterBody>();
                 if (cb != null)
                 {
                     int c = cb.inventory.GetItemCount(def);
