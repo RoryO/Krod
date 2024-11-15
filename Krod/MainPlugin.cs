@@ -21,7 +21,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.1";
+        public const string PluginVersion = "0.0.2";
 
         public void Awake()
         {
@@ -29,7 +29,7 @@ namespace Krod
             Defs.Awake();
             
             LooseCards.Awake();
-            MisterBonky.Awake();
+            MisterBoinky.Awake();
 
             DoubleFish.Awake();
             Woodhat.Awake();
@@ -38,6 +38,7 @@ namespace Krod
             //RorysForsight.Awake();
 
             JeffsServiceMedal.Awake();
+            AileensGlassEye.Awake();
         }
 
         private void Update()
@@ -47,7 +48,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = LooseCards.def.itemIndex;
+                var testItem = AileensGlassEye.def.equipmentIndex;
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), transform.position, transform.forward * 20f);
             }
         }
