@@ -38,14 +38,15 @@ namespace Krod.Items.Tier3
         {
             if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex)
             {
-                self.AddBuff(Defs.TimIsOnFire);
+                self.RemoveBuff(Defs.TimIsOnFire);
             }
             orig(self, equipmentDef);
         }
 
         private static void CharacterBody_OnEquipmentGained(On.RoR2.CharacterBody.orig_OnEquipmentGained orig, CharacterBody self, EquipmentDef equipmentDef)
         {
-            if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex)
+            if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex &&
+                (self?.inventory?.GetItemCount(def) ?? 0) > 0)
             {
                 self.AddBuff(Defs.TimIsOnFire);
             }
@@ -67,7 +68,7 @@ namespace Krod.Items.Tier3
         private static void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
         {
             orig(self, skill);
-            int c = self.inventory.GetItemCount(def);
+            int c = self?.inventory?.GetItemCount(def) ?? 0;
             if (c > 0)
             {
                 string n = (skill.skillFamily as ScriptableObject).name; 
@@ -80,7 +81,7 @@ namespace Krod.Items.Tier3
                         {
                             attackerObject = self.gameObject,
                             victimObject = self.gameObject,
-                            duration = 2.5f + Mathf.Max((c * 0.5f), 5f),
+                            duration = 2.5f + Mathf.Min((c * 0.5f), 5f),
                             dotIndex = DotController.DotIndex.Burn,
                         };
                         DotController.InflictDot(ref idi);
@@ -103,7 +104,7 @@ namespace Krod.Items.Tier3
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (sender != null && sender.HasBuff(Defs.TimIsOnFire))
+            if (sender?.inventory && sender.HasBuff(Defs.TimIsOnFire))
             {
                 int m = sender.inventory.GetItemCount(def.itemIndex);
                 args.attackSpeedMultAdd = 0.3f * m;
@@ -119,8 +120,8 @@ namespace Krod.Items.Tier3
             {
                 if(self.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
                 {
-                    CharacterBody body = self.victimBody;
-                    if (body != null && body.HasBuff(Defs.TimIsOnFire))
+                    CharacterBody body = self?.victimBody;
+                    if (body?.HasBuff(Defs.TimIsOnFire) ?? false)
                     {
                         body.RemoveBuff(Defs.TimIsOnFire);
                         body.RemoveBuff(RoR2Content.Buffs.AffixRed);
@@ -135,8 +136,7 @@ namespace Krod.Items.Tier3
             if (_dotStack is DotController.DotStack dotStack && dotStack.dotIndex == DotController.DotIndex.Burn)
             {
                 CharacterBody body = self.victimBody;
-                if (body != null &&
-                    body.inventory.GetItemCount(def) > 0 && 
+                if ((body?.inventory?.GetItemCount(def) ?? 0) > 0 && 
                     !body.HasBuff(Defs.TimIsOnFire))
                 {
                     self.victimBody.AddBuff(Defs.TimIsOnFire);
