@@ -4,6 +4,7 @@
 - Boinky named properly
 - Fix non-attack damage hitting multiple times
 - Fix blazing enemies stronger than they should be
+- Fix equipment not in drop tables
 
 ## 0.0.1
 
