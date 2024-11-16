@@ -8,8 +8,12 @@
     "MISTERBOINKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
     "MISTERBOINKY_DESC":  "Blocks one hit dealing 25% or more damage. Consumed on use.",
 
-    "MISTERBOINKY_USED_NAME": "Mister Boinky (deceased)",
+    "MISTERBOINKY_USED_NAME": "Mister Boinky (Deceased)",
     "MISTERBOINKY_USED_PICKUP":  "Oh no, Mister Boinky!",
+
+    "ARCADE_TOKEN_NAME": "Old Arcade Token",
+    "ARCADE_TOKEN_PICKUP": "Purchase one item from a shop without closing the shop. Removed on use.",
+    "ARCADE_TOKEN_DESC":  "Allows one purchase of a multi-shop while keeping the shop open. Removed from inventory after using.",
 
     "WOODHAT_NAME": "A Wood Hat",
     "WOODHAT_PICKUP": "Adds armor with the power of wood!",
@@ -32,7 +36,7 @@
     "AILEENS_EYE_DESC": "Creates a scrapper. Cracks on use.",
     "AILEENS_EYE_LORE": "",
 
-    "AILEENS_EYE_CRACKED_NAME": "Aileen's Glass Eye (cracked)",
+    "AILEENS_EYE_CRACKED_NAME": "Aileen's Glass Eye (Cracked)",
     "AILEENS_EYE_CRACKED_PICKUP": "Scraps targeted item.",
     "AILEENS_EYE_CRACKED_DESC": "Scraps targeted item."
   }
