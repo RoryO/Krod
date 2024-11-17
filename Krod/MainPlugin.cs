@@ -30,6 +30,8 @@ namespace Krod
             
             LooseCards.Awake();
             MisterBoinky.Awake();
+            ArcadeToken.Awake();
+            DiscountCoffee.Awake();
 
             DoubleFish.Awake();
             Woodhat.Awake();
@@ -48,7 +50,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = AileensGlassEye.def.equipmentIndex;
+                var testItem = DiscountCoffee.def.itemIndex;
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), transform.position, transform.forward * 20f);
             }
         }

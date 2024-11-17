@@ -2,7 +2,7 @@
   "strings": {
     "LOOSE_CARDS_NAME": "Loose Culdcept Cards",
     "LOOSE_CARDS_PICKUP": "Chance to cause a random debuff on hit. Debuff chosen at stage start.",
-    "LOOSE_CARDS_DESC":  "5% (+ 2.5% per stack) chance on hit to apply a random damage over time debuff. Debuff chosen on stage start.",
+    "LOOSE_CARDS_DESC":  "5% (+2.5% per stack) chance on hit to apply a random damage over time debuff. Debuff chosen on stage start.",
 
     "MISTERBOINKY_NAME": "Mister Boinky",
     "MISTERBOINKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
@@ -15,17 +15,21 @@
     "ARCADE_TOKEN_PICKUP": "Purchase one item from a shop without closing the shop. Removed on use.",
     "ARCADE_TOKEN_DESC":  "Allows one purchase of a multi-shop while keeping the shop open. Removed from inventory after using.",
 
+    "DISCOUNT_COFFEE_NAME": "Discount Coffee",
+    "DISCOUNT_COFFEE_PICKUP": "Increases run speed and attack speed for a while. Time refreshes when spending money.",
+    "DISCOUNT_COFFEE_DESC":  "Increase run speed by 25% (+25% per stack) and attack speed by 15% (+15% per stack) for 60 seconds (+10 seconds per stack). Timer resets when spending money.",
+
     "WOODHAT_NAME": "A Wood Hat",
     "WOODHAT_PICKUP": "Adds armor with the power of wood!",
-    "WOODHAT_DESC":  "Adds 10 (+ 10 per stack) armor.",
+    "WOODHAT_DESC":  "Adds 10 (+10 per stack) armor.",
 
     "DOUBLEFISH_NAME": "Double Fish",
     "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks",
-    "DOUBLEFISH_DESC":  "2.5% (+ 2.5% per stack) chance of duplicating an attack.",
+    "DOUBLEFISH_DESC":  "2.5% (+2.5% per stack) chance of duplicating an attack.",
 
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
-    "TIMS_CRUCIBLE_DESC": "Negates all fire damage. While on fire, increases armor by 20 (+20 per stack), attack speed by 30% (+ 30% per stack), and movement speed by 20% (+ 20% per stack). Using your utility skill lights you on fire for 2.5 (+ 0.5 seconds) per stack, maximum of 7.5 seconds.",
+    "TIMS_CRUCIBLE_DESC": "Negates all fire damage. While on fire, increases armor by 20 (+20 per stack), attack speed by 30% (+30% per stack), and movement speed by 20% (+20% per stack). Using your utility skill lights you on fire for 2.5 (+0.5 seconds) per stack, maximum of 7.5 seconds.",
 
     "JEFFS_SERVICE_NAME": "Jeff's Service Medal",
     "JEFFS_SERVICE_PICKUP":  "Creates a formation of friendly Alpha Constructs.",
