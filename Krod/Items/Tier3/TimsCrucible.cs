@@ -45,48 +45,45 @@ namespace Krod.Items.Tier3
 
         private static void CharacterBody_OnEquipmentGained(On.RoR2.CharacterBody.orig_OnEquipmentGained orig, CharacterBody self, EquipmentDef equipmentDef)
         {
+            orig(self, equipmentDef);
             if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex &&
                 (self?.inventory?.GetItemCount(def) ?? 0) > 0)
             {
                 self.AddBuff(Defs.TimIsOnFire);
             }
-            orig(self, equipmentDef);
         }
 
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            Inventory i = self?.body?.inventory;
-            if (i != null &&
-                damageInfo.dotIndex == DotController.DotIndex.Burn &&
-                i.GetItemCount(def) > 0)
+            orig(self, damageInfo);
+            int c = self?.body?.inventory?.GetItemCount(def) ?? 0;
+            if (c > 0 && 
+                damageInfo.dotIndex == DotController.DotIndex.Burn)
             {
                 damageInfo.damage = 0;
             }
-            orig(self, damageInfo);
         }
 
         private static void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
         {
             orig(self, skill);
             int c = self?.inventory?.GetItemCount(def) ?? 0;
-            if (c > 0)
+            if (c <= 0) { return; }
+
+            string n = (skill.skillFamily as ScriptableObject).name;
+            if (!n.Contains("Utility")) { return; }
+
+            var d = DotController.FindDotController(self.gameObject);
+            if (d?.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
             {
-                string n = (skill.skillFamily as ScriptableObject).name; 
-                if (n.Contains("Utility"))
+                InflictDotInfo idi = new()
                 {
-                    var d = DotController.FindDotController(self.gameObject);
-                    if (d?.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
-                    {
-                        InflictDotInfo idi = new()
-                        {
-                            attackerObject = self.gameObject,
-                            victimObject = self.gameObject,
-                            duration = 2.5f + Mathf.Min((c * 0.5f), 5f),
-                            dotIndex = DotController.DotIndex.Burn,
-                        };
-                        DotController.InflictDot(ref idi);
-                    }
-                }
+                    attackerObject = self.gameObject,
+                    victimObject = self.gameObject,
+                    duration = 2.5f + Mathf.Min((c * 0.5f), 5f),
+                    dotIndex = DotController.DotIndex.Burn,
+                };
+                DotController.InflictDot(ref idi);
             }
         }
 
