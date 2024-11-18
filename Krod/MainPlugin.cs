@@ -21,7 +21,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.2";
+        public const string PluginVersion = "0.0.3";
 
         public void Awake()
         {
@@ -45,14 +45,14 @@ namespace Krod
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
-                // Get the player body to use a position:
-                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-                // And then drop our defined item in front of the player.
-                var testItem = DiscountCoffee.def.itemIndex;
-                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), transform.position, transform.forward * 20f);
-            }
+#if (DEBUG)
+            if (!Input.GetKeyDown(KeyCode.F2)) { return; }
+            // Get the player body to use a position:
+            var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+            // And then drop our defined item in front of the player.
+            var testItem = TimsCrucible.def.itemIndex;
+            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
+#endif
         }
     }
 }

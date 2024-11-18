@@ -1,3 +1,9 @@
+## 0.0.3
+
+- Added Discount Coffee
+- Added Old Arcade Token
+- Colorize item descriptions
+
 ## 0.0.2
 
 - Added Aileen's Glass Eye
