@@ -408,3 +408,5 @@ Assets/ThunderKitSettings/ThunderKit Extensions.asset
 ThunderKit/
 
 /Thunderstore/Thunderstore.zip
+/Out/*.manifest
+/Out/*.assetbundle

@@ -42,7 +42,7 @@ namespace Krod.Items.Tier1
             def.loreToken = "LOOSE_CARDS_LORE";
             def.tags = [ItemTag.Damage];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
@@ -56,7 +56,7 @@ namespace Krod.Items.Tier1
                 CharacterBody cb = damageInfo?.attacker?.GetComponent<CharacterBody>();
                 if (cb != null)
                 {
-                    int c = cb.inventory.GetItemCount(def);
+                    int c = cb?.inventory?.GetItemCount(def) ?? 0;
                     if (c > 0)
                     {
                         float pct = 2.5f + (c * 2.5f);

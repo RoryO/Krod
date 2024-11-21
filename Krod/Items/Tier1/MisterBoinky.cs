@@ -84,7 +84,7 @@ namespace Krod.Items.Tier1
                     canScrap = false,
                     tier = ItemTier.NoTier,
                 };
-                def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+                def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
                 def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
                 ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
             }
@@ -101,7 +101,7 @@ namespace Krod.Items.Tier1
             def.descriptionToken = "MISTERBOINKY_DESC";
             def.loreToken = "MISTERBOINKY_LORE";
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;

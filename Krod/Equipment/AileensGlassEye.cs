@@ -52,7 +52,7 @@ namespace Krod.Equipment
                 def.loreToken = "AILEENS_EYE_CRACKED_LORE";
                 def.cooldown = 60;
                 def.canDrop = false;
-                def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+                def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
                 def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
 
@@ -132,7 +132,7 @@ namespace Krod.Equipment
             def.loreToken = "AILEENS_EYE_LORE";
             def.cooldown = 60;
             def.canDrop = true;
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
 

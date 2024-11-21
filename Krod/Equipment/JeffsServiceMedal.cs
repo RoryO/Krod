@@ -21,7 +21,7 @@ namespace Krod.Equipment
             def.loreToken = "JEFFS_SERVICE_LORE";
             def.cooldown = 180;
             def.canDrop = true;
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
             On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;

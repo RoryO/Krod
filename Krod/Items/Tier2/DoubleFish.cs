@@ -51,7 +51,7 @@ namespace Krod.Items.Tier2
             def.loreToken = "DOUBLEFISH_LORE";
             def.tags = [ItemTag.Damage];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
             fishDamageType = DamageAPI.ReserveDamageType();

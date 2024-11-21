@@ -49,7 +49,7 @@ namespace Krod.Items.Tier1
             def.loreToken = "DISCOUNT_COFFEE_LORE";
             def.tags = [ItemTag.Utility];
             def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;

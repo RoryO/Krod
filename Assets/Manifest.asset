@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e563561e08b6a3642a487177f5cfbb37, type: 3}
+  m_Name: Manifest
+  m_EditorClassIdentifier: 
+  Data:
+  - {fileID: 1287388157864411058}
+  - {fileID: 8757670212764390573}
+  identity: {fileID: 1287388157864411058}
+  QuickAccess: 0
+--- !u!114 &1287388157864411058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22bb7fd1d3b56a48bc52f8e407901d6, type: 3}
+  m_Name: ManifestIdentity
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - Assets
+  Author: 
+  Name: 
+  Description: 
+  Version: 
+  Dependencies: []
+--- !u!114 &8757670212764390573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d1008b78cb6e846889b7778282fbef, type: 3}
+  m_Name: AssetBundleDefinitions
+  m_EditorClassIdentifier: 
+  StagingPaths:
+  - Out
+  assetBundles:
+  - assetBundleName: Krod.assetbundle
+    assets:
+    - {fileID: 21300000, guid: ecfcf7ac939abf74ea4ca89fbdd7b9eb, type: 3}
+    - {fileID: 21300000, guid: 5d444ee5eeff20d42af626fa42f6ad73, type: 3}
+    - {fileID: 21300000, guid: 238ef9966767baf439ff69bcbda08b57, type: 3}
+    - {fileID: 21300000, guid: 346bce0ed63b7804c835f639a595380e, type: 3}
+    - {fileID: 21300000, guid: d88ebbcdb363ebe4492d89d8a948a34a, type: 3}
+    - {fileID: 21300000, guid: 50de1ae2c77fe77439390009956a81be, type: 3}
+    - {fileID: 21300000, guid: 30ba2e29d03b7354b972422c822c5c72, type: 3}
+    - {fileID: 21300000, guid: 784dcb1796c30fc4ab58b2fd376b4765, type: 3}
+    - {fileID: 21300000, guid: 6d6f04230cc06694980767322ae2f87f, type: 3}
+    - {fileID: 21300000, guid: 6ef67b05b2e0bf649990fd6487ed26d0, type: 3}
