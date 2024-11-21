@@ -99,13 +99,19 @@ namespace Krod.Items.Tier3
         private static void CharacterBody_OnBuffFinalStackLost(On.RoR2.CharacterBody.orig_OnBuffFinalStackLost orig, CharacterBody self, BuffDef buffDef)
         {
             orig(self, buffDef);
-            self.RecalculateStats();
+            if (self)
+            {
+                self.RecalculateStats();
+            }
         }
 
         private static void CharacterBody_OnBuffFirstStackGained(On.RoR2.CharacterBody.orig_OnBuffFirstStackGained orig, CharacterBody self, BuffDef buffDef)
         {
             orig(self, buffDef);
-            self.RecalculateStats();
+            if (self)
+            {
+                self.RecalculateStats();
+            }
         }
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
