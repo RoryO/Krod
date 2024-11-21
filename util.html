@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  </head>
+  <body>
+    <p id="out"></p>
+    <textarea name="in" id="in" rows="20" cols="100" tabindex=""></textarea>
+  </body>
+  <script>
+    document.getElementById("in").addEventListener('input', function() {
+        document.getElementById("out").innerText = JSON.stringify(this.value);
+    }, false);
+  </script>
+</html>
