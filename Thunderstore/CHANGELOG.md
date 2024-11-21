@@ -1,3 +1,9 @@
+## 0.0.5
+
+- Added The Extra
+- Fixed tri-shops not closing without a token
+- More internal fixes
+
 ## 0.0.4
 
 - Add placeholder icons

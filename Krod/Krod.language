@@ -27,6 +27,10 @@
     "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks",
     "DOUBLEFISH_DESC":  "2.5% <style=cStack>(+2.5% per stack)</style> chance of <style=cIsDamage>duplicating an attack</style>.",
 
+    "THE_EXTRA_NAME": "The Extra",
+    "THE_EXTRA_PICKUP": "Periodically sets enemies around you on fire",
+    "THE_EXTRA_DESC":  "Every 5 seconds, <style=cIsDamage>set enemies within 10m <style=cStack>(+5m per stack)</style> around you on fire</style>",
+
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
     "TIMS_CRUCIBLE_DESC": "<style=cIsHealing>Negates all fire damage</style>. While on fire, increases <style=cIsHealing>armor by 20</style> <style=cStack>(+20 per stack)</style>, <style=cIsDamage>attack speed by 30%</style> <style=cStack>(+30% per stack)</style>, and <style=cIsUtility>movement speed by 20%</style> <style=cStack>(+20% per stack)</style>. Using your utility skill lights you on fire for 2.5 <style=cStack>(+0.5 seconds per stack)</style>, maximum of 7.5 seconds.",
