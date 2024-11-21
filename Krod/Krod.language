@@ -29,7 +29,7 @@
 
     "THE_EXTRA_NAME": "The Extra",
     "THE_EXTRA_PICKUP": "Periodically sets enemies around you on fire",
-    "THE_EXTRA_DESC":  "Every 5 seconds, <style=cIsDamage>set enemies within 10m <style=cStack>(+5m per stack)</style> around you on fire</style>",
+    "THE_EXTRA_DESC":  "Every 5 seconds, <style=cIsDamage>set enemies within 20m <style=cStack>(+5m per stack)</style> around you on fire</style>",
 
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
