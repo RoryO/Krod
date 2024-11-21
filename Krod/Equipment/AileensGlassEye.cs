@@ -142,9 +142,9 @@ namespace Krod.Equipment
 
         private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (equipmentDef == def)
+            if (self != null && equipmentDef == def)
             {
-                CharacterBody body = self?.characterBody;
+                CharacterBody body = self.characterBody;
                 if (body == null) { return true; }
                 DirectorPlacementRule rule = new DirectorPlacementRule()
                 {

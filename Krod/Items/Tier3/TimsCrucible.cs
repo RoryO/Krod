@@ -36,7 +36,7 @@ namespace Krod.Items.Tier3
 
         private static void CharacterBody_OnEquipmentLost(On.RoR2.CharacterBody.orig_OnEquipmentLost orig, CharacterBody self, EquipmentDef equipmentDef)
         {
-            if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex)
+            if (self != null && equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex)
             {
                 self.RemoveBuff(Defs.TimIsOnFire);
             }
@@ -45,46 +45,55 @@ namespace Krod.Items.Tier3
 
         private static void CharacterBody_OnEquipmentGained(On.RoR2.CharacterBody.orig_OnEquipmentGained orig, CharacterBody self, EquipmentDef equipmentDef)
         {
-            orig(self, equipmentDef);
             if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex &&
-                (self?.inventory?.GetItemCount(def) ?? 0) > 0)
+                self != null &&
+                self.inventory != null &&
+                self.inventory.GetItemCount(def) > 0)
             {
                 self.AddBuff(Defs.TimIsOnFire);
             }
+            orig(self, equipmentDef);
         }
 
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            orig(self, damageInfo);
-            int c = self?.body?.inventory?.GetItemCount(def) ?? 0;
-            if (c > 0 && 
-                damageInfo.dotIndex == DotController.DotIndex.Burn)
+            if (self != null && self.body != null && self.body.inventory != null)
             {
-                damageInfo.damage = 0;
+                if (self.body.inventory.GetItemCount(def) > 0 &&
+                    damageInfo.dotIndex == DotController.DotIndex.Burn)
+                {
+                    damageInfo.damage = 0;
+                }
             }
+            orig(self, damageInfo);
         }
 
         private static void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
         {
-            orig(self, skill);
-            int c = self?.inventory?.GetItemCount(def) ?? 0;
-            if (c <= 0) { return; }
-
-            string n = (skill.skillFamily as ScriptableObject).name;
-            if (!n.Contains("Utility")) { return; }
-
-            var d = DotController.FindDotController(self.gameObject);
-            if (d?.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
+            if (self != null && self.inventory != null)
             {
-                InflictDotInfo idi = new()
+                int c = self.inventory.GetItemCount(def);
+                if (c > 0)
                 {
-                    attackerObject = self.gameObject,
-                    victimObject = self.gameObject,
-                    duration = 2.5f + Mathf.Min((c * 0.5f), 5f),
-                    dotIndex = DotController.DotIndex.Burn,
-                };
-                DotController.InflictDot(ref idi);
+                    string n = (skill.skillFamily as ScriptableObject).name;
+                    if (n.Contains("Utility"))
+                    {
+                        var d = DotController.FindDotController(self.gameObject);
+                        if (d != null && d.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
+                        {
+                            InflictDotInfo idi = new()
+                            {
+                                attackerObject = self.gameObject,
+                                victimObject = self.gameObject,
+                                duration = 2.5f + Mathf.Min((c * 0.5f), 5f),
+                                dotIndex = DotController.DotIndex.Burn,
+                            };
+                            DotController.InflictDot(ref idi);
+                        }
+                    }
+                }
             }
+            orig(self, skill);
         }
 
         private static void CharacterBody_OnBuffFinalStackLost(On.RoR2.CharacterBody.orig_OnBuffFinalStackLost orig, CharacterBody self, BuffDef buffDef)
@@ -101,7 +110,9 @@ namespace Krod.Items.Tier3
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (sender?.inventory && sender.HasBuff(Defs.TimIsOnFire))
+            if (sender != null && 
+                sender.inventory !=null && 
+                sender.HasBuff(Defs.TimIsOnFire))
             {
                 int m = sender.inventory.GetItemCount(def.itemIndex);
                 args.attackSpeedMultAdd = 0.3f * m;
@@ -117,8 +128,8 @@ namespace Krod.Items.Tier3
             {
                 if(self.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
                 {
-                    CharacterBody body = self?.victimBody;
-                    if (body?.HasBuff(Defs.TimIsOnFire) ?? false)
+                    CharacterBody body = self.victimBody;
+                    if (body != null && body.HasBuff(Defs.TimIsOnFire))
                     {
                         body.RemoveBuff(Defs.TimIsOnFire);
                         body.RemoveBuff(RoR2Content.Buffs.AffixRed);
@@ -133,7 +144,9 @@ namespace Krod.Items.Tier3
             if (_dotStack is DotController.DotStack dotStack && dotStack.dotIndex == DotController.DotIndex.Burn)
             {
                 CharacterBody body = self.victimBody;
-                if ((body?.inventory?.GetItemCount(def) ?? 0) > 0 && 
+                if (body != null && 
+                    body.inventory != null && 
+                    body?.inventory?.GetItemCount(def) > 0 && 
                     !body.HasBuff(Defs.TimIsOnFire))
                 {
                     self.victimBody.AddBuff(Defs.TimIsOnFire);

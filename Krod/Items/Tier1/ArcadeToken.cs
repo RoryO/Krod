@@ -29,12 +29,11 @@ namespace Krod.Items.Tier1
 
         private static void MultiShopCardUtils_OnPurchase(On.RoR2.Items.MultiShopCardUtils.orig_OnPurchase orig, CostTypeDef.PayCostContext context, int moneyCost)
         {
-            orig(context, moneyCost);
             CharacterMaster master = context.activatorMaster;
-            if (master?.inventory?.GetItemCount(def) > 0 && context.purchasedObject)
+            if (master && master.inventory && context.purchasedObject)
             {
                 ShopTerminalBehavior behavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
-                if (behavior?.serverMultiShopController)
+                if (behavior && behavior.serverMultiShopController)
                 {
                     int remaining = (
                         from obj in behavior.serverMultiShopController.terminalGameObjects 
@@ -48,6 +47,7 @@ namespace Krod.Items.Tier1
                     }
                 }
             }
+            orig(context, moneyCost);
         }
     }
 }

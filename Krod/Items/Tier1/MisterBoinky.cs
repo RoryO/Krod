@@ -22,7 +22,7 @@ namespace Krod.Items.Tier1
                 {
                     CharacterBody body = GetComponent<CharacterBody>();
                     HealthComponent c = body.healthComponent;
-                    if (c == null || body == null) { return; }
+                    if (!body || !c) { return; }
 
                     if ((damageInfo.damage / c.fullCombinedHealth) > 0.25f)
                     {
@@ -47,7 +47,7 @@ namespace Krod.Items.Tier1
 
             private void OnDisable()
             {
-                if (body == null || body.healthComponent == null) { return; }
+                if (!body || !body.healthComponent) { return; }
                 int i = Array.IndexOf(body.healthComponent.onIncomingDamageReceivers, this);
                 if (i > -1)
                 {
@@ -109,7 +109,7 @@ namespace Krod.Items.Tier1
 
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
-            if (NetworkServer.active)
+            if (NetworkServer.active && self.inventory)
             {
                 self.AddItemBehavior<MisterBoinkyBehavior>(self.inventory.GetItemCount(def));
             }

@@ -51,27 +51,30 @@ namespace Krod.Items.Tier1
 
         public static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
-            if (!damageInfo.rejected || !(damageInfo.procCoefficient <= 0))
+            if (damageInfo.attacker && (!damageInfo.rejected || !(damageInfo.procCoefficient <= 0)))
             {
-                CharacterBody cb = damageInfo?.attacker?.GetComponent<CharacterBody>();
-                if (cb != null)
+                CharacterBody cb = damageInfo.attacker.GetComponent<CharacterBody>();
+                if (cb && cb.master && cb.inventory)
                 {
-                    int c = cb?.inventory?.GetItemCount(def) ?? 0;
+                    int c = cb.inventory.GetItemCount(def);
                     if (c > 0)
                     {
                         float pct = 2.5f + (c * 2.5f);
                         if (Util.CheckRoll(pct, cb.master))
                         {
                             LooseCardsBehavior b = damageInfo.attacker.GetComponent<LooseCardsBehavior>();
-                            DotController.DotIndex idx = b.dotIndex;
-                            InflictDotInfo dotInfo = new InflictDotInfo()
+                            if (b)
                             {
-                                dotIndex = idx,
-                                victimObject = victim,
-                                attackerObject = damageInfo.attacker,
-                                duration = 3f * damageInfo.procCoefficient
-                            };
-                            DotController.InflictDot(ref dotInfo);
+                                DotController.DotIndex idx = b.dotIndex;
+                                InflictDotInfo dotInfo = new InflictDotInfo()
+                                {
+                                    dotIndex = idx,
+                                    victimObject = victim,
+                                    attackerObject = damageInfo.attacker,
+                                    duration = 3f * damageInfo.procCoefficient
+                                };
+                                DotController.InflictDot(ref dotInfo);
+                            }
                         }
                     }
                 }
@@ -81,7 +84,7 @@ namespace Krod.Items.Tier1
 
         public static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
-            if (NetworkServer.active)
+            if (NetworkServer.active && self.inventory)
             {
                 self.AddItemBehavior<LooseCardsBehavior>(self.inventory.GetItemCount(def));
             }

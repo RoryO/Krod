@@ -20,17 +20,17 @@ namespace Krod.Items.Tier1
 
             public void OnEnable()
             {
-                if (body?.HasBuff(buff) ?? false) { return; }
-                int c = body?.inventory?.GetItemCount(def) ?? 0;
+                if (!body || !body.HasBuff(buff) || !body.inventory) { return; }
+                int c = body.inventory.GetItemCount(def);
                 if (c > 0)
                 {
-                    body?.AddTimedBuff(buff, 50f + (c * 10f));
+                    body.AddTimedBuff(buff, 50f + (c * 10f));
                 }
             }
 
             public void OnDisable()
             {
-                if (body?.HasBuff(buff) ?? false)
+                if (body && body.HasBuff(buff))
                 {
                     body.RemoveBuff(buff);
                 }
@@ -68,17 +68,20 @@ namespace Krod.Items.Tier1
             orig(self, activator);
             if (!NetworkServer.active || self.costType != CostTypeIndex.Money ) { return; }
             CharacterBody characterBody = activator.GetComponent<CharacterBody>();
-            int c = characterBody?.inventory?.GetItemCount(def) ?? 0;
-            if (c > 0)
+            if (characterBody && characterBody.inventory)
             {
-                characterBody?.AddTimedBuff(buff, 50f + (c * 10f));
+                int c = characterBody.inventory.GetItemCount(def);
+                if (c > 0)
+                {
+                    characterBody?.AddTimedBuff(buff, 50f + (c * 10f));
+                }
             }
         }
 
         public static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            if (!sender.HasBuff(buff)) { return; }
-            int c = sender?.inventory?.GetItemCount(def) ?? 0;
+            if (!sender || !sender.inventory || !sender.HasBuff(buff)) { return; }
+            int c = sender.inventory.GetItemCount(def);
             args.attackSpeedMultAdd = c * 0.15f;
             args.sprintSpeedAdd = c * 0.25f;
         }
@@ -88,8 +91,11 @@ namespace Krod.Items.Tier1
             orig(self);
             if (NetworkServer.active && self)
             {
-                int c = self?.inventory?.GetItemCount(def) ?? 0;
-                self.AddItemBehavior<DiscountCoffeeBehavior>(c);
+                if (self && self.inventory)
+                {
+                    int c = self.inventory.GetItemCount(def);
+                    self.AddItemBehavior<DiscountCoffeeBehavior>(c);
+                }
             }
         }
     }

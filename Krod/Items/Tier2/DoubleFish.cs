@@ -61,16 +61,20 @@ namespace Krod.Items.Tier2
         private static void GlobalEventManager_ServerDamageDealt(On.RoR2.GlobalEventManager.orig_ServerDamageDealt orig, DamageReport damageReport)
         {
             orig(damageReport);
-            if (damageReport.damageInfo.attacker != damageReport.victim && 
+            if (damageReport.damageInfo != null &&
+                damageReport.damageInfo.attacker != null &&
+                damageReport.victim != null &&
+                damageReport.damageInfo.attacker != damageReport.victim && 
                 damageReport.damageInfo.procCoefficient > 0f &&
                 !damageReport.damageInfo.HasModdedDamageType(fishDamageType)) 
             {
-                CharacterBody cb = damageReport?.damageInfo?.attacker?.GetComponent<CharacterBody>();
-                if (cb == null) { return; }
+                CharacterBody cb = damageReport.damageInfo.attacker.GetComponent<CharacterBody>();
+                if (!cb || !cb.inventory) { return; }
                 int c = cb.inventory.GetItemCount(def);
                 if (c > 0 && Util.CheckRoll(2.5f * c, cb.master))
                 {
                     CharacterBody b = damageReport.victim.GetComponent<CharacterBody>();
+                    if (!b) { return; }
                     var db = b.gameObject.GetComponent<DoubleFishBehavior>();
                     if (db == null)
                     {

@@ -30,7 +30,7 @@ namespace Krod.Equipment
 
         private static int CharacterMaster_GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot)
         {
-            if (slot == DeployableSlot.MinorConstructOnKill)
+            if (self && self.inventory && slot == DeployableSlot.MinorConstructOnKill)
             {
                 int c = self.inventory.GetItemCount(DLC1Content.Items.MinorConstructOnKill) * 4;
                 if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot).equipmentIndex == def.equipmentIndex)
@@ -47,7 +47,7 @@ namespace Krod.Equipment
 
         private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (equipmentDef.equipmentIndex == def.equipmentIndex)
+            if (self && self.characterBody && equipmentDef.equipmentIndex == def.equipmentIndex)
             {
                 var transform = self.characterBody.transform;
                 for (int i = 0; i < 4; i++)

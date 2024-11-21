@@ -27,8 +27,8 @@ namespace Krod.Items.Tier2
 
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            Inventory i = sender?.inventory;
-            if (i != null)
+            Inventory i = sender.inventory;
+            if (i)
             {
                 int c = i.GetItemCount(def);
                 args.armorAdd += c * 10;
