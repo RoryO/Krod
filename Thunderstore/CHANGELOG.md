@@ -1,3 +1,8 @@
+## 0.0.4
+
+- Add placeholder icons
+- Use Unity supported null checking
+
 ## 0.0.3
 
 - Added Discount Coffee
