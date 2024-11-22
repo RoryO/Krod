@@ -1,7 +1,7 @@
 ## 0.0.5
 
 - Added The Extra
-- Fixed tri-shops not closing without a token
+- Fixed tri-shops staying open after use
 - More internal fixes
 
 ## 0.0.4
