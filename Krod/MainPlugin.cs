@@ -47,6 +47,7 @@ namespace Krod
 
             JeffsServiceMedal.Awake();
             AileensGlassEye.Awake();
+            AncientRecordingSystem.Awake();
         }
 
         private void Update()
@@ -55,7 +56,7 @@ namespace Krod
             // Get the player body to use a position:
             var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
             // And then drop our defined item in front of the player.
-            var testItem = TheExtra.def.itemIndex;
+            var testItem = AncientRecordingSystem.def.equipmentIndex;
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
         }
     }
