@@ -42,9 +42,9 @@ namespace Krod.Equipment
             def.pickupToken = "ANCIENT_RECORDING_PICKUP";
             def.descriptionToken = "ANCIENT_RECORDING_DESC";
             def.loreToken = "ANCIENT_RECORDING_LORE";
-            def.cooldown = 5;
+            def.cooldown = 60;
             def.canDrop = true;
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
+            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
@@ -55,7 +55,7 @@ namespace Krod.Equipment
 
         private static void EquipmentSlot_UpdateTargets(On.RoR2.EquipmentSlot.orig_UpdateTargets orig, EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
         {
-            if (targetingEquipmentIndex == def.equipmentIndex && userShouldAnticipateTarget && self.subcooldownTimer > 0f)
+            if (targetingEquipmentIndex == def.equipmentIndex && userShouldAnticipateTarget)
             {
                 self.ConfigureTargetFinderForEnemies();
                 HurtBox source = self.targetFinder.GetResults().FirstOrDefault();
