@@ -1,3 +1,8 @@
+## 0.0.6
+
+- Added Ancient Recording Equipment
+- Added lore
+
 ## 0.0.5
 
 - Added The Extra
