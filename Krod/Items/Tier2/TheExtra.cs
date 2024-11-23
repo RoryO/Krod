@@ -2,7 +2,6 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Diagnostics;
 using UnityEngine.Networking;
 
 namespace Krod.Items.Tier2
@@ -11,7 +10,7 @@ namespace Krod.Items.Tier2
     {
         public class TheExtraBehavior : CharacterBody.ItemBehavior
         {
-            public float stopwatch;
+            public float extraStopwatch;
             public void Awake()
             {
                 enabled = false;
@@ -19,10 +18,10 @@ namespace Krod.Items.Tier2
 
             public void Update()
             {
-                stopwatch += Time.deltaTime;
-                if (stopwatch > 5f)
+                extraStopwatch += Time.deltaTime;
+                if (extraStopwatch > 5f)
                 {
-                    stopwatch = 0;
+                    extraStopwatch = 0;
                     if (!body || !body.teamComponent) { return; }
                     int stacks = body.inventory.GetItemCount(def);
 
@@ -41,7 +40,9 @@ namespace Krod.Items.Tier2
                     {
                         CharacterBody found = Util.HurtBoxColliderToBody(colliders[i]);
                         GameObject gameObject = (found ? found.gameObject : null);
-                        if (!gameObject || found.teamComponent.teamIndex == body.teamComponent.teamIndex) 
+                        if (!gameObject || 
+                            body.gameObject == gameObject ||
+                            found.teamComponent.teamIndex == body.teamComponent.teamIndex) 
                         { 
                             continue; 
                         }
@@ -84,6 +85,7 @@ namespace Krod.Items.Tier2
             {
                 self.AddItemBehavior<TheExtraBehavior>(self.inventory.GetItemCount(def));
             }
+            orig(self);
         }
     }
 }
