@@ -106,7 +106,7 @@ namespace Krod.Equipment
         {
             orig(self, damageReport);
             CharacterBody body = (damageReport.attackerBody ? damageReport.attackerBody : null);
-            if (body != null && body.inventory != null && body.inventory.currentEquipmentIndex == def.equipmentIndex) 
+            if (body != null && body.inventory != null && body.inventory.currentEquipmentIndex == def.equipmentIndex)
             {
                 AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
                 if (b != null)
@@ -122,17 +122,13 @@ namespace Krod.Equipment
             if (self)
             {
                 Inventory inv = (self.inventory ? self.inventory : null);
-                if (inv != null && 
-                    self.previousEquipmentIndex != self.inventory.currentEquipmentIndex)
+                if (inv != null &&
+                    inv.currentEquipmentIndex == def.equipmentIndex)
                 {
-                    if (self.inventory.currentEquipmentIndex == def.equipmentIndex)
+                    AncientRecordingSystemBehavior b = self.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+                    if (b == null)
                     {
-                        AncientRecordingSystemBehavior b = self.gameObject.GetComponent<AncientRecordingSystemBehavior>();
-                        if (b == null)
-                        {
-                            Log.Info("adding");
-                            self.gameObject.AddComponent<AncientRecordingSystemBehavior>();
-                        }
+                        self.gameObject.AddComponent<AncientRecordingSystemBehavior>();
                     }
                 }
             }
