@@ -1,5 +1,6 @@
 ﻿using R2API;
 using RoR2;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -26,19 +27,24 @@ namespace Krod.Items.Tier2
                     int stacks = body.inventory.GetItemCount(def);
 
                     // Similar to gas formula
-                    float damage = stacks * body.damage * 0.75f;
+                    float damage = stacks * body.damage * 0.75f * 2;
 
-                    TeamDef team = TeamCatalog.GetTeamDef(body.teamComponent.teamIndex);
-                    // Internal warnings about resizing the array, which then does this, so lets just do this anyway
-                    Collider[] colliders = new Collider[100];
-                    int numFound = HGPhysics.OverlapSphere(out colliders, body.transform.position, 
-                        15 + (stacks * 5), 
-                        LayerIndex.entityPrecise.mask, 
-                        QueryTriggerInteraction.Collide);
-                    GameObject[] gameObjects = new GameObject[colliders.Length];
-                    for (int i = 0; i < numFound; ++i)
+                    SphereSearch sphereSearch = new()
                     {
-                        CharacterBody found = Util.HurtBoxColliderToBody(colliders[i]);
+                        mask = LayerIndex.entityPrecise.mask,
+                        origin = body.transform.position,
+                        radius = 15 + (stacks * 5),
+                        queryTriggerInteraction = QueryTriggerInteraction.Collide
+                    };
+
+                    List<Collider> results = [];
+                    sphereSearch.RefreshCandidates()
+                        .FilterCandidatesByHurtBoxTeam(TeamMask.GetEnemyTeams(body.teamComponent.teamIndex))
+                        .RefreshCandidates()
+                        .GetColliders(results);
+                    for (int i = 0; i < results.Count; ++i)
+                    {
+                        CharacterBody found = Util.HurtBoxColliderToBody(results[i]);
                         GameObject gameObject = (found ? found.gameObject : null);
                         if (!gameObject || 
                             body.gameObject == gameObject ||
@@ -46,13 +52,14 @@ namespace Krod.Items.Tier2
                         { 
                             continue; 
                         }
-                        InflictDotInfo dotInfo = new InflictDotInfo()
+                        InflictDotInfo dotInfo = new ()
                         {
                             attackerObject = body.gameObject,
                             victimObject = gameObject,
                             dotIndex = DotController.DotIndex.Burn,
                             totalDamage = damage,
-                            maxStacksFromAttacker = (uint)stacks
+                            maxStacksFromAttacker = (uint)stacks,
+                            duration = 3f,
                         };
                         StrengthenBurnUtils.CheckDotForUpgrade(body.inventory, ref dotInfo);
                         DotController.InflictDot(ref dotInfo);

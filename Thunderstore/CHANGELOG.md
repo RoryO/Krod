@@ -1,3 +1,7 @@
+## 0.0.7
+
+- Fix equipment not applying globally
+
 ## 0.0.6
 
 - Added Ancient Recording Equipment
