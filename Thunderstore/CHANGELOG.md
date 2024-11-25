@@ -1,3 +1,10 @@
+## 0.0.8
+
+- Fix recording system not doing damage
+- Added Toy Motorcycle
+- Allow scrapping of dead Boinkys (you monster)
+- More lore
+
 ## 0.0.7
 
 - Fix equipment not applying globally
