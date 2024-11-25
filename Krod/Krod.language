@@ -8,6 +8,7 @@
     "MISTERBOINKY_NAME": "Mister Boinky",
     "MISTERBOINKY_PICKUP": "Blocks one high damage hit. Consumed on use.",
     "MISTERBOINKY_DESC": "<style=cIsHealing>Blocks one hit</style> dealing 25% or more damage. <style=cIsUtility>Consumed on use.</style>",
+    "MISTERBOINKY_LORE": "I see him every night. Well honestly, him is just a guess. With all the weird things on this planet it might not have a gender. I might just split itself in half to reproduce. Wouldn't be the strangest thing I've seen. I've seen so much.\n\nAnyway. I see him. I'm calling it him to make me feel better. I need that. I need something normal to grab on to. It's a little mouse like thing. Best I can describe it. It has maybe four legs and really big maybe two ears. There are more eyes on it than I am comfortable with looking at. Not huge like a rat, not small and helpless like a mouse. He has possibly four legs. When he moves it is hard to tell. He moves so strange. I only see him at night, and he keeps his distance. He's smart, he knows how to navigate this hell.\n\nI always know it is him. There can't be anyone else, he's special. I'm sure it's him visiting me every night. We watch each other.\n\nI'm naming him Mister Boinky. He is my protector. I love him. He loves me. He will always be there for me, and I will be there for him. We will leave together. We shall travel together. I will show him what I know. He will teach me his ways. \n\nWe will leave together.\n\nWe will leave together.\n\nWe will lea--",
 
     "MISTERBOINKY_USED_NAME": "Mister Boinky (Deceased)",
     "MISTERBOINKY_USED_PICKUP": "Oh no, Mister Boinky!",
@@ -15,6 +16,7 @@
     "ARCADE_TOKEN_NAME": "Old Arcade Token",
     "ARCADE_TOKEN_PICKUP": "Purchase one item from a shop without closing the shop. Removed on use.",
     "ARCADE_TOKEN_DESC": "Allows one purchase of a multi-shop while keeping the shop open. <style=cIsUtility>Removed from inventory</style> after using.",
+    "ARCADE_TOKEN_LORE": "Thank you for your purchase from Rare Earth Coins. We hope this addition fulfills a gap in your personal collection. Here is some historical information about this artifact:\n\nWe can confirm through historical records that people used these coins in a entertainment venues. The coins were of no monetary value. People exchanged their effective money for a denomination of these coins. Entertainment machines at the venue accepted and consumed these coins to activate their functions.\n\nThere are unconfirmed reports that these coins were also used to hold places in competition queues at the venues. We cannot determine any physical characteristics of these coins where that would be an effective means of marking a place in a line. Nevertheless, there are enough independent reports of similar behavior where we feel it is a notable historical note.\n\nAgain, thank you for your purchase from Rare Earth Coins. We look forward to your future business.",
 
     "DISCOUNT_COFFEE_NAME": "Discount Coffee",
     "DISCOUNT_COFFEE_PICKUP": "Increases sprint speed and attack speed for a while. Time refreshes when spending money.",
