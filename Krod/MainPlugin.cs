@@ -41,6 +41,7 @@ namespace Krod
             DoubleFish.Awake();
             Woodhat.Awake();
             TheExtra.Awake();
+            ToyMotorcycle.Awake();
 
             TimsCrucible.Awake();
             //RorysForsight.Awake();
@@ -57,7 +58,7 @@ namespace Krod
             // Get the player body to use a position:
             var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
             // And then drop our defined item in front of the player.
-            var testItem = AncientRecordingSystem.def.equipmentIndex;
+            var testItem = ToyMotorcycle.def.itemIndex;
             PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
 #endif
         }

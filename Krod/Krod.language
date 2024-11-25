@@ -24,6 +24,11 @@
     "WOODHAT_PICKUP": "Adds armor with the power of wood!",
     "WOODHAT_DESC": "Adds <style=cIsDamage>10</style> <style=cStack>(+10 per stack)</style> armor.",
 
+    "TOY_MOTORCYCLE_NAME": "Toy Motorcycle",
+    "TOY_MOTORCYCLE_PICKUP": "Increase sprint speed based on the number of green items and any scrap.",
+    "TOY_MOTORCYCLE_DESC": "Increases <style=cIsUtility>sprint speed</style> by 10%<style=cStack>(+5% per stack)</style> for each green item in your inventory. Increases <style=cIsUtility>sprint speed</style> for each scrap item in your inventory. Rarer scrap has a stronger effect.",
+    "TOY_MOTORCYCLE_LORE": "I saw it too! I think I got a better look than you did! I'll try and describe what I saw. I still can't believe it.\n\nIt came careening down a hill. One of those things with the big sack on the back, right? Wildly out of control. Physics wasn't in its favor with how fat they are and how much stuff is in their sack. I don't know if it looked scared or happy about what it was doing.\n\nIt went right by me! I got spooked and stepped out of the way. As it went past, I got a look at the thing it was riding. It was like one of those little motorcycles that kids use. The weirdest part? Printed on the side of the toy was the words \"I'm Sorry!\"\n\nWhat's up with that?",
+
     "DOUBLEFISH_NAME": "Double Fish",
     "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks",
     "DOUBLEFISH_DESC": "2.5% <style=cStack>(+2.5% per stack)</style> chance of <style=cIsDamage>duplicating an attack</style>.",
