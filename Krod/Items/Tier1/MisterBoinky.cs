@@ -81,7 +81,7 @@ namespace Krod.Items.Tier1
                 def._itemTierDef = new ItemTierDef()
                 {
                     isDroppable = false,
-                    canScrap = false,
+                    canScrap = true,
                     tier = ItemTier.NoTier,
                 };
                 def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
