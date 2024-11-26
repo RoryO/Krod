@@ -29,7 +29,8 @@ namespace Krod.Items.Tier2
         {
             if (!sender || 
                 !sender.inventory || 
-                !sender.isSprinting) 
+                !sender.isSprinting ||
+                sender.inventory.GetItemCount(def) == 0) 
             { 
                 return; 
             }
@@ -37,10 +38,6 @@ namespace Krod.Items.Tier2
             foreach (var i in ItemCatalog.tier2ItemList)
             {
                 c += sender.inventory.GetItemCount(i);
-            }
-            if (c == 0)
-            {
-                return;
             }
             int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
             int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
