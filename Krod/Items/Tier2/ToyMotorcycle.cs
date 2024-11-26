@@ -38,12 +38,16 @@ namespace Krod.Items.Tier2
             {
                 c += sender.inventory.GetItemCount(i);
             }
+            if (c == 0)
+            {
+                return;
+            }
             int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
             int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
             int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
             int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
 
-            args.moveSpeedMultAdd = .1f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
+            args.moveSpeedMultAdd = .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
         }
     }
 }
