@@ -27,7 +27,7 @@ namespace Krod.Items.Tier2
                     procCoefficient = damageReport.damageInfo.procCoefficient * 0.5f,
                     position = damageReport.victim.transform.position,
                     damageColorIndex = DamageColorIndex.Item,
-                    damageType = damageReport.damageInfo.damageType
+                    damageType = damageReport.damageInfo.damageType,
                 };
                 di.AddModdedDamageType(fishDamageType);
                 yield return new WaitForSeconds(0.2f);
@@ -35,6 +35,7 @@ namespace Krod.Items.Tier2
                 {
                     di.position = damageReport.victim.transform.position;
                     damageReport.victimBody.healthComponent.TakeDamage(di);
+                    AkSoundEngine.PostEvent("KDoubleFishStrike", damageReport.attackerBody.gameObject);
                 }
             }
         }

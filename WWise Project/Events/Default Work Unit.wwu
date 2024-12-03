@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{641EB7F2-E1A3-4579-AE28-8650E1ACF69E}" SchemaVersion="119">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{641EB7F2-E1A3-4579-AE28-8650E1ACF69E}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="KCreateScrapper" ID="{7B25B87F-A705-4A42-B44C-A32854334268}">
+					<ChildrenList>
+						<Action Name="" ID="{DD6B98D7-FD1B-4469-88BE-B624F931252B}" ShortID="999352113">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCreateScrapper" ID="{EE49C7DF-DD50-4E14-911B-826C0AFD362E}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KInsertToken" ID="{248C19AB-AC3D-46A2-9EAA-4FB789318191}">
+					<ChildrenList>
+						<Action Name="" ID="{BC289FEE-1CA8-43E5-B1C1-C6202B665F1A}" ShortID="613405108">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KInsertToken" ID="{C91366E4-41E4-4BB2-8B63-C698A6E89568}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KDoubleFishStrike" ID="{5933B02B-E079-4AA6-B937-21C794A6FD99}">
+					<ChildrenList>
+						<Action Name="" ID="{93AF8065-00A9-451C-B3B2-275FF7E030D9}" ShortID="712372088">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KDoubleFishStrike" ID="{91758EAE-299E-4E21-8621-E231583FC71B}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

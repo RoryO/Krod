@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{AB887F3C-9192-4326-8F12-DA674C829007}" SchemaVersion="119">
+	<SoundBanks>
+		<WorkUnit Name="Default Work Unit" ID="{AB887F3C-9192-4326-8F12-DA674C829007}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="krod" ID="{EBCD4B05-B17D-4043-A98F-661FC03146DF}">
+					<ObjectInclusionList>
+						<ObjectRef Name="Items" ID="{274C3EDE-0547-4536-95E2-807A32DE84E4}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Equipment" ID="{18FCE75A-7801-4ED9-B004-1049417E3661}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
+	</SoundBanks>
+</WwiseDocument>

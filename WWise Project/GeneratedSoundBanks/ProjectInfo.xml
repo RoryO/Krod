@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo>
+	<Project Name="Krod" GUID="{52A69908-493E-499D-A169-869C428C1688}" Generator="2023.1.4.8496"/>
+	<CacheRoot>../.cache</CacheRoot>
+	<Platforms>
+		<Platform Name="Windows" GUID="{B9E530D7-9BD4-4C6F-8F54-B7CAD262AA93}" BasePlatform="Windows" BasePlatformGUID="{6E0CB257-C6C8-4C5C-8366-2740DFC441EB}" Path="Windows"/>
+	</Platforms>
+	<Languages>
+		<Language Name="English(US)" Id="684519430" GUID="{E8738873-865E-4367-A026-D7E4F592A158}" Default="true" UseAsStandIn="true"/>
+	</Languages>
+	<FileHash>{038FC6E6-F592-3671-58D5-39C57F0762D3}</FileHash>
+</ProjectInfo>

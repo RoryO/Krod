@@ -8,6 +8,12 @@ if (-Not (Test-Path "..\Out\krod.assetbundle") ) {
     Break
 }
 
+if (-Not (Test-Path "..\WWise Project\GeneratedSoundBanks\Windows\krod.sound") ) {
+    Write-Host "Create sound bank"
+    Break
+}
+
+
 if (Test-Path ".\Thunderstore.zip") {
     Remove-Item ".\Thunderstore.zip"
 }
@@ -19,9 +25,11 @@ $p = @{
         "README.md", 
         "..\Krod\Krod.language",
         "..\Krod\bin\Release\netstandard2.1\Krod.dll",
-        "..\Out\krod.assetbundle"
+        "..\Out\krod.assetbundle",
+        "..\WWise Project\GeneratedSoundBanks\Windows\krod.sound"
     CompressionLevel = "Optimal"
     DestinationPath = ".\Thunderstore.zip"
 }
 
 Compress-Archive @p
+Remove-Item "..\Krod\bin\Release\netstandard2.1\Krod.dll"

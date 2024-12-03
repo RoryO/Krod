@@ -47,6 +47,7 @@ namespace Krod.Items.Tier1
                     {
                         behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
                         master.inventory.RemoveItem(def);
+                        AkSoundEngine.PostEvent("KInsertToken", context.activatorBody.gameObject);
                     }
                 }
             }

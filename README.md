@@ -1,9 +1,5 @@
-# R2Boilerplate
+### Sound Attributions
 
-This repository contains a sample mod for Risk of Rain 2.
 
-You can clone this repository, open the visual studio solution file and compile it immediately.
-
-This repository is meant to represent best practices for starting a simple mod.
-
-Once your mod get compiled, you can utilize the Thunderstore folder for later uploading it to https://thunderstore.io/c/riskofrain2/
+fish slap ground or snow writhing wet.wav by kyles -- https://freesound.org/s/450830/ -- License: Creative Commons 0
+slot_machine_insert_3_coins_and_spin.wav by lukaso -- https://freesound.org/s/69698/ -- License: Sampling+
