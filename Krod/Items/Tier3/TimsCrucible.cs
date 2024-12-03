@@ -57,7 +57,10 @@ namespace Krod.Items.Tier3
 
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            if (self != null && self.body != null && self.body.inventory != null)
+            if (self != null && 
+                damageInfo != null &&
+                self.body != null && 
+                self.body.inventory != null)
             {
                 if (self.body.inventory.GetItemCount(def) > 0 &&
                     damageInfo.dotIndex == DotController.DotIndex.Burn)
@@ -110,7 +113,8 @@ namespace Krod.Items.Tier3
             orig(self, buffDef);
             if (self)
             {
-                self.RecalculateStats();
+                // why NRE tho
+                self?.RecalculateStats();
             }
         }
 
