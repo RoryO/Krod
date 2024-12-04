@@ -82,8 +82,7 @@ namespace Krod.Items.Tier1
                 {
                     isDroppable = false,
                     canScrap = true,
-                    tier = ItemTier.Tier1,
-                    colorIndex = ColorCatalog.ColorIndex.Tier1ItemDark
+                    tier = ItemTier.NoTier,
                 };
                 KrodItems.MisterBoinkyConsumed.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
                 KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
