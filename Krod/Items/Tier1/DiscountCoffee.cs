@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
 using EntityStates.AffixVoid;
+using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
 {
@@ -21,7 +22,7 @@ namespace Krod.Items.Tier1
             public void OnEnable()
             {
                 if (!body || !body.HasBuff(buff) || !body.inventory) { return; }
-                int c = body.inventory.GetItemCount(def);
+                int c = body.inventory.GetItemCount(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
                     body.AddTimedBuff(buff, 50f + (c * 10f));
@@ -36,25 +37,21 @@ namespace Krod.Items.Tier1
                 }
             }
         }
-        public static ItemDef def;
         public static BuffDef buff;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "DISCOUNT_COFFEE_NAME";
-            def.nameToken = "DISCOUNT_COFFEE_NAME";
-            def.pickupToken = "DISCOUNT_COFFEE_PICKUP";
-            def.descriptionToken = "DISCOUNT_COFFEE_DESC";
-            def.loreToken = "DISCOUNT_COFFEE_LORE";
-            def.tags = [ItemTag.Utility];
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
-            On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
-            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            KrodItems.DiscountCoffee = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.DiscountCoffee.canRemove = true;
+            KrodItems.DiscountCoffee.name = "DISCOUNT_COFFEE_NAME";
+            KrodItems.DiscountCoffee.nameToken = "DISCOUNT_COFFEE_NAME";
+            KrodItems.DiscountCoffee.pickupToken = "DISCOUNT_COFFEE_PICKUP";
+            KrodItems.DiscountCoffee.descriptionToken = "DISCOUNT_COFFEE_DESC";
+            KrodItems.DiscountCoffee.loreToken = "DISCOUNT_COFFEE_LORE";
+            KrodItems.DiscountCoffee.tags = [ItemTag.Utility];
+            KrodItems.DiscountCoffee._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
+            KrodItems.DiscountCoffee.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
+            KrodItems.DiscountCoffee.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomItem(KrodItems.DiscountCoffee, new ItemDisplayRuleDict(null)));
             buff = ScriptableObject.CreateInstance<BuffDef>();
             buff.isDebuff = false;
             buff.canStack = false;
@@ -63,40 +60,35 @@ namespace Krod.Items.Tier1
             ContentAddition.AddBuffDef(buff);
         }
 
-        public static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInteractionBegin(PurchaseInteraction self, Interactor activator)
         {
-            orig(self, activator);
             if (!NetworkServer.active || self.costType != CostTypeIndex.Money ) { return; }
             CharacterBody characterBody = activator.GetComponent<CharacterBody>();
-            if (characterBody && characterBody.inventory)
+            Inventory inventory = characterBody.inventory ? characterBody.inventory : null;
+            if (characterBody && inventory)
             {
-                int c = characterBody.inventory.GetItemCount(def);
+                int c = characterBody.inventory.GetItemCount(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
-                    characterBody?.AddTimedBuff(buff, 50f + (c * 10f));
+                    characterBody.AddTimedBuff(buff, 50f + (c * 10f));
                 }
             }
         }
 
-        public static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
             if (!sender || !sender.inventory || !sender.HasBuff(buff)) { return; }
-            int c = sender.inventory.GetItemCount(def);
+            int c = sender.inventory.GetItemCount(KrodItems.DiscountCoffee);
             args.attackSpeedMultAdd = c * 0.15f;
             args.sprintSpeedAdd = c * 0.25f;
         }
 
-        public static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInventoryChanged(CharacterBody self)
         {
-            orig(self);
-            if (NetworkServer.active && self)
-            {
-                if (self && self.inventory)
-                {
-                    int c = self.inventory.GetItemCount(def);
-                    self.AddItemBehavior<DiscountCoffeeBehavior>(c);
-                }
-            }
+            self.AddItemBehavior<DiscountCoffeeBehavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
         }
     }
 }

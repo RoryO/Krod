@@ -32,7 +32,7 @@ namespace Krod
 
             Assets.Init();
             Defs.Awake();
-            
+
             LooseCards.Awake();
             MisterBoinky.Awake();
             ArcadeToken.Awake();
@@ -49,17 +49,21 @@ namespace Krod
             JeffsServiceMedal.Awake();
             AileensGlassEye.Awake();
             AncientRecordingSystem.Awake();
+
+            Hooks.Awake();
         }
 
         private void Update()
         {
 #if DEBUG
-            if (!Input.GetKeyDown(KeyCode.F2)) { return; }
-            // Get the player body to use a position:
-            var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
-            // And then drop our defined item in front of the player.
-            var testItem = ToyMotorcycle.def.itemIndex;
-            PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
+            if (Input.GetKeyDown(KeyCode.F2)) 
+            { 
+                // Get the player body to use a position:
+                var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+                // And then drop our defined item in front of the player.
+                var testItem = KrodEquipment.AileensGlassEye.equipmentIndex;
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
+            }
 #endif
         }
     }

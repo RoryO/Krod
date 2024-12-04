@@ -1,8 +1,6 @@
 ﻿using R2API;
-using Rewired;
 using RoR2;
 using RoR2.DirectionalSearch;
-using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -40,112 +38,97 @@ namespace Krod.Equipment
     {
         public class AileensGlassEyeCracked
         {
-            public static EquipmentDef def;
             public static GameObject visualizerPrefab;
             public static void Awake()
             {
-                def = ScriptableObject.CreateInstance<EquipmentDef>();
-                def.name = "AILEENS_EYE_CRACKED_NAME";
-                def.nameToken = "AILEENS_EYE_CRACKED_NAME";
-                def.pickupToken = "AILEENS_EYE_CRACKED_PICKUP";
-                def.descriptionToken = "AILEENS_EYE_CRACKED_DESC";
-                def.loreToken = "AILEENS_EYE_CRACKED_LORE";
-                def.cooldown = 60;
-                def.canDrop = false;
-                def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
-                def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+                KrodEquipment.AileensGlassEyeCracked = ScriptableObject.CreateInstance<EquipmentDef>();
+                KrodEquipment.AileensGlassEyeCracked.name = "AILEENS_EYE_CRACKED_NAME";
+                KrodEquipment.AileensGlassEyeCracked.nameToken = "AILEENS_EYE_CRACKED_NAME";
+                KrodEquipment.AileensGlassEyeCracked.pickupToken = "AILEENS_EYE_CRACKED_PICKUP";
+                KrodEquipment.AileensGlassEyeCracked.descriptionToken = "AILEENS_EYE_CRACKED_DESC";
+                KrodEquipment.AileensGlassEyeCracked.loreToken = "AILEENS_EYE_CRACKED_LORE";
+                KrodEquipment.AileensGlassEyeCracked.cooldown = 60;
+                KrodEquipment.AileensGlassEyeCracked.canDrop = false;
+                KrodEquipment.AileensGlassEyeCracked.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
+                KrodEquipment.AileensGlassEyeCracked.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
 
-                ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
-                On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction1;
-                On.RoR2.EquipmentSlot.UpdateTargets += EquipmentSlot_UpdateTargets;
+                ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEyeCracked, new ItemDisplayRuleDict(null)));
             }
 
-            public static void EquipmentSlot_UpdateTargets(On.RoR2.EquipmentSlot.orig_UpdateTargets orig, EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
+            public static void UpdateTargets(EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
             {
-                if (targetingEquipmentIndex == def.equipmentIndex)
+                ScrappableSearch searcher = new ScrappableSearch(default, default);
+                Ray aimRay = self.GetAimRay();
+                aimRay = CameraRigController.ModifyAimRayIfApplicable(aimRay, self.gameObject, out var extraRaycastDistance);
+                searcher.searchOrigin = aimRay.origin;
+                searcher.searchDirection = aimRay.direction;
+                searcher.minAngleFilter = 0f;
+                searcher.maxAngleFilter = 10f;
+                searcher.minDistanceFilter = 0f;
+                searcher.maxDistanceFilter = 30f + extraRaycastDistance;
+                searcher.filterByDistinctEntity = false;
+                searcher.filterByLoS = true;
+                searcher.sortMode = SortMode.DistanceAndAngle;
+                GenericPickupController found = searcher.SearchCandidatesForSingleTarget(InstanceTracker.GetInstancesList<GenericPickupController>());
+                var foundTarget = new EquipmentSlot.UserTargetInfo(found);
+                self.currentTarget = foundTarget;
+                if (self.currentTarget.transformToIndicateAt)
                 {
-                    ScrappableSearch searcher = new ScrappableSearch(default, default);
-                    Ray aimRay = self.GetAimRay();
-                    aimRay = CameraRigController.ModifyAimRayIfApplicable(aimRay, self.gameObject, out var extraRaycastDistance);
-                    searcher.searchOrigin = aimRay.origin;
-                    searcher.searchDirection = aimRay.direction;
-                    searcher.minAngleFilter = 0f;
-                    searcher.maxAngleFilter = 10f;
-                    searcher.minDistanceFilter = 0f;
-                    searcher.maxDistanceFilter = 30f + extraRaycastDistance;
-                    searcher.filterByDistinctEntity = false;
-                    searcher.filterByLoS = true;
-                    searcher.sortMode = SortMode.DistanceAndAngle;
-                    GenericPickupController found = searcher.SearchCandidatesForSingleTarget(InstanceTracker.GetInstancesList<GenericPickupController>());
-                    var foundTarget = new EquipmentSlot.UserTargetInfo(found);
-                    self.currentTarget = foundTarget;
-                    if (self.currentTarget.transformToIndicateAt)
-                    {
-                        self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator");
-                        self.targetIndicator.active = true;
-                        self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
-                    }
-                    else
-                    {
-                        self.targetIndicator.active = false;
-                        self.targetIndicator.targetTransform = null;
-                    }
+                    self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/RecyclerIndicator");
+                    self.targetIndicator.active = true;
+                    self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
                 }
                 else
                 {
-                    orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
+                    self.targetIndicator.active = false;
+                    self.targetIndicator.targetTransform = null;
                 }
             }
-            public static bool EquipmentSlot_PerformEquipmentAction1(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
+            public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
             {
-                if (equipmentDef == def && self.currentTarget.transformToIndicateAt)
+                if (!self || 
+                    !self.currentTarget.transformToIndicateAt)
                 {
-                    Transform currentTransform = self.currentTarget.rootObject.transform;
-                    PickupDef d = PickupCatalog.GetPickupDef(self.currentTarget.pickupController.pickupIndex);
-                    ItemTier tier = d.itemTier;
-                    PickupIndex scrap = PickupCatalog.FindScrapIndexForItemTier(tier);
-                    if (NetworkServer.active)
-                    {
-                        self.currentTarget.pickupController.SyncPickupIndex(scrap);
-                    }
-                    return true;
+                    return false;
                 }
-                else
+                Transform currentTransform = self.currentTarget.rootObject.transform;
+                PickupDef d = PickupCatalog.GetPickupDef(self.currentTarget.pickupController.pickupIndex);
+                ItemTier tier = d.itemTier;
+                PickupIndex scrap = PickupCatalog.FindScrapIndexForItemTier(tier);
+                if (NetworkServer.active)
                 {
-                    return orig(self, equipmentDef);
+                    self.currentTarget.pickupController.SyncPickupIndex(scrap);
                 }
+                return true;
             }
         }
 
 
-        public static EquipmentDef def;
         public static InteractableSpawnCard isc;
         public static void Awake()
         {
             AileensGlassEyeCracked.Awake();
-            def = ScriptableObject.CreateInstance<EquipmentDef>();
-            def.name = "AILEENS_EYE_NAME";
-            def.nameToken = "AILEENS_EYE_NAME";
-            def.pickupToken = "AILEENS_EYE_PICKUP";
-            def.descriptionToken = "AILEENS_EYE_DESC";
-            def.loreToken = "AILEENS_EYE_LORE";
-            def.cooldown = 60;
-            def.canDrop = true;
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodEquipment.AileensGlassEye = ScriptableObject.CreateInstance<EquipmentDef>();
+            KrodEquipment.AileensGlassEye.name = "AILEENS_EYE_NAME";
+            KrodEquipment.AileensGlassEye.nameToken = "AILEENS_EYE_NAME";
+            KrodEquipment.AileensGlassEye.pickupToken = "AILEENS_EYE_PICKUP";
+            KrodEquipment.AileensGlassEye.descriptionToken = "AILEENS_EYE_DESC";
+            KrodEquipment.AileensGlassEye.loreToken = "AILEENS_EYE_LORE";
+            KrodEquipment.AileensGlassEye.cooldown = 60;
+            KrodEquipment.AileensGlassEye.canDrop = true;
+            KrodEquipment.AileensGlassEye.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
+            KrodEquipment.AileensGlassEye.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
 
-            ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
         }
 
-        private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
+        public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (self != null && equipmentDef == def)
+            if (!self || !self.characterBody) { return false; }
             {
                 CharacterBody body = self.characterBody;
-                if (body == null) { return true; }
                 DirectorPlacementRule rule = new DirectorPlacementRule()
                 {
                     placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
@@ -153,13 +136,10 @@ namespace Krod.Equipment
                     spawnOnTarget = body.coreTransform
                 };
                 DirectorSpawnRequest dsc = new DirectorSpawnRequest(isc, rule, RoR2Application.rng);
-                DirectorCore.instance.TrySpawnObject(dsc);
-                body.inventory.SetEquipmentIndex(AileensGlassEyeCracked.def.equipmentIndex);
+                GameObject created = DirectorCore.instance.TrySpawnObject(dsc);
+                body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex);
+                Util.PlaySound("KCreateScrapper", body.gameObject);
                 return true;
-            }
-            else
-            {
-                return orig(self, equipmentDef);
             }
         }
     }

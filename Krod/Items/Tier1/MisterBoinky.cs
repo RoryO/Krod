@@ -2,6 +2,7 @@
 using RoR2;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -27,8 +28,8 @@ namespace Krod.Items.Tier1
                     if ((damageInfo.damage / c.fullCombinedHealth) > 0.25f)
                     {
                         damageInfo.rejected = true;
-                        body.inventory.RemoveItem(def, 1);
-                        body.inventory.GiveItem(Consumed.def, 1);
+                        body.inventory.RemoveItem(KrodItems.MisterBoinky, 1);
+                        body.inventory.GiveItem(KrodItems.MisterBoinkyConsumed, 1);
                     }
                 }
             }
@@ -59,18 +60,17 @@ namespace Krod.Items.Tier1
 
         public static class Consumed
         {
-            public static ItemDef def;
             public static void Awake()
             {
-                def = ScriptableObject.CreateInstance<ItemDef>();
-                def.canRemove = false;
-                def.name = "MISTERBOINKY_USED_NAME";
-                def.nameToken = "MISTERBOINKY_USED_NAME";
-                def.pickupToken = "MISTERBOINKY_USED_PICKUP";
-                def.descriptionToken = "MISTERBOINKY_USED_DESC";
-                def.loreToken = "";
-                def.tier = ItemTier.NoTier;
-                def.tags = [
+                KrodItems.MisterBoinkyConsumed = ScriptableObject.CreateInstance<ItemDef>();
+                KrodItems.MisterBoinkyConsumed.canRemove = false;
+                KrodItems.MisterBoinkyConsumed.name = "MISTERBOINKY_USED_NAME";
+                KrodItems.MisterBoinkyConsumed.nameToken = "MISTERBOINKY_USED_NAME";
+                KrodItems.MisterBoinkyConsumed.pickupToken = "MISTERBOINKY_USED_PICKUP";
+                KrodItems.MisterBoinkyConsumed.descriptionToken = "MISTERBOINKY_USED_DESC";
+                KrodItems.MisterBoinkyConsumed.loreToken = "";
+                KrodItems.MisterBoinkyConsumed.tier = ItemTier.NoTier;
+                KrodItems.MisterBoinkyConsumed.tags = [
                     ItemTag.CannotCopy,
                     ItemTag.CannotDuplicate,
                     ItemTag.CannotSteal,
@@ -78,42 +78,38 @@ namespace Krod.Items.Tier1
                     ItemTag.BrotherBlacklist,
                     ItemTag.Utility
                 ];
-                def._itemTierDef = new ItemTierDef()
+                KrodItems.MisterBoinkyConsumed._itemTierDef = new ItemTierDef()
                 {
                     isDroppable = false,
                     canScrap = true,
-                    tier = ItemTier.NoTier,
+                    tier = ItemTier.Tier1,
+                    colorIndex = ColorCatalog.ColorIndex.Tier1ItemDark
                 };
-                def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
-                def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-                ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
+                KrodItems.MisterBoinkyConsumed.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
+                KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+                ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict(null)));
             }
         }
-        public static ItemDef def;
         public static void Awake()
         {
             Consumed.Awake();
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "MISTERBOINKY_NAME";
-            def.nameToken = "MISTERBOINKY_NAME";
-            def.pickupToken = "MISTERBOINKY_PICKUP";
-            def.descriptionToken = "MISTERBOINKY_DESC";
-            def.loreToken = "MISTERBOINKY_LORE";
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+            KrodItems.MisterBoinky = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.MisterBoinky.canRemove = true;
+            KrodItems.MisterBoinky.name = "MISTERBOINKY_NAME";
+            KrodItems.MisterBoinky.nameToken = "MISTERBOINKY_NAME";
+            KrodItems.MisterBoinky.pickupToken = "MISTERBOINKY_PICKUP";
+            KrodItems.MisterBoinky.descriptionToken = "MISTERBOINKY_DESC";
+            KrodItems.MisterBoinky.loreToken = "MISTERBOINKY_LORE";
+            KrodItems.MisterBoinky._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
+            KrodItems.MisterBoinky.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
+            KrodItems.MisterBoinky.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict(null)));
         }
 
-        private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInventoryChanged(CharacterBody self)
         {
-            if (NetworkServer.active && self.inventory)
-            {
-                self.AddItemBehavior<MisterBoinkyBehavior>(self.inventory.GetItemCount(def));
-            }
-            orig(self);
+            self.AddItemBehavior<MisterBoinkyBehavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
         }
     }
 }

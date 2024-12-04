@@ -1,6 +1,7 @@
 ﻿using R2API;
 using RoR2;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -39,29 +40,27 @@ namespace Krod.Items.Tier2
                 }
             }
         }
-        public static ItemDef def;
         public static DamageAPI.ModdedDamageType fishDamageType;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "DOUBLEFISH_NAME";
-            def.nameToken = "DOUBLEFISH_NAME";
-            def.pickupToken = "DOUBLEFISH_PICKUP";
-            def.descriptionToken = "DOUBLEFISH_DESC";
-            def.loreToken = "DOUBLEFISH_LORE";
-            def.tags = [ItemTag.Damage];
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
+            KrodItems.DoubleFish = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.DoubleFish.canRemove = true;
+            KrodItems.DoubleFish.name = "DOUBLEFISH_NAME";
+            KrodItems.DoubleFish.nameToken = "DOUBLEFISH_NAME";
+            KrodItems.DoubleFish.pickupToken = "DOUBLEFISH_PICKUP";
+            KrodItems.DoubleFish.descriptionToken = "DOUBLEFISH_DESC";
+            KrodItems.DoubleFish.loreToken = "DOUBLEFISH_LORE";
+            KrodItems.DoubleFish.tags = [ItemTag.Damage];
+            KrodItems.DoubleFish._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
+            KrodItems.DoubleFish.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
+            KrodItems.DoubleFish.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
             fishDamageType = DamageAPI.ReserveDamageType();
-            On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
         }
 
-        private static void GlobalEventManager_ServerDamageDealt(On.RoR2.GlobalEventManager.orig_ServerDamageDealt orig, DamageReport damageReport)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ServerDamageDealt(DamageReport damageReport)
         {
-            orig(damageReport);
             if (damageReport.damageInfo != null &&
                 damageReport.damageInfo.attacker != null &&
                 damageReport.victim != null &&
@@ -71,7 +70,7 @@ namespace Krod.Items.Tier2
             {
                 CharacterBody cb = damageReport.damageInfo.attacker.GetComponent<CharacterBody>();
                 if (!cb || !cb.inventory) { return; }
-                int c = cb.inventory.GetItemCount(def);
+                int c = cb.inventory.GetItemCount(KrodItems.DoubleFish);
                 if (c > 0 && Util.CheckRoll(2.5f * c, cb.master))
                 {
                     CharacterBody b = damageReport.victim.GetComponent<CharacterBody>();

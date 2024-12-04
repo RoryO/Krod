@@ -1,7 +1,7 @@
-﻿using EntityStates.AffixVoid;
-using R2API;
+﻿using R2API;
 using RoR2;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -33,80 +33,69 @@ namespace Krod.Equipment
                 }
             }
         }
-        public static EquipmentDef def;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<EquipmentDef>();
-            def.name = "ANCIENT_RECORDING_NAME";
-            def.nameToken = "ANCIENT_RECORDING_NAME";
-            def.pickupToken = "ANCIENT_RECORDING_PICKUP";
-            def.descriptionToken = "ANCIENT_RECORDING_DESC";
-            def.loreToken = "ANCIENT_RECORDING_LORE";
-            def.cooldown = 60;
-            def.canDrop = true;
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
-            On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
-            On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
-            On.RoR2.EquipmentSlot.UpdateTargets += EquipmentSlot_UpdateTargets;
+            KrodEquipment.AncientRecordingSystem = ScriptableObject.CreateInstance<EquipmentDef>();
+            KrodEquipment.AncientRecordingSystem.name = "ANCIENT_RECORDING_NAME";
+            KrodEquipment.AncientRecordingSystem.nameToken = "ANCIENT_RECORDING_NAME";
+            KrodEquipment.AncientRecordingSystem.pickupToken = "ANCIENT_RECORDING_PICKUP";
+            KrodEquipment.AncientRecordingSystem.descriptionToken = "ANCIENT_RECORDING_DESC";
+            KrodEquipment.AncientRecordingSystem.loreToken = "ANCIENT_RECORDING_LORE";
+            KrodEquipment.AncientRecordingSystem.cooldown = 60;
+            KrodEquipment.AncientRecordingSystem.canDrop = true;
+            KrodEquipment.AncientRecordingSystem.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
+            KrodEquipment.AncientRecordingSystem.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
         }
 
-        private static void EquipmentSlot_UpdateTargets(On.RoR2.EquipmentSlot.orig_UpdateTargets orig, EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void UpdateTargets(EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
         {
-            if (targetingEquipmentIndex == def.equipmentIndex && userShouldAnticipateTarget)
+            if (!userShouldAnticipateTarget) { return; }
+            self.ConfigureTargetFinderForEnemies();
+            HurtBox source = self.targetFinder.GetResults().FirstOrDefault();
+            self.currentTarget = new EquipmentSlot.UserTargetInfo(source);
+            if (self.currentTarget.transformToIndicateAt)
             {
-                self.ConfigureTargetFinderForEnemies();
-                HurtBox source = self.targetFinder.GetResults().FirstOrDefault();
-                self.currentTarget = new EquipmentSlot.UserTargetInfo(source);
-                if (self.currentTarget.transformToIndicateAt)
-                {
-                    self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/LightningIndicator");
-                    self.targetIndicator.active = true;
-                    self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
-                }
+                self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/LightningIndicator");
+                self.targetIndicator.active = true;
+                self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
             }
             else
             {
-                orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
+                self.targetIndicator.active = false;
+                self.targetIndicator.targetTransform = null;
             }
         }
 
-        private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (equipmentDef == def)
+            CharacterBody body = self.characterBody;
+            if (body == null) { return false; }
+            AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+            if (b == null) { return false; }
+            Log.Info($"dazzling for {b.bestDamage}");
+            if (!self.currentTarget.transformToIndicateAt) { return false; }
+            DamageInfo di = new()
             {
-                CharacterBody body = self.characterBody;
-                if (body == null) { return false; }
-                AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
-                if (b == null) { return false; }
-                Log.Info($"dazzling for {b.bestDamage}");
-                if (!self.currentTarget.transformToIndicateAt) { return false; }
-                DamageInfo di = new()
-                {
-                    attacker = self.characterBody.gameObject,
-                    inflictor = self.characterBody.gameObject,
-                    damage = b.bestDamage,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageType.Generic,
-                    position = self.currentTarget.transformToIndicateAt.position,
-                    procCoefficient = 0
-                };
-                self.currentTarget.hurtBox.healthComponent.TakeDamage(di);
-                return true;
-            }
-            else
-            {
-                return orig(self, equipmentDef);
-            }
+                attacker = self.characterBody.gameObject,
+                inflictor = self.characterBody.gameObject,
+                damage = b.bestDamage,
+                damageColorIndex = DamageColorIndex.Default,
+                damageType = DamageType.Generic,
+                position = self.currentTarget.transformToIndicateAt.position,
+                procCoefficient = 0
+            };
+            self.currentTarget.hurtBox.healthComponent.TakeDamage(di);
+            return true;
         }
 
-        private static void CharacterBody_OnTakeDamageServer(On.RoR2.CharacterBody.orig_OnTakeDamageServer orig, CharacterBody self, DamageReport damageReport)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnTakeDamageServer(CharacterBody self, DamageReport damageReport)
         {
-            orig(self, damageReport);
             CharacterBody body = (damageReport.attackerBody ? damageReport.attackerBody : null);
-            if (body != null && body.inventory != null && body.inventory.currentEquipmentIndex == def.equipmentIndex)
+            if (body != null && body.inventory != null && body.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex)
             {
                 AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
                 if (b != null)
@@ -116,20 +105,15 @@ namespace Krod.Equipment
             }
         }
 
-        private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInventoryChanged(CharacterBody self)
         {
-            orig(self);
-            if (self)
+            if (self.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex)
             {
-                Inventory inv = (self.inventory ? self.inventory : null);
-                if (inv != null &&
-                    inv.currentEquipmentIndex == def.equipmentIndex)
+                AncientRecordingSystemBehavior b = self.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+                if (b == null)
                 {
-                    AncientRecordingSystemBehavior b = self.gameObject.GetComponent<AncientRecordingSystemBehavior>();
-                    if (b == null)
-                    {
-                        self.gameObject.AddComponent<AncientRecordingSystemBehavior>();
-                    }
+                    self.gameObject.AddComponent<AncientRecordingSystemBehavior>();
                 }
             }
         }

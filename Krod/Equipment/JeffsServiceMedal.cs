@@ -5,35 +5,34 @@ using RoR2.Projectile;
 using UnityEngine.AddressableAssets;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
+using System.Runtime.CompilerServices;
 
 namespace Krod.Equipment
 {
     public class JeffsServiceMedal
     {
-        public static EquipmentDef def;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<EquipmentDef>();
-            def.name = "JEFFS_SERVICE_NAME";
-            def.nameToken = "JEFFS_SERVICE_NAME";
-            def.pickupToken = "JEFFS_SERVICE_PICKUP";
-            def.descriptionToken = "JEFFS_SERVICE_DESC";
-            def.loreToken = "JEFFS_SERVICE_LORE";
-            def.cooldown = 180;
-            def.canDrop = true;
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomEquipment(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
-            On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
+            KrodEquipment.JeffsServiceMedal = ScriptableObject.CreateInstance<EquipmentDef>();
+            KrodEquipment.JeffsServiceMedal.name = "JEFFS_SERVICE_NAME";
+            KrodEquipment.JeffsServiceMedal.nameToken = "JEFFS_SERVICE_NAME";
+            KrodEquipment.JeffsServiceMedal.pickupToken = "JEFFS_SERVICE_PICKUP";
+            KrodEquipment.JeffsServiceMedal.descriptionToken = "JEFFS_SERVICE_DESC";
+            KrodEquipment.JeffsServiceMedal.loreToken = "JEFFS_SERVICE_LORE";
+            KrodEquipment.JeffsServiceMedal.cooldown = 180;
+            KrodEquipment.JeffsServiceMedal.canDrop = true;
+            KrodEquipment.JeffsServiceMedal.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
+            KrodEquipment.JeffsServiceMedal.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.JeffsServiceMedal, new ItemDisplayRuleDict(null)));
         }
 
-        private static int CharacterMaster_GetDeployableSameSlotLimit(On.RoR2.CharacterMaster.orig_GetDeployableSameSlotLimit orig, CharacterMaster self, DeployableSlot slot)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetDeployableSameSlotLimit(CharacterMaster self, DeployableSlot slot)
         {
-            if (self && self.inventory && slot == DeployableSlot.MinorConstructOnKill)
+            if (self.inventory)
             {
                 int c = self.inventory.GetItemCount(DLC1Content.Items.MinorConstructOnKill) * 4;
-                if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot).equipmentIndex == def.equipmentIndex)
+                if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot).equipmentIndex == KrodEquipment.JeffsServiceMedal.equipmentIndex)
                 {
                     c += 4;
                 }
@@ -41,57 +40,55 @@ namespace Krod.Equipment
             }
             else
             {
-                return orig(self, slot);
+                return 0;
             }
         }
 
-        private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (self && self.characterBody && equipmentDef.equipmentIndex == def.equipmentIndex)
+            if (!self || !self.characterBody) { return false; }
+            var transform = self.characterBody.transform;
+            for (int i = 0; i < 4; i++)
             {
-                var transform = self.characterBody.transform;
-                for (int i = 0; i < 4; i++)
+                Vector3 f = new Vector3();
+                switch (i)
                 {
-                    Vector3 f = new Vector3();
-                    switch (i)
-                    {
-                        case 0:
-                            {
-                                f = transform.forward * 20f;
-                                break;
-                            }
-                        case 1:
-                            {
-                                f = transform.forward * -20f;
-                                break;
-                            }
-                        case 2:
-                            {
-                                f = transform.right * 20f;
-                                break;
-                            }
-                        case 3:
-                            {
-                                f = transform.right * -20f;
-                                break;
-                            }
-                    }
-                    Vector3 forward = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * Quaternion.AngleAxis(-80f, Vector3.right) * Vector3.forward;
-                    FireProjectileInfo fireProjectileInfo = default;
-                    fireProjectileInfo.projectilePrefab = GlobalEventManager.CommonAssets.minorConstructOnKillProjectile;
-                    fireProjectileInfo.position = transform.position + transform.forward + f;
-                    fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
-                    fireProjectileInfo.procChainMask = default;
-                    fireProjectileInfo.owner = self.characterBody.gameObject;
-                    fireProjectileInfo.damage = 0f;
-                    fireProjectileInfo.crit = false;
-                    fireProjectileInfo.force = 0f;
-                    fireProjectileInfo.damageColorIndex = DamageColorIndex.Item;
-                    ProjectileManager.instance.FireProjectile(fireProjectileInfo);
+                    case 0:
+                        {
+                            f = transform.forward * 20f;
+                            break;
+                        }
+                    case 1:
+                        {
+                            f = transform.forward * -20f;
+                            break;
+                        }
+                    case 2:
+                        {
+                            f = transform.right * 20f;
+                            break;
+                        }
+                    case 3:
+                        {
+                            f = transform.right * -20f;
+                            break;
+                        }
                 }
-                return true;
+                Vector3 forward = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * Quaternion.AngleAxis(-80f, Vector3.right) * Vector3.forward;
+                FireProjectileInfo fireProjectileInfo = default;
+                fireProjectileInfo.projectilePrefab = GlobalEventManager.CommonAssets.minorConstructOnKillProjectile;
+                fireProjectileInfo.position = transform.position + transform.forward + f;
+                fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(forward);
+                fireProjectileInfo.procChainMask = default;
+                fireProjectileInfo.owner = self.characterBody.gameObject;
+                fireProjectileInfo.damage = 0f;
+                fireProjectileInfo.crit = false;
+                fireProjectileInfo.force = 0f;
+                fireProjectileInfo.damageColorIndex = DamageColorIndex.Item;
+                ProjectileManager.instance.FireProjectile(fireProjectileInfo);
             }
-            return orig(self, equipmentDef);
+            return true;
         }
     }
 }

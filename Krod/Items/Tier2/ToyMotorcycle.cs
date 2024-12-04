@@ -1,5 +1,6 @@
 ﻿using R2API;
 using RoR2;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -7,30 +8,29 @@ namespace Krod.Items.Tier2
 {
     public class ToyMotorcycle
     {
-        public static ItemDef def;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "TOY_MOTORCYCLE_NAME";
-            def.nameToken = "TOY_MOTORCYCLE_NAME";
-            def.pickupToken = "TOY_MOTORCYCLE_PICKUP";
-            def.descriptionToken = "TOY_MOTORCYCLE_DESC";
-            def.loreToken = "TOY_MOTORCYCLE_LORE";
-            def.tags = [ItemTag.Utility];
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/ToyMotorcycle.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+            KrodItems.ToyMotorcycle = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.ToyMotorcycle.canRemove = true;
+            KrodItems.ToyMotorcycle.name = "TOY_MOTORCYCLE_NAME";
+            KrodItems.ToyMotorcycle.nameToken = "TOY_MOTORCYCLE_NAME";
+            KrodItems.ToyMotorcycle.pickupToken = "TOY_MOTORCYCLE_PICKUP";
+            KrodItems.ToyMotorcycle.descriptionToken = "TOY_MOTORCYCLE_DESC";
+            KrodItems.ToyMotorcycle.loreToken = "TOY_MOTORCYCLE_LORE";
+            KrodItems.ToyMotorcycle.tags = [ItemTag.Utility];
+            KrodItems.ToyMotorcycle._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
+            KrodItems.ToyMotorcycle.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/ToyMotorcycle.png");
+            KrodItems.ToyMotorcycle.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomItem(KrodItems.ToyMotorcycle, new ItemDisplayRuleDict(null)));
         }
 
-        private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
             if (!sender || 
                 !sender.inventory || 
                 !sender.isSprinting ||
-                sender.inventory.GetItemCount(def) == 0) 
+                sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) == 0) 
             { 
                 return; 
             }

@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
+using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
 {
@@ -45,11 +46,10 @@ namespace Krod.Items.Tier1
             def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
             def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
-            On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
         }
 
-        public static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnHitEnemy(DamageInfo damageInfo, GameObject victim)
         {
             if (damageInfo.attacker && (!damageInfo.rejected || !(damageInfo.procCoefficient <= 0)))
             {
@@ -79,16 +79,19 @@ namespace Krod.Items.Tier1
                     }
                 }
             }
-            orig(self, damageInfo, victim);
         }
 
-        public static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInventoryChanged(CharacterBody self)
         {
-            if (NetworkServer.active && self.inventory)
+            if (NetworkServer.active && self)
             {
-                self.AddItemBehavior<LooseCardsBehavior>(self.inventory.GetItemCount(def));
+                Inventory inventory = self.inventory ? self.inventory : null;
+                if (inventory)
+                {
+                    self.AddItemBehavior<LooseCardsBehavior>(self.inventory.GetItemCount(def));
+                }
             }
-            orig(self);
         }
     }
 }

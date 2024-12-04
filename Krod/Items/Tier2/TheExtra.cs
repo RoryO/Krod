@@ -1,6 +1,7 @@
 ﻿using R2API;
 using RoR2;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
@@ -24,10 +25,11 @@ namespace Krod.Items.Tier2
                 {
                     extraStopwatch = 0;
                     if (!body || !body.teamComponent) { return; }
-                    int stacks = body.inventory.GetItemCount(def);
+                    int stacks = body.inventory.GetItemCount(KrodItems.TheExtra);
 
                     // Similar to gas formula
-                    float damage = stacks * body.damage * 0.75f * 2;
+                    float damage = (1+stacks) * body.damage * 0.75f;
+                    Log.Info($"d: {damage}");
 
                     SphereSearch sphereSearch = new()
                     {
@@ -52,14 +54,14 @@ namespace Krod.Items.Tier2
                         { 
                             continue; 
                         }
-                        InflictDotInfo dotInfo = new ()
+                        InflictDotInfo dotInfo = new()
                         {
                             attackerObject = body.gameObject,
                             victimObject = gameObject,
                             dotIndex = DotController.DotIndex.Burn,
                             totalDamage = damage,
-                            maxStacksFromAttacker = (uint)stacks,
-                            duration = 3f,
+                            maxStacksFromAttacker = (uint)stacks + 1,
+                            damageMultiplier = 1f,
                         };
                         StrengthenBurnUtils.CheckDotForUpgrade(body.inventory, ref dotInfo);
                         DotController.InflictDot(ref dotInfo);
@@ -68,31 +70,26 @@ namespace Krod.Items.Tier2
             }
         }
 
-        public static ItemDef def;
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "THE_EXTRA_NAME";
-            def.nameToken = "THE_EXTRA_NAME";
-            def.pickupToken = "THE_EXTRA_PICKUP";
-            def.descriptionToken = "THE_EXTRA_DESC";
-            def.loreToken = "THE_EXTRA_LORE";
-            def.tags = [ItemTag.Damage];
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+            KrodItems.TheExtra = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.TheExtra.canRemove = true;
+            KrodItems.TheExtra.name = "THE_EXTRA_NAME";
+            KrodItems.TheExtra.nameToken = "THE_EXTRA_NAME";
+            KrodItems.TheExtra.pickupToken = "THE_EXTRA_PICKUP";
+            KrodItems.TheExtra.descriptionToken = "THE_EXTRA_DESC";
+            KrodItems.TheExtra.loreToken = "THE_EXTRA_LORE";
+            KrodItems.TheExtra.tags = [ItemTag.Damage, ItemTag.AIBlacklist];
+            KrodItems.TheExtra._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
+            KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
+            KrodItems.TheExtra.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
         }
 
-        private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnInventoryChanged(CharacterBody self)
         {
-            if (NetworkServer.active && self && self.inventory)
-            {
-                self.AddItemBehavior<TheExtraBehavior>(self.inventory.GetItemCount(def));
-            }
-            orig(self);
+            self.AddItemBehavior<TheExtraBehavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
         }
     }
 }

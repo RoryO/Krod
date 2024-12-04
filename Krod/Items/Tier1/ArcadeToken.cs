@@ -3,36 +3,35 @@ using R2API;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
 {
     public class ArcadeToken
     {
-        public static ItemDef def;
-
         public static void Awake()
         {
-            def = ScriptableObject.CreateInstance<ItemDef>();
-            def.canRemove = true;
-            def.name = "ARCADE_TOKEN_NAME";
-            def.nameToken = "ARCADE_TOKEN_NAME";
-            def.pickupToken = "ARCADE_TOKEN_PICKUP";
-            def.descriptionToken = "ARCADE_TOKEN_DESC";
-            def.loreToken = "ARCADE_TOKEN_LORE";
-            def.tags = [ItemTag.Utility];
-            def._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            def.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            def.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
-            ItemAPI.Add(new CustomItem(def, new ItemDisplayRuleDict(null)));
-            On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
+            KrodItems.ArcadeToken = ScriptableObject.CreateInstance<ItemDef>();
+            KrodItems.ArcadeToken.canRemove = true;
+            KrodItems.ArcadeToken.name = "ARCADE_TOKEN_NAME";
+            KrodItems.ArcadeToken.nameToken = "ARCADE_TOKEN_NAME";
+            KrodItems.ArcadeToken.pickupToken = "ARCADE_TOKEN_PICKUP";
+            KrodItems.ArcadeToken.descriptionToken = "ARCADE_TOKEN_DESC";
+            KrodItems.ArcadeToken.loreToken = "ARCADE_TOKEN_LORE";
+            KrodItems.ArcadeToken.tags = [ItemTag.Utility];
+            KrodItems.ArcadeToken._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
+            KrodItems.ArcadeToken.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.ArcadeToken.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
+            ItemAPI.Add(new CustomItem(KrodItems.ArcadeToken, new ItemDisplayRuleDict(null)));
         }
 
-        private static void MultiShopCardUtils_OnPurchase(On.RoR2.Items.MultiShopCardUtils.orig_OnPurchase orig, CostTypeDef.PayCostContext context, int moneyCost)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void OnPurchase(CostTypeDef.PayCostContext context)
         {
             CharacterMaster master = context.activatorMaster;
             if (master && 
                 master.inventory && 
-                master.inventory.GetItemCount(def) > 0 && 
+                master.inventory.GetItemCount(KrodItems.ArcadeToken) > 0 && 
                 context.purchasedObject)
             {
                 ShopTerminalBehavior behavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
@@ -46,12 +45,11 @@ namespace Krod.Items.Tier1
                     if (remaining > 1)
                     {
                         behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
-                        master.inventory.RemoveItem(def);
+                        master.inventory.RemoveItem(KrodItems.ArcadeToken);
                         AkSoundEngine.PostEvent("KInsertToken", context.activatorBody.gameObject);
                     }
                 }
             }
-            orig(context, moneyCost);
         }
     }
 }
