@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Krod.Items.Tier2
 {
-    public class ToyMotorcycle
+    public static class ToyMotorcycle
     {
         public static void Awake()
         {

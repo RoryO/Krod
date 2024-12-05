@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
 {
-    public class ArcadeToken
+    public static class ArcadeToken
     {
         public static void Awake()
         {

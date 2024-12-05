@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
 {
-    public class DiscountCoffee
+    public static class DiscountCoffee
     {
         public class DiscountCoffeeBehavior : CharacterBody.ItemBehavior
         {
