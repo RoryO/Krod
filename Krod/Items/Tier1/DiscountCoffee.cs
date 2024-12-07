@@ -1,10 +1,8 @@
-﻿using System;
-using RoR2;
+﻿using RoR2;
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Networking;
-using EntityStates.AffixVoid;
 using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
@@ -56,7 +54,7 @@ namespace Krod.Items.Tier1
             buff.isDebuff = false;
             buff.canStack = false;
             buff.name = "Discount Coffee";
-            buff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            buff.iconSprite = Addressables.LoadAssetAsync<Sprite>("Assets/Items/Tier1/DiscountCoffee.png").WaitForCompletion();
             ContentAddition.AddBuffDef(buff);
         }
 
