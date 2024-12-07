@@ -135,10 +135,10 @@ namespace Krod.Equipment
                     preventOverhead = true,
                     spawnOnTarget = body.coreTransform
                 };
-                DirectorSpawnRequest dsc = new DirectorSpawnRequest(isc, rule, RoR2Application.rng);
+                DirectorSpawnRequest dsc = new(isc, rule, RoR2Application.rng);
                 GameObject created = DirectorCore.instance.TrySpawnObject(dsc);
                 body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex);
-                Util.PlaySound("KCreateScrapper", body.gameObject);
+                Util.PlaySound("KCreateScrapper", created.gameObject);
                 return true;
             }
         }
