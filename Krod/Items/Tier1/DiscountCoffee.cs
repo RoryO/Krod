@@ -19,7 +19,7 @@ namespace Krod.Items.Tier1
 
             public void OnEnable()
             {
-                if (!body || !body.HasBuff(buff) || !body.inventory) { return; }
+                if (!body || body.HasBuff(buff) || !body.inventory) { return; }
                 int c = body.inventory.GetItemCount(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
@@ -54,7 +54,7 @@ namespace Krod.Items.Tier1
             buff.isDebuff = false;
             buff.canStack = false;
             buff.name = "Discount Coffee";
-            buff.iconSprite = Addressables.LoadAssetAsync<Sprite>("Assets/Items/Tier1/DiscountCoffee.png").WaitForCompletion();
+            buff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             ContentAddition.AddBuffDef(buff);
         }
 
