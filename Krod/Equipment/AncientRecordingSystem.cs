@@ -73,7 +73,7 @@ namespace Krod.Equipment
             KrodEquipment.AncientRecordingSystem.pickupToken = "ANCIENT_RECORDING_PICKUP";
             KrodEquipment.AncientRecordingSystem.descriptionToken = "ANCIENT_RECORDING_DESC";
             KrodEquipment.AncientRecordingSystem.loreToken = "ANCIENT_RECORDING_LORE";
-            KrodEquipment.AncientRecordingSystem.cooldown = 60;
+            KrodEquipment.AncientRecordingSystem.cooldown = 5;
             KrodEquipment.AncientRecordingSystem.canDrop = true;
             KrodEquipment.AncientRecordingSystem.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
             KrodEquipment.AncientRecordingSystem.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
@@ -92,14 +92,20 @@ namespace Krod.Equipment
             if (present)
             {
                 self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/LightningIndicator");
+                self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
+                self.targetIndicator.active = true;
             }
-            self.targetIndicator.active = present;
-            self.targetIndicator.targetTransform = present ? self.currentTarget.transformToIndicateAt : null;
+            else
+            {
+                self.targetIndicator.active = false;
+                self.targetIndicator.targetTransform = null;
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
+            Log.Info("hi");
             CharacterBody body = self.characterBody;
             if (body == null) { return false; }
             AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();

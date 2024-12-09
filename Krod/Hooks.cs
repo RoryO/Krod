@@ -181,7 +181,6 @@ namespace Krod
 
         public static void EquipmentSlot_UpdateTargets(On.RoR2.EquipmentSlot.orig_UpdateTargets orig, EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
         {
-            orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
             if (targetingEquipmentIndex == KrodEquipment.AileensGlassEyeCracked.equipmentIndex)
             {
                 AileensGlassEye.AileensGlassEyeCracked.UpdateTargets(self, targetingEquipmentIndex, userShouldAnticipateTarget);
@@ -190,6 +189,11 @@ namespace Krod
             {
                 AncientRecordingSystem.UpdateTargets(self, targetingEquipmentIndex, userShouldAnticipateTarget);
             }
+            else
+            {
+                orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
+            }
+
         }
     }
 }
