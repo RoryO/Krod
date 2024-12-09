@@ -65,6 +65,8 @@ namespace Krod.Equipment
                 }
             }
         }
+
+        public static DamageAPI.ModdedDamageType customDamageType;
         public static void Awake()
         {
             KrodEquipment.AncientRecordingSystem = ScriptableObject.CreateInstance<EquipmentDef>();
@@ -73,11 +75,12 @@ namespace Krod.Equipment
             KrodEquipment.AncientRecordingSystem.pickupToken = "ANCIENT_RECORDING_PICKUP";
             KrodEquipment.AncientRecordingSystem.descriptionToken = "ANCIENT_RECORDING_DESC";
             KrodEquipment.AncientRecordingSystem.loreToken = "ANCIENT_RECORDING_LORE";
-            KrodEquipment.AncientRecordingSystem.cooldown = 5;
+            KrodEquipment.AncientRecordingSystem.cooldown = 60;
             KrodEquipment.AncientRecordingSystem.canDrop = true;
             KrodEquipment.AncientRecordingSystem.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
             KrodEquipment.AncientRecordingSystem.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
+            customDamageType = DamageAPI.ReserveDamageType();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -122,6 +125,7 @@ namespace Krod.Equipment
                 position = self.currentTarget.transformToIndicateAt.position,
                 procCoefficient = 0
             };
+            di.AddModdedDamageType(customDamageType);
             self.currentTarget.hurtBox.healthComponent.GetComponent<SetStateOnHurt>()?.SetStun(2f);
 
             var d = self.currentTarget.hurtBox.healthComponent.gameObject.AddComponent<AncientRecordingSystemDelayedHit>();
@@ -135,7 +139,10 @@ namespace Krod.Equipment
         public static void OnTakeDamageServer(CharacterBody self, DamageReport damageReport)
         {
             CharacterBody body = (damageReport.attackerBody ? damageReport.attackerBody : null);
-            if (body != null && body.inventory != null && body.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex)
+            if (body != null && 
+                body.inventory != null && 
+                body.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex &&
+                !damageReport.damageInfo.HasModdedDamageType(customDamageType))
             {
                 AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
                 if (b != null)
