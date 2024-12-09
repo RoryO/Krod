@@ -1,3 +1,13 @@
+## 0.0.9
+- Boinky now adds 5 seconds of invulnerability when consumed
+- Recorder now stuns for 2 seconds before applying damage
+- Recorder damage does not count in its own damage tally
+- Adds some sound fx
+- More lore
+- Internal rework, fixed all found errors
+- Fixed Toy Motorcycle always active to everything
+- Fixed (?) Recorder targeter
+
 ## 0.0.8
 
 - Fix recording system not doing damage
