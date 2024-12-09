@@ -27,9 +27,19 @@ namespace Krod.Items.Tier1
 
                     if ((damageInfo.damage / c.fullCombinedHealth) > 0.25f)
                     {
+                        Log.Info("boinking");
+                        Log.Info(damageInfo.damage);
+                        Log.Info(c.fullCombinedHealth);
+                        Log.Info($"{damageInfo.damage / c.fullCombinedHealth}");
                         damageInfo.rejected = true;
                         body.inventory.RemoveItem(KrodItems.MisterBoinky, 1);
                         body.inventory.GiveItem(KrodItems.MisterBoinkyConsumed, 1);
+                        CharacterMasterNotificationQueue.SendTransformNotification(
+                            body.master, 
+                            KrodItems.MisterBoinky.itemIndex, 
+                            KrodItems.MisterBoinkyConsumed.itemIndex, 
+                            CharacterMasterNotificationQueue.TransformationType.Default);
+                        body.AddTimedBuff(RoR2Content.Buffs.Immune, 5);
                     }
                 }
             }
@@ -76,7 +86,7 @@ namespace Krod.Items.Tier1
                     ItemTag.CannotSteal,
                     ItemTag.AIBlacklist,
                     ItemTag.BrotherBlacklist,
-                    ItemTag.Utility
+                    ItemTag.Utility,
                 ];
                 KrodItems.MisterBoinkyConsumed._itemTierDef = new ItemTierDef()
                 {
@@ -87,6 +97,15 @@ namespace Krod.Items.Tier1
                 KrodItems.MisterBoinkyConsumed.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
                 KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
                 ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict(null)));
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
+            {
+                if (sender != null && sender.inventory != null)
+                {
+                    args.armorAdd = 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+                }
             }
         }
         public static void Awake()
