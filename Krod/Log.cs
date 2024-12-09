@@ -12,17 +12,17 @@ namespace Krod
             _logSource = logSource;
         }
 
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Debug(object data) => _logSource.LogDebug(data);
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Error(object data) => _logSource.LogError(data);
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Fatal(object data) => _logSource.LogFatal(data);
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Info(object data) => _logSource.LogInfo(data);
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Message(object data) => _logSource.LogMessage(data);
-        [Conditional("Debug")]
+        [Conditional("DEBUG")]
         internal static void Warning(object data) => _logSource.LogWarning(data);
     }
 }
