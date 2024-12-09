@@ -8,7 +8,7 @@
 						<Action Name="" ID="{DD6B98D7-FD1B-4469-88BE-B624F931252B}" ShortID="999352113">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="KCreateScrapper" ID="{EE49C7DF-DD50-4E14-911B-826C0AFD362E}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+									<ObjectRef Name="CreateScrapper" ID="{F20252C0-EB5B-4C07-B117-98E035CE7466}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
@@ -31,6 +31,50 @@
 							<ReferenceList>
 								<Reference Name="Target">
 									<ObjectRef Name="KDoubleFishStrike" ID="{91758EAE-299E-4E21-8621-E231583FC71B}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KCrowd1" ID="{030D4C24-8064-41E1-A960-2EDFF82E1404}">
+					<ChildrenList>
+						<Action Name="" ID="{EC7797A7-D7CF-4CAA-B475-5CAA4BF57A4D}" ShortID="247508203">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCrowd1" ID="{0022E9AB-0F94-40CF-B85B-FF9BB097DF41}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KCrowd2" ID="{64058429-8971-44BC-8E1B-CD8ED14D1C6B}">
+					<ChildrenList>
+						<Action Name="" ID="{7EBB1B0B-94DD-44F4-BDA7-764BA16BD76D}" ShortID="11033139">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCrowd2" ID="{0A9A8FEF-4D1A-44BC-9D3E-F09BA0D9B08F}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KCrowd3" ID="{3E96FB61-F8C8-4AAB-80D6-018E035316E6}">
+					<ChildrenList>
+						<Action Name="" ID="{D5B079BB-D553-4D53-908B-4DFA1A709058}" ShortID="626376107">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCrowd3" ID="{A98B5A7E-68BE-4DDF-80F2-9D8229F8E8D4}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KCrowd4" ID="{B35E7EC2-79B8-481E-9EF2-A34A95DCCBE5}">
+					<ChildrenList>
+						<Action Name="" ID="{EE6975CC-B145-4170-A320-C6735EC7B282}" ShortID="827148062">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCrowd4" ID="{3B76D0CE-ACF8-4F1E-9952-FECF371069BE}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

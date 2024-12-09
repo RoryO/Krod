@@ -8,7 +8,7 @@ using Krod.Items.Tier3;
 
 namespace Krod
 {
-    public class Hooks
+    public static class Hooks
     {
         public static void Awake()
         {
@@ -34,8 +34,14 @@ namespace Krod
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
 
             On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
+            On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static RoR2.UI.InspectInfo ShopTerminalBehavior_GetInfo(On.RoR2.ShopTerminalBehavior.orig_GetInfo orig, ShopTerminalBehavior self)
+        {
+            return orig(self);
         }
 
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
@@ -145,7 +151,6 @@ namespace Krod
                 LooseCards.OnInventoryChanged(self);
                 MisterBoinky.OnInventoryChanged(self);
                 TheExtra.OnInventoryChanged(self);
-
             }
         }
 
@@ -176,6 +181,7 @@ namespace Krod
 
         public static void EquipmentSlot_UpdateTargets(On.RoR2.EquipmentSlot.orig_UpdateTargets orig, EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
         {
+            orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
             if (targetingEquipmentIndex == KrodEquipment.AileensGlassEyeCracked.equipmentIndex)
             {
                 AileensGlassEye.AileensGlassEyeCracked.UpdateTargets(self, targetingEquipmentIndex, userShouldAnticipateTarget);
@@ -183,10 +189,6 @@ namespace Krod
             else if (targetingEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex)
             {
                 AncientRecordingSystem.UpdateTargets(self, targetingEquipmentIndex, userShouldAnticipateTarget);
-            }
-            else
-            {
-                orig(self, targetingEquipmentIndex, userShouldAnticipateTarget);
             }
         }
     }

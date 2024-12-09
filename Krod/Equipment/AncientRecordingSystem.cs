@@ -1,5 +1,6 @@
 ﻿using R2API;
 using RoR2;
+using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -33,6 +34,37 @@ namespace Krod.Equipment
                 }
             }
         }
+
+        public class AncientRecordingSystemDelayedHit : MonoBehaviour
+        {
+            public void Start() { }
+            public HealthComponent healthComponent;
+
+            public void HitWith(DamageInfo d)
+            {
+                StartCoroutine(DelayedHit(d));
+            }
+            public IEnumerator DelayedHit(DamageInfo d) 
+            { 
+                yield return new WaitForSeconds(2f);
+                if (healthComponent && 
+                    healthComponent.alive &&
+                    healthComponent.body) {
+                    d.position = healthComponent.body.transform.position;
+                    healthComponent.TakeDamage(d);
+                    string eventName = d.damage switch
+                    {
+                        < 10_000 => "KCrowd1",
+                        (> 10_000 and < 100_000) => "KCrowd2",
+                        (> 100_000 and < 500_000) => "KCrowd3",
+                        (> 500_000) => "KCrowd4",
+                        _ => "KCrowd1"
+                    };
+                    Log.Info(eventName);
+                    AkSoundEngine.PostEvent(eventName, d.attacker.gameObject);
+                }
+            }
+        }
         public static void Awake()
         {
             KrodEquipment.AncientRecordingSystem = ScriptableObject.CreateInstance<EquipmentDef>();
@@ -55,17 +87,14 @@ namespace Krod.Equipment
             self.ConfigureTargetFinderForEnemies();
             HurtBox source = self.targetFinder.GetResults().FirstOrDefault();
             self.currentTarget = new EquipmentSlot.UserTargetInfo(source);
-            if (self.currentTarget.transformToIndicateAt)
+            // odd way of doing this. copying exactly what the internal method does. keep getting NREs, this way might fix it.
+            bool present = self.currentTarget.transformToIndicateAt;
+            if (present)
             {
                 self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/LightningIndicator");
-                self.targetIndicator.active = true;
-                self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
             }
-            else
-            {
-                self.targetIndicator.active = false;
-                self.targetIndicator.targetTransform = null;
-            }
+            self.targetIndicator.active = present;
+            self.targetIndicator.targetTransform = present ? self.currentTarget.transformToIndicateAt : null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -87,7 +116,12 @@ namespace Krod.Equipment
                 position = self.currentTarget.transformToIndicateAt.position,
                 procCoefficient = 0
             };
-            self.currentTarget.hurtBox.healthComponent.TakeDamage(di);
+            self.currentTarget.hurtBox.healthComponent.GetComponent<SetStateOnHurt>()?.SetStun(2f);
+
+            var d = self.currentTarget.hurtBox.healthComponent.gameObject.AddComponent<AncientRecordingSystemDelayedHit>();
+            d.healthComponent = self.currentTarget.hurtBox.healthComponent;
+            d.HitWith(di);
+
             return true;
         }
 
