@@ -410,3 +410,13 @@ ThunderKit/
 /Thunderstore/Thunderstore.zip
 /Out/*.manifest
 /Out/*.assetbundle
+
+.backup*
+.cache*
+*.akd
+*.prof
+*.validationcache
+*.wsettings
+AkWwiseProjectData.asset
+IncrementalSoundBankData.xml
+/WWise Project/GeneratedSoundBanks/*
