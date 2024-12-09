@@ -52,7 +52,7 @@
     "AILEENS_EYE_NAME": "Aileen's Glass Eye",
     "AILEENS_EYE_PICKUP": "Creates a scrapper. Cracks on use.",
     "AILEENS_EYE_DESC": "<style=cIsUtility>Creates a scrapper</style>. Cracks on use.",
-    "AILEENS_EYE_LORE": "",
+    "AILEENS_EYE_LORE": "<style=cMono>Text transcription complete. Highest confidence output follows:</style>\n\n[Scene is RECYCLING? | TRASH? facility. Older woman center frame. Behind is worker activity]\n\nAbout me? I'm not anybody exciting.\n\n[INAUDIBLE]\n\nWhat?\n\n[INAUDIBLE]\n\nOh, at least 20 years. Just in facilities. Trash, spills, general cleaning.\n\n[INAUDIBLE]\n\nYep. Can't see so good anymore. Little accident some years back. Eye popped right out and fell into the compactor. It's no big deal. I got a new one.\n\n[INAUDIBLE]\n\nWell, no. I work, I go home. I got nobody. I don't bother nobody. I might have been a little more interesting years gone. Today, just work. Being a part of the crew. Helping all the younger fellas.\n\n[Three stray boxes fly from off camera. One hits the woman in the back, bouncing gently off]\n\nAww, ya hit me!\n\n<style=cMono>End feed</style>",
 
     "AILEENS_EYE_CRACKED_NAME": "Aileen's Glass Eye (Cracked)",
     "AILEENS_EYE_CRACKED_PICKUP": "Scraps targeted item.",
