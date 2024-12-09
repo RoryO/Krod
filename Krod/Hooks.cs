@@ -98,6 +98,7 @@ namespace Krod
             ToyMotorcycle.GetStatCoefficients(sender, args);
             Woodhat.GetStatCoefficients(sender, args);
             TimsCrucible.GetStatCoefficients(sender, args);
+            MisterBoinky.Consumed.GetStatCoefficients(sender, args);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
