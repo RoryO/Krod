@@ -13,6 +13,7 @@ namespace Krod
         public static ItemDef TheExtra;
         public static ItemDef ToyMotorcycle;
         public static ItemDef Woodhat;
+        public static ItemDef NinjaShowerScrub;
 
         public static ItemDef TimsCrucible;
     }

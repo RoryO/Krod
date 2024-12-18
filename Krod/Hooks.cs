@@ -84,6 +84,7 @@ namespace Krod
         {
             orig(damageReport);
             DoubleFish.ServerDamageDealt(damageReport);
+            NinjaShowerScrub.ServerDamageDealt(damageReport);
         }
 
         private static void GlobalEventManager_OnHitEnemy(On.RoR2.GlobalEventManager.orig_OnHitEnemy orig, GlobalEventManager self, DamageInfo damageInfo, UnityEngine.GameObject victim)
@@ -99,6 +100,7 @@ namespace Krod
             Woodhat.GetStatCoefficients(sender, args);
             TimsCrucible.GetStatCoefficients(sender, args);
             MisterBoinky.Consumed.GetStatCoefficients(sender, args);
+            NinjaShowerScrub.GetStatCoefficients(sender, args);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
@@ -152,6 +154,7 @@ namespace Krod
                 LooseCards.OnInventoryChanged(self);
                 MisterBoinky.OnInventoryChanged(self);
                 TheExtra.OnInventoryChanged(self);
+                NinjaShowerScrub.OnInventoryChanged(self);
             }
         }
 

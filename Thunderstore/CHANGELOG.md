@@ -1,4 +1,9 @@
+## 0.0.10
+
+- Added Ninja Shower Scrub
+
 ## 0.0.9
+
 - Boinky now adds 5 seconds of invulnerability when consumed
 - Recorder now stuns for 2 seconds before applying damage
 - Recorder damage does not count in its own damage tally

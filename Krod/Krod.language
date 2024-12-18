@@ -22,7 +22,7 @@
     "DISCOUNT_COFFEE_PICKUP": "Increases sprint speed and attack speed for a while. Time refreshes when spending money.",
     "DISCOUNT_COFFEE_DESC": "Increase <style=cIsUtility>sprint speed by 25%</style> <style=cStack>(+25% per stack)</style> and <style=cIsDamage>attack speed by 15%</style> <style=cStack>(+15% per stack)</style> for 60 seconds <style=cStack>(+10 seconds per stack)</style>. Timer resets when spending money.",
     "DISCOUNT_COFFEE_LORE": "<style=cMono>Successfully tuned to local news feed. Starting transcript</style>\n\n...ow who did. Boy there are suspects I tell you. This group comes in evrry day ya know? Just one thang. Coffee. The cheapest crap we got. Disgussing. And they sit. Just keep filling that cup of this caffeine oil.\n\nAnyways other week ya know? Raised the price of it. Five percent higher of nothin. We losing so much money, and they kinda creep people out. Boy I say I neva see so many angry people in one day in my life. This one guy, he kepp yelling at me. Had to get some of the big boys from the back to drag him away. Now he's 86d witout his crap coffee.\n\nOne of them regulars though. That first day. He say nothin. Just a cold stare. Looking at us running around. All of us got the weirds. That stare... He wasn't right. I ain't saying it was him, I ain't not saying it was him.\"\n\nA vigil is scheduled tomorrow afternoon, with employees provided a 20 minute paid break. A service is scheduled for Steve next Tuesday at 9 am.",
-    
+
     "WOODHAT_NAME": "A Wood Hat",
     "WOODHAT_PICKUP": "Adds armor with the power of wood!",
     "WOODHAT_DESC": "Adds <style=cIsDamage>10</style> <style=cStack>(+10 per stack)</style> armor.",
@@ -38,7 +38,12 @@
 
     "THE_EXTRA_NAME": "The Extra",
     "THE_EXTRA_PICKUP": "Periodically sets enemies around you on fire",
-    "THE_EXTRA_DESC": "Every 5 seconds, <style=cIsDamage>set enemies within 20m <style=cStack>(+5m per stack)</style> around you on fire</style>",
+    "THE_EXTRA_DESC": "Every 5 seconds, <style=cIsDamage>set enemies within 20m <style=cStack>(+5m per stack)</style> around you on fire</style>.",
+
+    "NINJA_SHOWER_NAME": "Ninja Shower Scrub",
+    "NINJA_SHOWER_PICKUP": "Give shurikens to yourself and nearby allies on critical hit.",
+    "NINJA_SHOWER_DESC": "<style=cIsDamage>Adds 5% crit chance</style>. On a critical hit, <style=cIsDamage>give 1</style> <style=cStack>(+1 per stack)</style> <style=cIsDamage>shuriken</style> to all allies within 20m.",
+    "NINJA_SHOWER_LORE": "Nina, lets pass. The concept is flimsy nonsense. Also the whole ninja fad is well long gone at this point so that won't save it.\n\n> Bill, sending along a production sample and commercial sketch from a startup with their first product. Seems fun! What do you think?\n\n>> Three men in a room, identified by the color of a bandana on their head. PURPLE and RED sitting on a couch, playing a video game console. BLUE in the corner, focused on a computer screen.\n\n>> Off frame, a voice\n\n>> UNKNOWN: Heeeeeyyyyyyyy\n\n>> PURPLE and RED turn to each other.\n\n>> RED: Did he just say \"hey\"?\n\n>> BLUE looks up for a moment.\n\n>> BLUE: What?\n\n>> ORANGE, wet, in a towel, enters from off frame.\n\n>> ORANGE: So I was in the shower and I was thinking about you guys!\n\n>> PURPLE and RED look at each other and burst out laughing.\n\n>> BLUE looks up for a moment.\n\n>> BLUE: What?\n\n>> New! Ninja Shower Scrub! <<Christy I need a slogan here>>",
 
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
@@ -59,8 +64,8 @@
     "AILEENS_EYE_CRACKED_DESC": "Scraps targeted item.",
 
     "ANCIENT_RECORDING_NAME": "Ancient Recording Equipment",
-    "ANCIENT_RECORDING_PICKUP": "Constantly records your best performance. Activate to damage target with your best recorded performance.",
-    "ANCIENT_RECORDING_DESC": "Every second, <style=cIsUtility>records all of your damage</style>. <style=cIsDamage>Activate to inflict your best recorded damage to the target</style>.",
+    "ANCIENT_RECORDING_PICKUP": "Constantly records your best performance. Activate to damage and stun target with your best recorded performance.",
+    "ANCIENT_RECORDING_DESC": "Every second, <style=cIsUtility>records all of your damage</style>. <style=cIsDamage>Activate to stun and inflict your best recorded damage to the target</style>.",
     "ANCIENT_RECORDING_LORE": "Archaeologist Rod picked up the transcript he waited so long for. A text from long ago, discovered on a recording system few understand. It took the AI systems an inordinate amount of time to translate. He started reading.\n\n---\n<style=cMono>\nTITLE CARDS.\n\nOVERLAY MUSIC.\n</style>\n\nPregnant Space Lawyer!\n\nHe's a!\n\nPregnant Space Lawyer!\n\n<style=cMono>CUT TO: SPARSE OFFICE.</style>\n\nMAN 1 waiting impatiently in chair.\n\nMAN 2 barges into the office. MAN 2 has a pot belly.\n\nMAN2: Hello welcome to space, I am your lawyer.\n\n<style=cMono>BEAT.</style>\n\nMAN 1: This isn't space!\n\nMAN 1 points at MAN 2\n\nMAN 1: You aren't a lawyer!\n\nMAN 1 punches the pot belly off of MAN 2. MAN 1 leaves.\n\n<style=cMono>\nCUT TO: TITLE CARDS\n\nOVERLAY MUSIC\n</style>\n\nPregnant space lawyer!\n\nHe's a!\n\nPregnant space lawyer!\n\n---\n\n\"This cannot possibly be right\", Rod scoffed. He carefully feeds the recording back into the AI system and prepared to wait again.\n"
   }
 }
