@@ -57,7 +57,7 @@ namespace Krod.Items.Tier3
                 if (self.body.inventory.GetItemCount(KrodItems.TimsCrucible) > 0 &&
                     damageInfo.dotIndex == DotController.DotIndex.Burn)
                 {
-                    damageInfo.damage = 0;
+                    damageInfo.rejected = true;
                 }
             }
         }
@@ -74,7 +74,8 @@ namespace Krod.Items.Tier3
                     if (n.Contains("Utility"))
                     {
                         var d = DotController.FindDotController(self.gameObject);
-                        if (d != null && d.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
+                        if (d == null || 
+                            d.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
                         {
                             InflictDotInfo idi = new()
                             {
@@ -98,9 +99,9 @@ namespace Krod.Items.Tier3
                 sender.HasBuff(Defs.TimIsOnFire))
             {
                 int m = sender.inventory.GetItemCount(KrodItems.TimsCrucible);
-                args.attackSpeedMultAdd = 0.3f * m;
-                args.armorAdd = 20 * m;
-                args.moveSpeedMultAdd = 0.2f * m;
+                args.attackSpeedMultAdd += 0.3f * m;
+                args.armorAdd += 20 * m;
+                args.moveSpeedMultAdd += 0.2f * m;
             }
         }
 

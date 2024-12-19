@@ -46,8 +46,8 @@ namespace Krod
 
         private static void HealthComponent_TakeDamage(On.RoR2.HealthComponent.orig_TakeDamage orig, HealthComponent self, DamageInfo damageInfo)
         {
-            orig(self, damageInfo);
             TimsCrucible.TakeDamage(self, damageInfo);
+            orig(self, damageInfo);
         }
 
         private static void CharacterBody_OnEquipmentLost(On.RoR2.CharacterBody.orig_OnEquipmentLost orig, CharacterBody self, EquipmentDef equipmentDef)
