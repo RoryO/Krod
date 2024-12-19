@@ -1,3 +1,7 @@
+## 0.0.11
+
+- Added item tier halos for all placeholder icon art
+
 ## 0.0.10
 
 - Added Ninja Shower Scrub
