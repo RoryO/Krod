@@ -34,8 +34,9 @@ namespace Krod.Equipment
                 int c = self.inventory.GetItemCount(DLC1Content.Items.MinorConstructOnKill) * 4;
                 if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot).equipmentIndex == KrodEquipment.JeffsServiceMedal.equipmentIndex)
                 {
-                    c += 4;
+                    c += 2;
                 }
+                c += self.inventory.GetEquipmentSlotMaxCharges(self.inventory.activeEquipmentSlot) * 2;
                 return c;
             }
             else
