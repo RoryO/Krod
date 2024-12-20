@@ -35,7 +35,7 @@ namespace Krod.Items.Tier2
                     {
                         mask = LayerIndex.entityPrecise.mask,
                         origin = body.transform.position,
-                        radius = 15 + (stacks * 5),
+                        radius = 25 + (stacks * 5),
                         queryTriggerInteraction = QueryTriggerInteraction.Collide
                     };
 
