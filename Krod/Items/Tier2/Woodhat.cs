@@ -23,16 +23,5 @@ namespace Krod.Items.Tier2
             KrodItems.Woodhat.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.Woodhat, new ItemDisplayRuleDict(null)));
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            Inventory i = sender.inventory;
-            if (i)
-            {
-                int c = i.GetItemCount(KrodItems.Woodhat);
-                args.armorAdd += c * 10;
-            }
-        }
     }
 }

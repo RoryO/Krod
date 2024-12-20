@@ -98,15 +98,6 @@ namespace Krod.Items.Tier1
                 KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
                 ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict(null)));
             }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-            {
-                if (sender != null && sender.inventory != null)
-                {
-                    args.armorAdd = 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
-                }
-            }
         }
         public static void Awake()
         {

@@ -175,14 +175,5 @@ namespace Krod.Items.Tier2
                 damageReport.attackerBody.GetComponent<NinjaShowerScrubBehavior>()?.TriggerDistribution();
             }
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            if (sender.inventory && sender.inventory.GetItemCount(KrodItems.NinjaShowerScrub) > 0)
-            {
-                args.critAdd += 5f;
-            }
-        }
     }
 }

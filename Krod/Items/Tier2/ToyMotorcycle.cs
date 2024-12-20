@@ -23,28 +23,5 @@ namespace Krod.Items.Tier2
             KrodItems.ToyMotorcycle.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.ToyMotorcycle, new ItemDisplayRuleDict(null)));
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            if (!sender || 
-                !sender.inventory || 
-                !sender.isSprinting ||
-                sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) == 0) 
-            { 
-                return; 
-            }
-            int c = 0;
-            foreach (var i in ItemCatalog.tier2ItemList)
-            {
-                c += sender.inventory.GetItemCount(i);
-            }
-            int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
-            int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
-            int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
-            int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
-
-            args.moveSpeedMultAdd = .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
-        }
     }
 }

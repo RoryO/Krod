@@ -93,14 +93,48 @@ namespace Krod
             LooseCards.OnHitEnemy(damageInfo, victim);
         }
 
+        // does not work with a series of method calls
         private static void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
         {
-            DiscountCoffee.GetStatCoefficients(sender, args);
-            ToyMotorcycle.GetStatCoefficients(sender, args);
-            Woodhat.GetStatCoefficients(sender, args);
-            TimsCrucible.GetStatCoefficients(sender, args);
-            MisterBoinky.Consumed.GetStatCoefficients(sender, args);
-            NinjaShowerScrub.GetStatCoefficients(sender, args);
+            if (!sender || !sender.inventory) { return; }
+
+            if (sender.HasBuff(DiscountCoffee.buff))
+            {
+                int c = sender.inventory.GetItemCount(KrodItems.DiscountCoffee);
+                args.attackSpeedMultAdd += c * 0.15f;
+                args.sprintSpeedAdd += c * 0.25f;
+            }
+
+            if (sender.isSprinting)
+            {
+                int c = 0;
+                foreach (var i in ItemCatalog.tier2ItemList)
+                {
+                    c += sender.inventory.GetItemCount(i);
+                }
+                int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
+                int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
+                int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
+                int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
+
+                args.moveSpeedMultAdd += .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
+            }
+
+            if (sender.HasBuff(Buffs.Defs.TimIsOnFire))
+            {
+                int m = sender.inventory.GetItemCount(KrodItems.TimsCrucible);
+                args.attackSpeedMultAdd += 0.3f * m;
+                args.armorAdd += 20 * m;
+                args.moveSpeedMultAdd += 0.2f * m;
+            }
+
+            if (sender.inventory.GetItemCount(KrodItems.NinjaShowerScrub) > 0)
+            {
+                args.critAdd += 5f;
+            }
+
+            args.armorAdd += 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+            args.armorAdd += 10 * sender.inventory.GetItemCount(KrodItems.Woodhat);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
@@ -113,7 +147,7 @@ namespace Krod
         {
             CharacterMaster master = context.activatorMaster;
             Inventory inventory = (master.inventory ? master.inventory : null);
-            if (master && 
+            if (master &&
                 inventory &&
                 inventory.GetItemCount(KrodItems.ArcadeToken) > 0 &&
                 context.purchasedObject)

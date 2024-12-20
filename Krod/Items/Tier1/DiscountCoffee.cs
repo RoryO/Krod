@@ -75,15 +75,6 @@ namespace Krod.Items.Tier1
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            if (!sender || !sender.inventory || !sender.HasBuff(buff)) { return; }
-            int c = sender.inventory.GetItemCount(KrodItems.DiscountCoffee);
-            args.attackSpeedMultAdd = c * 0.15f;
-            args.sprintSpeedAdd = c * 0.25f;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OnInventoryChanged(CharacterBody self)
         {
             self.AddItemBehavior<DiscountCoffeeBehavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));

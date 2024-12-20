@@ -92,20 +92,6 @@ namespace Krod.Items.Tier3
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void GetStatCoefficients(CharacterBody sender, RecalculateStatsAPI.StatHookEventArgs args)
-        {
-            if (sender != null && 
-                sender.inventory !=null && 
-                sender.HasBuff(Defs.TimIsOnFire))
-            {
-                int m = sender.inventory.GetItemCount(KrodItems.TimsCrucible);
-                args.attackSpeedMultAdd += 0.3f * m;
-                args.armorAdd += 20 * m;
-                args.moveSpeedMultAdd += 0.2f * m;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OnDotStackRemovedServer(DotController self, object _dotStack)
         {            
             if (_dotStack is DotController.DotStack dotStack && dotStack.dotIndex == DotController.DotIndex.Burn)
