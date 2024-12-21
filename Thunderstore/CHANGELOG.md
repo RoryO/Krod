@@ -1,3 +1,10 @@
+## 0.0.12
+
+- Fixed Tim's Crucible not working
+- Fixed armor stacks not applying
+- Increased The Extra radius to 30m
+- Jeff's Service Medal increases limit based on available equipment charges
+
 ## 0.0.11
 
 - Added item tier halos for all placeholder icon art
