@@ -105,7 +105,7 @@ namespace Krod
                 args.sprintSpeedAdd += c * 0.25f;
             }
 
-            if (sender.isSprinting)
+            if (sender.isSprinting && sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) > 0)
             {
                 int c = 0;
                 foreach (var i in ItemCatalog.tier2ItemList)
