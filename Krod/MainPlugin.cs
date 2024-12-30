@@ -50,6 +50,7 @@ namespace Krod
             JeffsServiceMedal.Awake();
             AileensGlassEye.Awake();
             AncientRecordingSystem.Awake();
+            JeremiahsAccident.Awake();
 
             Hooks.Awake();
         }

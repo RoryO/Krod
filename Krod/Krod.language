@@ -33,11 +33,11 @@
     "TOY_MOTORCYCLE_LORE": "I saw it too! I think I got a better look than you did! I'll try and describe what I saw. I still can't believe it.\n\nIt came careening down a hill. One of those things with the big sack on the back, right? Wildly out of control. Physics wasn't in its favor with how fat they are and how much stuff is in their sack. I don't know if it looked scared or happy about what it was doing.\n\nIt went right by me! I got spooked and stepped out of the way. As it went past, I got a look at the thing it was riding. It was like one of those little motorcycles that kids use. The weirdest part? Printed on the side of the toy was the words \"I'm Sorry!\"\n\nWhat's up with that?",
 
     "DOUBLEFISH_NAME": "Double Fish",
-    "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks",
+    "DOUBLEFISH_PICKUP": "Occasionally duplicates your attacks.",
     "DOUBLEFISH_DESC": "2.5% <style=cStack>(+2.5% per stack)</style> chance of <style=cIsDamage>duplicating an attack</style>.",
 
     "THE_EXTRA_NAME": "The Extra",
-    "THE_EXTRA_PICKUP": "Periodically sets enemies around you on fire",
+    "THE_EXTRA_PICKUP": "Periodically sets enemies around you on fire.",
     "THE_EXTRA_DESC": "Every 5 seconds, <style=cIsDamage>set enemies within 30m <style=cStack>(+5m per stack)</style> around you on fire</style>.",
 
     "NINJA_SHOWER_NAME": "Ninja Shower Scrub",
@@ -66,6 +66,10 @@
     "ANCIENT_RECORDING_NAME": "Ancient Recording Equipment",
     "ANCIENT_RECORDING_PICKUP": "Constantly records your best performance. Activate to damage and stun target with your best recorded performance.",
     "ANCIENT_RECORDING_DESC": "Every second, <style=cIsUtility>records all of your damage</style>. <style=cIsDamage>Activate to stun and inflict your best recorded damage to the target</style>.",
-    "ANCIENT_RECORDING_LORE": "Archaeologist Rod picked up the transcript he waited so long for. A text from long ago, discovered on a recording system few understand. It took the AI systems an inordinate amount of time to translate. He started reading.\n\n---\n<style=cMono>\nTITLE CARDS.\n\nOVERLAY MUSIC.\n</style>\n\nPregnant Space Lawyer!\n\nHe's a!\n\nPregnant Space Lawyer!\n\n<style=cMono>CUT TO: SPARSE OFFICE.</style>\n\nMAN 1 waiting impatiently in chair.\n\nMAN 2 barges into the office. MAN 2 has a pot belly.\n\nMAN2: Hello welcome to space, I am your lawyer.\n\n<style=cMono>BEAT.</style>\n\nMAN 1: This isn't space!\n\nMAN 1 points at MAN 2\n\nMAN 1: You aren't a lawyer!\n\nMAN 1 punches the pot belly off of MAN 2. MAN 1 leaves.\n\n<style=cMono>\nCUT TO: TITLE CARDS\n\nOVERLAY MUSIC\n</style>\n\nPregnant space lawyer!\n\nHe's a!\n\nPregnant space lawyer!\n\n---\n\n\"This cannot possibly be right\", Rod scoffed. He carefully feeds the recording back into the AI system and prepared to wait again.\n"
+    "ANCIENT_RECORDING_LORE": "Archaeologist Rod picked up the transcript he waited so long for. A text from long ago, discovered on a recording system few understand. It took the AI systems an inordinate amount of time to translate. He started reading.\n\n---\n<style=cMono>\nTITLE CARDS.\n\nOVERLAY MUSIC.\n</style>\n\nPregnant Space Lawyer!\n\nHe's a!\n\nPregnant Space Lawyer!\n\n<style=cMono>CUT TO: SPARSE OFFICE.</style>\n\nMAN 1 waiting impatiently in chair.\n\nMAN 2 barges into the office. MAN 2 has a pot belly.\n\nMAN2: Hello welcome to space, I am your lawyer.\n\n<style=cMono>BEAT.</style>\n\nMAN 1: This isn't space!\n\nMAN 1 points at MAN 2\n\nMAN 1: You aren't a lawyer!\n\nMAN 1 punches the pot belly off of MAN 2. MAN 1 leaves.\n\n<style=cMono>\nCUT TO: TITLE CARDS\n\nOVERLAY MUSIC\n</style>\n\nPregnant space lawyer!\n\nHe's a!\n\nPregnant space lawyer!\n\n---\n\n\"This cannot possibly be right\", Rod scoffed. He carefully feeds the recording back into the AI system and prepared to wait again.\n",
+
+    "JEREMIAHS_ACCIDENT_NAME": "Jeremiah's Accident",
+    "JEREMIAHS_ACCIDENT_PICKUP": "Shoots a high damage piercing bullet. Overkilling enemies causes them to explode. Executes airborn elites.",
+    "JEREMIAHS_ACCIDENT_DESC": "Shoots a piercing bullet with infinite range for <style=cIsDamage>800% damage</style>. <style=cIsDamage>Causes enemies to explode</style> if the bullet overkills by over 50% of its max health. <style=cIsDamage>Executes</style> non-flying, non-boss elites in the air."
   }
 }

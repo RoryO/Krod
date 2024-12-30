@@ -80,6 +80,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="KRailDrone" ID="{5D98B962-D799-42CC-B774-5D00EFCC7BF8}">
+					<ChildrenList>
+						<Action Name="" ID="{49266824-5E38-463D-87AE-BEA4128BCD0D}" ShortID="1069211334">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KRailDrone" ID="{A6874812-39A9-42AF-87F5-E9DCB5AAE7AC}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

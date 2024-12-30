@@ -392,6 +392,48 @@
 												<ActiveSource Name="KCrowd4" ID="{339C7B84-7AF1-4592-957F-914E16139E7C}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Sound Name="KRailDrone" ID="{A6874812-39A9-42AF-87F5-E9DCB5AAE7AC}" ShortID="941325327">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{CEA82E5C-5396-4C0C-B450-EA0EBFEA1114}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="200"/>
+																	<Property Name="Min" Type="Real64" Value="-200"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="BodyAttenuation" ID="{B9EF64F0-6868-40C2-9DD0-B71CCC5EE9E5}" WorkUnitID="{8A8B3EA4-F888-4CE2-8A06-BC47CBEB1372}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="KRailDrone" ID="{B8B371A4-F441-412C-8DD8-13E2892FBD37}">
+													<Language>SFX</Language>
+													<AudioFile>KRailDrone.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="110353124"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="KRailDrone" ID="{B8B371A4-F441-412C-8DD8-13E2892FBD37}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>

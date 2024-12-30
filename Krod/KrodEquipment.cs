@@ -8,5 +8,6 @@ namespace Krod
         public static EquipmentDef AileensGlassEyeCracked;
         public static EquipmentDef AncientRecordingSystem;
         public static EquipmentDef JeffsServiceMedal;
+        public static EquipmentDef JeremiahsAccident;
     }
 }
