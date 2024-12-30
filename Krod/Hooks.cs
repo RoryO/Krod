@@ -30,6 +30,7 @@ namespace Krod
 
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
+            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
 
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
 
@@ -37,6 +38,12 @@ namespace Krod
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
+        {
+            JeremiahsAccident.OnCharacterDeath(self, damageReport);
+            orig(self, damageReport);
         }
 
         private static RoR2.UI.InspectInfo ShopTerminalBehavior_GetInfo(On.RoR2.ShopTerminalBehavior.orig_GetInfo orig, ShopTerminalBehavior self)
@@ -54,12 +61,20 @@ namespace Krod
         {
             orig(self, equipmentDef);
             TimsCrucible.OnEquipmentLost(self, equipmentDef);
+            if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
+            {
+                JeremiahsAccident.OnEquipmentLost(self, equipmentDef);
+            }
         }
 
         private static void CharacterBody_OnEquipmentGained(On.RoR2.CharacterBody.orig_OnEquipmentGained orig, CharacterBody self, EquipmentDef equipmentDef)
         {
             orig(self, equipmentDef);
             TimsCrucible.OnEquipmentGained(self, equipmentDef);
+            if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
+            {
+                JeremiahsAccident.OnEquipmentGained(self, equipmentDef);
+            }
         }
 
         private static void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
@@ -209,6 +224,10 @@ namespace Krod
             else if (equipmentDef.equipmentIndex == KrodEquipment.JeffsServiceMedal.equipmentIndex)
             {
                 return JeffsServiceMedal.PerformEquipmentAction(self, equipmentDef);
+            }
+            else if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
+            {
+                return JeremiahsAccident.PerformEquipmentAction(self, equipmentDef);
             }
             else
             {
