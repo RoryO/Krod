@@ -1,3 +1,8 @@
+## 0.0.13
+
+- Fixed Toy Motorcycle always active to everything. Again.
+- Replaced some placeholder art with final
+
 ## 0.0.12
 
 - Fixed Tim's Crucible not working
