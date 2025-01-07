@@ -79,14 +79,13 @@ namespace Krod.Items.Tier1
                 KrodItems.MisterBoinkyConsumed.pickupToken = "MISTERBOINKY_USED_PICKUP";
                 KrodItems.MisterBoinkyConsumed.descriptionToken = "MISTERBOINKY_USED_DESC";
                 KrodItems.MisterBoinkyConsumed.loreToken = "";
-                KrodItems.MisterBoinkyConsumed.tier = ItemTier.NoTier;
                 KrodItems.MisterBoinkyConsumed.tags = [
                     ItemTag.CannotCopy,
                     ItemTag.CannotDuplicate,
                     ItemTag.CannotSteal,
                     ItemTag.AIBlacklist,
                     ItemTag.BrotherBlacklist,
-                    ItemTag.Utility,
+                    ItemTag.WorldUnique,
                 ];
                 KrodItems.MisterBoinkyConsumed._itemTierDef = new ItemTierDef()
                 {
