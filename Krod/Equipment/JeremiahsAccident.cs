@@ -1,14 +1,12 @@
-﻿using RoR2;
-using R2API;
+﻿using R2API;
+using RoR2;
+using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System.Runtime.CompilerServices;
-using System;
-using EntityStates.Toolbot;
-using System.Numerics;
 using UnityEngine.Networking;
-using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Krod.Equipment
 {
@@ -29,6 +27,7 @@ namespace Krod.Equipment
         }
 
         public static DamageAPI.ModdedDamageType damageType;
+        public static GameObject tracerTrail;
 
         public static void Awake()
         {
@@ -44,6 +43,42 @@ namespace Krod.Equipment
             KrodEquipment.JeremiahsAccident.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeremiahsAccident, new ItemDisplayRuleDict(null)));
             damageType = DamageAPI.ReserveDamageType();
+            tracerTrail = Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccidentTrail.prefab");
+            if (!tracerTrail)
+            {
+                Log.Error("broke");
+            }
+            tracerTrail.AddComponent<EffectComponent>();
+            tracerTrail.AddComponent<EventFunctions>();
+            tracerTrail.AddComponent<Tracer>();
+            tracerTrail.AddComponent<BeamPointsFromTransforms>();
+            if (tracerTrail.TryGetComponent(out BeamPointsFromTransforms beam))
+            {
+                LineRenderer line = tracerTrail.GetComponent<LineRenderer>();
+                beam.target = line;
+                Transform[] transforms = [
+                    tracerTrail.transform.GetChild(0).transform,
+                    tracerTrail.transform.GetChild(1).transform
+                ];
+                beam.pointTransforms = transforms;
+            }
+            else
+            {
+                Log.Error("wat1");
+            }
+            if (tracerTrail.TryGetComponent(out Tracer tracer))
+            {
+                tracer.headTransform = tracerTrail.transform.GetChild(0).transform;
+                tracer.tailTransform = tracerTrail.transform.GetChild(1).transform;
+                tracer.startTransform = tracerTrail.transform.GetChild(2).transform;
+                tracer.speed = 400f;
+                tracer.length = 600f;
+            }
+            else
+            {
+                Log.Error("wat2");
+            }
+            ContentAddition.AddEffect(tracerTrail);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,6 +87,10 @@ namespace Krod.Equipment
             CharacterBody body = self.characterBody;
             if (!body) { return false; }
             Ray ra = body.inputBank.GetAimRay();
+            if (tracerTrail == null)
+            {
+                Log.Error("no tracer");
+            }
             BulletAttack at = new()
             {
                 damage = body.damage * 8,
@@ -61,11 +100,12 @@ namespace Krod.Equipment
                 falloffModel = BulletAttack.FalloffModel.None,
                 hitCallback = HitCallback,
                 stopperMask = LayerIndex.world.mask,
-                tracerEffectPrefab = BaseNailgunState.tracerEffectPrefab,
+                tracerEffectPrefab = tracerTrail,
                 procCoefficient = 0,
             };
             at.AddModdedDamageType(damageType);
             at.Fire();
+            AkSoundEngine.PostEvent("KRailFire", body.gameObject);
             return true;
         }
 
@@ -77,7 +117,7 @@ namespace Krod.Equipment
 
             CharacterBody cb = hc.body;
             if (!cb)
-            { 
+            {
                 return false;
             }
             if (!cb.isBoss && cb.isElite && (cb.characterMotor && !cb.characterMotor.isGrounded))
@@ -116,7 +156,7 @@ namespace Krod.Equipment
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OnCharacterDeath(GlobalEventManager self, DamageReport damageReport)
         {
-            if(!DamageAPI.HasModdedDamageType(damageReport.damageInfo, damageType)) { return; }
+            if (!DamageAPI.HasModdedDamageType(damageReport.damageInfo, damageType)) { return; }
             float overkillAmount = Math.Abs(damageReport.combinedHealthBeforeDamage - damageReport.damageDealt);
 
             if (overkillAmount > (damageReport.victimBody.healthComponent.fullCombinedHealth * 0.5))

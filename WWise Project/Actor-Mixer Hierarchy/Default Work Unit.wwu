@@ -434,6 +434,52 @@
 												<ActiveSource Name="KRailDrone" ID="{B8B371A4-F441-412C-8DD8-13E2892FBD37}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Sound Name="KRailFire-PH" ID="{BFD1489E-65ED-4EC9-9F43-E59C6DECBD46}" ShortID="454715550">
+											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{1E19EE4A-4C71-4561-AF25-8073DADA82D3}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="100"/>
+																	<Property Name="Min" Type="Real64" Value="-100"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="BodyAttenuation" ID="{B9EF64F0-6868-40C2-9DD0-B71CCC5EE9E5}" WorkUnitID="{8A8B3EA4-F888-4CE2-8A06-BC47CBEB1372}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="KRailFire-PH" ID="{FD6D5BA0-5FE1-442F-9F41-B5E8138A3E1A}">
+													<Language>SFX</Language>
+													<AudioFile>KRailFire-PH.wav</AudioFile>
+													<MediaIDList>
+														<MediaID ID="430826656"/>
+													</MediaIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="KRailFire-PH" ID="{FD6D5BA0-5FE1-442F-9F41-B5E8138A3E1A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</Folder>
 							</ChildrenList>

@@ -91,6 +91,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="KRailFire" ID="{62683217-A492-4539-B037-F7F5A81579F4}">
+					<ChildrenList>
+						<Action Name="" ID="{4066E8EF-A968-43C5-97DD-16026D84E765}" ShortID="598183301">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KRailFire-PH" ID="{BFD1489E-65ED-4EC9-9F43-E59C6DECBD46}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -42,9 +42,7 @@ namespace Krod
 
         private static void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
         {
-#if DEBUG
             JeremiahsAccident.OnCharacterDeath(self, damageReport);
-#endif
             orig(self, damageReport);
         }
 
@@ -63,24 +61,20 @@ namespace Krod
         {
             orig(self, equipmentDef);
             TimsCrucible.OnEquipmentLost(self, equipmentDef);
-#if DEBUG
             if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
             {
                 JeremiahsAccident.OnEquipmentLost(self, equipmentDef);
             }
-#endif
         }
 
         private static void CharacterBody_OnEquipmentGained(On.RoR2.CharacterBody.orig_OnEquipmentGained orig, CharacterBody self, EquipmentDef equipmentDef)
         {
             orig(self, equipmentDef);
             TimsCrucible.OnEquipmentGained(self, equipmentDef);
-#if DEBUG
             if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
             {
                 JeremiahsAccident.OnEquipmentGained(self, equipmentDef);
             }
-#endif
         }
 
         private static void CharacterBody_OnSkillActivated(On.RoR2.CharacterBody.orig_OnSkillActivated orig, CharacterBody self, GenericSkill skill)
@@ -231,12 +225,10 @@ namespace Krod
             {
                 return JeffsServiceMedal.PerformEquipmentAction(self, equipmentDef);
             }
-#if DEBUG
             else if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
             {
                 return JeremiahsAccident.PerformEquipmentAction(self, equipmentDef);
             }
-#endif
             else
             {
                 return orig(self, equipmentDef);
