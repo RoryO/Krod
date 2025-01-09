@@ -1,3 +1,8 @@
+## 0.0.15
+
+- Added Alien God Hand
+- Fixed Jeremiah's Accident lore formatting
+
 ## 0.0.14
 
 - Added Jeremiah's Accident
