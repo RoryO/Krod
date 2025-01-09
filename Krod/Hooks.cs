@@ -81,6 +81,7 @@ namespace Krod
         {
             orig(self, skill);
             TimsCrucible.OnSkillActivated(self, skill);
+            GodHand.OnSkillActivated(self, skill);
         }
 
         private static void DotController_OnDotStackRemovedServer(On.RoR2.DotController.orig_OnDotStackRemovedServer orig, DotController self, object dotStack)
@@ -204,6 +205,7 @@ namespace Krod
                 MisterBoinky.OnInventoryChanged(self);
                 TheExtra.OnInventoryChanged(self);
                 NinjaShowerScrub.OnInventoryChanged(self);
+                GodHand.OnInventoryChanged(self);
             }
         }
 

@@ -45,6 +45,7 @@ namespace Krod
             NinjaShowerScrub.Awake();
 
             TimsCrucible.Awake();
+            GodHand.Awake();
             //RorysForsight.Awake();
 
             JeffsServiceMedal.Awake();
@@ -63,7 +64,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = KrodItems.TimsCrucible.itemIndex;
+                var testItem = KrodItems.GodHand.itemIndex;
 
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
             }
