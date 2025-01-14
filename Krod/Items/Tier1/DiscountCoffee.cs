@@ -54,7 +54,7 @@ namespace Krod.Items.Tier1
             buff.isDebuff = false;
             buff.canStack = false;
             buff.name = "Discount Coffee";
-            buff.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            buff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffeeBD.png");
             ContentAddition.AddBuffDef(buff);
         }
 
