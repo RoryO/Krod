@@ -93,7 +93,7 @@ namespace Krod.Equipment
             }
             BulletAttack at = new()
             {
-                damage = body.damage * 8,
+                damage = body.damage * 16,
                 aimVector = ra.direction,
                 origin = ra.origin,
                 owner = body.gameObject,
