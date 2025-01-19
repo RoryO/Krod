@@ -1,3 +1,9 @@
+## 0.0.16
+
+- Added Caudal Fin
+- Double Jeremiah's Accident damage (800% -> 1,600%)
+- Adding final art for Ancient Recording System and Discount Coffee
+
 ## 0.0.15
 
 - Added Alien God Hand
