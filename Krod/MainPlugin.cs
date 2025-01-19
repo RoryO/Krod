@@ -3,6 +3,7 @@ using Krod.Buffs;
 using Krod.Equipment;
 using Krod.Items.Tier1;
 using Krod.Items.Tier2;
+using Krod.Items.Tier2.Void;
 using Krod.Items.Tier3;
 using R2API;
 using RoR2;
@@ -43,6 +44,8 @@ namespace Krod
             TheExtra.Awake();
             ToyMotorcycle.Awake();
             NinjaShowerScrub.Awake();
+
+            CaudalFin.Awake();
 
             TimsCrucible.Awake();
             GodHand.Awake();

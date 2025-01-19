@@ -17,5 +17,7 @@ namespace Krod
 
         public static ItemDef TimsCrucible;
         public static ItemDef GodHand;
+
+        public static ItemDef CaudalFin;
     }
 }

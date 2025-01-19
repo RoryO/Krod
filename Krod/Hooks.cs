@@ -5,6 +5,7 @@ using Krod.Items.Tier1;
 using UnityEngine.Networking;
 using Krod.Items.Tier2;
 using Krod.Items.Tier3;
+using Krod.Items.Tier2.Void;
 
 namespace Krod
 {
@@ -25,12 +26,15 @@ namespace Krod
 
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
 
+            On.EntityStates.GenericCharacterMain.ProcessJump += GenericCharacterMain_ProcessJump;
+
             On.RoR2.EquipmentSlot.UpdateTargets += EquipmentSlot_UpdateTargets;
             On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
 
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
+            On.RoR2.GlobalEventManager.IsImmuneToFallDamage += GlobalEventManager_IsImmuneToFallDamage;
 
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
 
@@ -38,6 +42,28 @@ namespace Krod
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static bool GlobalEventManager_IsImmuneToFallDamage(On.RoR2.GlobalEventManager.orig_IsImmuneToFallDamage orig, GlobalEventManager self, CharacterBody body)
+        {
+            if (body.inventory.GetItemCount(KrodItems.CaudalFin) > 0)
+            {
+                CaudalFin.Behavior b = body.gameObject.GetComponent<CaudalFin.Behavior>();
+                if (!b) { return orig(self, body); }
+                return b.launchState == CaudalFin.Behavior.LaunchState.Launched;
+            }
+            else
+            {
+                return orig(self, body);
+            }
+        }
+
+        private static void GenericCharacterMain_ProcessJump(On.EntityStates.GenericCharacterMain.orig_ProcessJump orig, EntityStates.GenericCharacterMain self)
+        {
+            if (!CaudalFin.ProcessJump(self))
+            {
+                orig(self);
+            }
         }
 
         private static void GlobalEventManager_OnCharacterDeath(On.RoR2.GlobalEventManager.orig_OnCharacterDeath orig, GlobalEventManager self, DamageReport damageReport)
@@ -121,19 +147,32 @@ namespace Krod
                 args.sprintSpeedAdd += c * 0.25f;
             }
 
-            if (sender.isSprinting && sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) > 0)
+            if (sender.isSprinting)
             {
-                int c = 0;
-                foreach (var i in ItemCatalog.tier2ItemList)
+                if (sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) > 0)
                 {
-                    c += sender.inventory.GetItemCount(i);
-                }
-                int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
-                int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
-                int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
-                int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
+                    int c = 0;
+                    foreach (var i in ItemCatalog.tier2ItemList)
+                    {
+                        c += sender.inventory.GetItemCount(i);
+                    }
+                    int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
+                    int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
+                    int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
+                    int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
 
-                args.moveSpeedMultAdd += .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
+                    args.moveSpeedMultAdd += .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
+                }
+                int fins = sender.inventory.GetItemCount(KrodItems.CaudalFin);
+                if (fins > 0)
+                {
+                    CaudalFin.Behavior behavior = sender.GetComponent<CaudalFin.Behavior>();
+                
+                    if (behavior && behavior.accelerate)
+                    {
+                        args.moveSpeedMultAdd += 0.5f * fins;
+                    }
+                }
             }
 
             if (sender.HasBuff(Buffs.Defs.TimIsOnFire))
@@ -206,6 +245,7 @@ namespace Krod
                 TheExtra.OnInventoryChanged(self);
                 NinjaShowerScrub.OnInventoryChanged(self);
                 GodHand.OnInventoryChanged(self);
+                CaudalFin.OnInventoryChanged(self);
             }
         }
 
