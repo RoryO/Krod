@@ -2,9 +2,6 @@
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
-using RoR2.ExpansionManagement;
-using System.Linq;
 
 namespace Krod.Items.Tier2.Void
 {
