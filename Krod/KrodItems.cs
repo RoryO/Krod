@@ -19,5 +19,8 @@ namespace Krod
         public static ItemDef GodHand;
 
         public static ItemDef CaudalFin;
+#if DEBUG
+        public static ItemDef PrismaticCoral;
+#endif
     }
 }

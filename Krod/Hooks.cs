@@ -37,11 +37,23 @@ namespace Krod
             On.RoR2.GlobalEventManager.IsImmuneToFallDamage += GlobalEventManager_IsImmuneToFallDamage;
 
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
+            On.RoR2.PurchaseInteraction.CanBeAffordedByInteractor += PurchaseInteraction_CanBeAffordedByInteractor;
 
             On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
+            RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void Ror2Application_onLoad()
+        {
+            //PrismaticCoral.SetUpPayCostDelegates();
+        }
+
+        private static bool PurchaseInteraction_CanBeAffordedByInteractor(On.RoR2.PurchaseInteraction.orig_CanBeAffordedByInteractor orig, PurchaseInteraction self, Interactor activator)
+        {
+            return orig(self, activator);
         }
 
         private static bool GlobalEventManager_IsImmuneToFallDamage(On.RoR2.GlobalEventManager.orig_IsImmuneToFallDamage orig, GlobalEventManager self, CharacterBody body)
@@ -246,8 +258,8 @@ namespace Krod
                 NinjaShowerScrub.OnInventoryChanged(self);
                 GodHand.OnInventoryChanged(self);
             }
-                CaudalFin.OnInventoryChanged(self);
-            }
+            CaudalFin.OnInventoryChanged(self);
+        }
 
         private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
         {

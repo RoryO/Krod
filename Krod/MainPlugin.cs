@@ -6,8 +6,6 @@ using Krod.Items.Tier2;
 using Krod.Items.Tier2.Void;
 using Krod.Items.Tier3;
 using R2API;
-using RoR2;
-using UnityEngine;
 
 namespace Krod
 {
@@ -46,6 +44,9 @@ namespace Krod
             NinjaShowerScrub.Awake();
 
             CaudalFin.Awake();
+#if DEBUG
+            PrismaticCoral.Awake();
+#endif
 
             TimsCrucible.Awake();
             GodHand.Awake();
@@ -57,6 +58,9 @@ namespace Krod
             JeremiahsAccident.Awake();
 
             Hooks.Awake();
+#if DEBUG
+            On.RoR2.Networking.NetworkManagerSystemSteam.OnClientConnect += (s, u, t) => { };
+#endif
         }
 
         private void Update()
@@ -67,7 +71,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = KrodItems.GodHand.itemIndex;
+                var testItem = KrodItems.CaudalFin.itemIndex;
 
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
             }
