@@ -245,9 +245,9 @@ namespace Krod
                 TheExtra.OnInventoryChanged(self);
                 NinjaShowerScrub.OnInventoryChanged(self);
                 GodHand.OnInventoryChanged(self);
+            }
                 CaudalFin.OnInventoryChanged(self);
             }
-        }
 
         private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)
         {
