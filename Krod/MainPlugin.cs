@@ -20,7 +20,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.16";
+        public const string PluginVersion = "0.0.17";
         public static PluginInfo PInfo;
 
         public void Awake()

@@ -1,3 +1,9 @@
+## 0.0.17
+
+- Fixed Caudal Fin not working for network clients
+  - Known bug: network clients suffer fall damage after taking off
+- Added Ninja Shower Scrub final art
+
 ## 0.0.16
 
 - Added Caudal Fin
