@@ -10,7 +10,7 @@ namespace Krod.Items.Tier2
 {
     public static class TheExtra
     {
-        public class TheExtraBehavior : CharacterBody.ItemBehavior
+        public class Behavior : CharacterBody.ItemBehavior
         {
             public float extraStopwatch;
             public void Awake()
@@ -84,12 +84,6 @@ namespace Krod.Items.Tier2
             KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
             KrodItems.TheExtra.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void OnInventoryChanged(CharacterBody self)
-        {
-            self.AddItemBehavior<TheExtraBehavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
         }
     }
 }

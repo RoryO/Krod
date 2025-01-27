@@ -6,6 +6,9 @@ using UnityEngine.Networking;
 using Krod.Items.Tier2;
 using Krod.Items.Tier3;
 using Krod.Items.Tier2.Void;
+using System;
+using UnityEngine;
+using Krod.Items.Lunar;
 
 namespace Krod
 {
@@ -19,7 +22,10 @@ namespace Krod
             On.RoR2.CharacterBody.OnEquipmentGained += CharacterBody_OnEquipmentGained;
             On.RoR2.CharacterBody.OnEquipmentLost += CharacterBody_OnEquipmentLost;
 
+            On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
+
+            On.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
 
             On.RoR2.DotController.OnDotStackAddedServer += DotController_OnDotStackAddedServer;
             On.RoR2.DotController.OnDotStackRemovedServer += DotController_OnDotStackRemovedServer;
@@ -40,10 +46,55 @@ namespace Krod
             On.RoR2.PurchaseInteraction.CanBeAffordedByInteractor += PurchaseInteraction_CanBeAffordedByInteractor;
 
             On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
+
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
+
+            On.RoR2.Stats.StatManager.OnGoldCollected += StatManager_OnGoldCollected;
+
             RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void DeathRewards_OnKilledServer(On.RoR2.DeathRewards.orig_OnKilledServer orig, DeathRewards self, DamageReport damageReport)
+        {
+            if(damageReport.attackerBody.inventory)
+            {
+                int c = damageReport.attackerBody.inventory.GetItemCount(KrodItems.ShipOfRegret);
+                ShipOfRegret.Behavior b = damageReport.attackerBody.GetComponent<ShipOfRegret.Behavior>();
+                if (c == 0 || !b)
+                {
+                    orig(self, damageReport);
+                    return;
+                }
+                uint n = (uint)Mathf.CeilToInt(self.goldReward * c * 3);
+                if (damageReport.victimBody.isElite)
+                {
+                    self.goldReward = n;
+                }
+                else
+                {
+                    self.goldReward = 0;
+                    b.regretAccumulated += n;
+                }
+                orig(self, damageReport);
+            }
+            else
+            {
+                orig(self, damageReport);
+            }
+        }
+
+        private static void CharacterMaster_GiveMoney(On.RoR2.CharacterMaster.orig_GiveMoney orig, CharacterMaster self, uint amount)
+        {
+            System.Diagnostics.StackTrace t = new();
+            Log.Error(t);
+            orig(self, amount);
+        }
+
+        private static void StatManager_OnGoldCollected(On.RoR2.Stats.StatManager.orig_OnGoldCollected orig, CharacterMaster characterMaster, ulong amount)
+        {
+            orig(characterMaster, amount);
         }
 
         private static void Ror2Application_onLoad()
@@ -248,17 +299,25 @@ namespace Krod
         private static void CharacterBody_OnInventoryChanged(On.RoR2.CharacterBody.orig_OnInventoryChanged orig, CharacterBody self)
         {
             orig(self);
-            if (NetworkServer.active && self && self.inventory)
+            if (self && self.inventory)
             {
-                AncientRecordingSystem.OnInventoryChanged(self);
-                DiscountCoffee.OnInventoryChanged(self);
-                LooseCards.OnInventoryChanged(self);
-                MisterBoinky.OnInventoryChanged(self);
-                TheExtra.OnInventoryChanged(self);
-                NinjaShowerScrub.OnInventoryChanged(self);
-                GodHand.OnInventoryChanged(self);
+                if (NetworkServer.active)
+                {
+
+                    AncientRecordingSystem.OnInventoryChanged(self);
+                    self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
+                    self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCount(KrodItems.LooseCards));
+                    self.AddItemBehavior<MisterBoinky.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
+                    self.AddItemBehavior<TheExtra.Behavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
+                    self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCount(KrodItems.NinjaShowerScrub));
+                    self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
+                    self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
+                }
+                else
+                {
+                    self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
+                }
             }
-            CaudalFin.OnInventoryChanged(self);
         }
 
         private static bool EquipmentSlot_PerformEquipmentAction(On.RoR2.EquipmentSlot.orig_PerformEquipmentAction orig, EquipmentSlot self, EquipmentDef equipmentDef)

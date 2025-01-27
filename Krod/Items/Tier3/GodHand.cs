@@ -1,5 +1,6 @@
 ﻿using R2API;
 using RoR2;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -113,11 +114,6 @@ namespace Krod.Items.Tier3
             KrodItems.GodHand.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/AlienGodHand.png");
             KrodItems.GodHand.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.GodHand, new ItemDisplayRuleDict(null)));
-        }
-
-        public static void OnInventoryChanged(CharacterBody self)
-        {
-            self.AddItemBehavior<Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
         }
 
         public static void OnSkillActivated(CharacterBody self, GenericSkill skill)

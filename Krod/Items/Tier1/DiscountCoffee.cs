@@ -9,7 +9,7 @@ namespace Krod.Items.Tier1
 {
     public static class DiscountCoffee
     {
-        public class DiscountCoffeeBehavior : CharacterBody.ItemBehavior
+        public class Behavior : CharacterBody.ItemBehavior
         {
             public void Awake()
             {
@@ -72,12 +72,6 @@ namespace Krod.Items.Tier1
                     characterBody.AddTimedBuff(buff, 50f + (c * 10f));
                 }
             }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void OnInventoryChanged(CharacterBody self)
-        {
-            self.AddItemBehavior<DiscountCoffeeBehavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
         }
     }
 }

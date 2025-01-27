@@ -10,7 +10,7 @@ namespace Krod.Equipment
 {
     public class AncientRecordingSystem
     {
-        public class AncientRecordingSystemBehavior : MonoBehaviour
+        public class Behavior : MonoBehaviour
         {
             public float stopwatch = 0;
             public float bestDamage = 0;
@@ -111,7 +111,7 @@ namespace Krod.Equipment
             Log.Info("hi");
             CharacterBody body = self.characterBody;
             if (body == null) { return false; }
-            AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+            Behavior b = body.gameObject.GetComponent<Behavior>();
             if (b == null) { return false; }
             Log.Info($"dazzling for {b.bestDamage}");
             if (!self.currentTarget.transformToIndicateAt) { return false; }
@@ -144,7 +144,7 @@ namespace Krod.Equipment
                 body.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex &&
                 !damageReport.damageInfo.HasModdedDamageType(customDamageType))
             {
-                AncientRecordingSystemBehavior b = body.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+                Behavior b = body.gameObject.GetComponent<Behavior>();
                 if (b != null)
                 {
                     b.runningTotalDamage += damageReport.damageDealt;
@@ -157,10 +157,10 @@ namespace Krod.Equipment
         {
             if (self.inventory.currentEquipmentIndex == KrodEquipment.AncientRecordingSystem.equipmentIndex)
             {
-                AncientRecordingSystemBehavior b = self.gameObject.GetComponent<AncientRecordingSystemBehavior>();
+                Behavior b = self.gameObject.GetComponent<Behavior>();
                 if (b == null)
                 {
-                    self.gameObject.AddComponent<AncientRecordingSystemBehavior>();
+                    self.gameObject.AddComponent<Behavior>();
                 }
             }
         }

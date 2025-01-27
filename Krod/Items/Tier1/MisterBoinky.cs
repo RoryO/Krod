@@ -11,7 +11,7 @@ namespace Krod.Items.Tier1
 {
     public static class MisterBoinky
     {
-        public class MisterBoinkyBehavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver 
+        public class Behavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver 
         {
             public void Awake()
             {
@@ -112,12 +112,6 @@ namespace Krod.Items.Tier1
             KrodItems.MisterBoinky.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
             KrodItems.MisterBoinky.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict(null)));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void OnInventoryChanged(CharacterBody self)
-        {
-            self.AddItemBehavior<MisterBoinkyBehavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
         }
     }
 }

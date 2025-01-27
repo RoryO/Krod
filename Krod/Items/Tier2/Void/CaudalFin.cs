@@ -2,6 +2,7 @@
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier2.Void
 {
@@ -95,11 +96,6 @@ namespace Krod.Items.Tier2.Void
             ContentAddition.AddItemRelationshipProvider(provider);
         }
 
-        public static void OnInventoryChanged(CharacterBody body)
-        {
-            int c = body.inventory.GetItemCount(KrodItems.CaudalFin);
-            body.AddItemBehavior<Behavior>(body.inventory.GetItemCount(KrodItems.CaudalFin));
-        }
         public static bool ProcessJump(EntityStates.GenericCharacterMain characterMain)
         {
             CharacterBody body = characterMain.characterBody;

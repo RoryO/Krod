@@ -5,7 +5,7 @@ namespace Krod
     {
         public static ItemDef ArcadeToken;
         public static ItemDef DiscountCoffee;
-        public static ItemDef LooseCard;
+        public static ItemDef LooseCards;
         public static ItemDef MisterBoinky;
         public static ItemDef MisterBoinkyConsumed;
 
@@ -22,5 +22,7 @@ namespace Krod
 #if DEBUG
         public static ItemDef PrismaticCoral;
 #endif
+
+        public static ItemDef ShipOfRegret;
     }
 }

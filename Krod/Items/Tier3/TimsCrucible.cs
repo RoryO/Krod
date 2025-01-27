@@ -1,5 +1,4 @@
-﻿using Krod.Buffs;
-using R2API;
+﻿using R2API;
 using RoR2;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -9,6 +8,7 @@ namespace Krod.Items.Tier3
 {
     public static class TimsCrucible
     {
+        public static BuffDef buffDef;
         public static void Awake()
         {
             KrodItems.TimsCrucible = ScriptableObject.CreateInstance<ItemDef>();
@@ -23,6 +23,14 @@ namespace Krod.Items.Tier3
             KrodItems.TimsCrucible.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
             KrodItems.TimsCrucible.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.TimsCrucible, new ItemDisplayRuleDict(null)));
+            buffDef = ScriptableObject.CreateInstance<BuffDef>();
+            buffDef.canStack = false;
+            buffDef.isDebuff = false;
+            buffDef.isCooldown = false;
+            buffDef.name = "TimIsOnFire";
+            buffDef.buffColor = Color.white;
+            buffDef.iconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
+            ContentAddition.AddBuffDef(buffDef);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -30,7 +38,7 @@ namespace Krod.Items.Tier3
         {
             if (self != null && equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex)
             {
-                self.RemoveBuff(Defs.TimIsOnFire);
+                self.RemoveBuff(buffDef);
             }
         }
 
@@ -42,7 +50,7 @@ namespace Krod.Items.Tier3
                 self.inventory != null &&
                 self.inventory.GetItemCount(KrodItems.TimsCrucible) > 0)
             {
-                self.AddBuff(Defs.TimIsOnFire);
+                self.AddBuff(buffDef);
             }
         }
 
@@ -99,9 +107,9 @@ namespace Krod.Items.Tier3
                 if(self.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
                 {
                     CharacterBody body = self.victimBody;
-                    if (body != null && body.HasBuff(Defs.TimIsOnFire))
+                    if (body != null && body.HasBuff(buffDef))
                     {
-                        body.RemoveBuff(Defs.TimIsOnFire);
+                        body.RemoveBuff(buffDef);
                         body.RemoveBuff(RoR2Content.Buffs.AffixRed);
                     }
                 }
@@ -117,9 +125,9 @@ namespace Krod.Items.Tier3
                 if (body != null && 
                     body.inventory != null && 
                     body?.inventory?.GetItemCount(KrodItems.TimsCrucible) > 0 && 
-                    !body.HasBuff(Defs.TimIsOnFire))
+                    !body.HasBuff(buffDef))
                 {
-                    self.victimBody.AddBuff(Defs.TimIsOnFire);
+                    self.victimBody.AddBuff(buffDef);
                     self.victimBody.AddBuff(RoR2Content.Buffs.AffixRed);
                 }
             }
