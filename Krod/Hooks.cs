@@ -267,6 +267,7 @@ namespace Krod
             Inventory inventory = (master.inventory ? master.inventory : null);
             if (master &&
                 inventory &&
+                master.inventory.currentEquipmentIndex != DLC1Content.Equipment.MultiShopCard.equipmentIndex &&
                 inventory.GetItemCount(KrodItems.ArcadeToken) > 0 &&
                 context.purchasedObject)
             {

@@ -29,28 +29,22 @@ namespace Krod.Items.Tier1
         public static void OnPurchase(CostTypeDef.PayCostContext context)
         {
             CharacterMaster master = context.activatorMaster;
-            if (master && 
-                master.inventory && 
-                master.inventory.GetItemCount(KrodItems.ArcadeToken) > 0 && 
-                context.purchasedObject)
+            ShopTerminalBehavior behavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
+            if (behavior && behavior.serverMultiShopController)
             {
-                ShopTerminalBehavior behavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
-                if (behavior && behavior.serverMultiShopController)
+                int remaining = (
+                    from obj in behavior.serverMultiShopController.terminalGameObjects
+                    where (obj.GetComponent<PurchaseInteraction>()?.Networkavailable ?? false)
+                    select obj
+                ).Count();
+                if (remaining > 1)
                 {
-                    int remaining = (
-                        from obj in behavior.serverMultiShopController.terminalGameObjects 
-                        where (obj.GetComponent<PurchaseInteraction>()?.Networkavailable ?? false)
-                        select obj
-                    ).Count();
-                    if (remaining > 1)
-                    {
-                        behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
-                        master.inventory.RemoveItem(KrodItems.ArcadeToken);
-                        PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position, 
-                            context.purchasedObject.gameObject, 
-                            KrodItems.ArcadeToken.itemIndex);
-                        AkSoundEngine.PostEvent("KInsertToken", context.activatorBody.gameObject);
-                    }
+                    behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
+                    master.inventory.RemoveItem(KrodItems.ArcadeToken);
+                    PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position,
+                        context.purchasedObject.gameObject,
+                        KrodItems.ArcadeToken.itemIndex);
+                    AkSoundEngine.PostEvent("KInsertToken", context.activatorBody.gameObject);
                 }
             }
         }
