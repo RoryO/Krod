@@ -238,7 +238,7 @@ namespace Krod
                 }
             }
 
-            if (sender.HasBuff(Buffs.Defs.TimIsOnFire))
+            if (sender.HasBuff(TimsCrucible.buffDef))
             {
                 int m = sender.inventory.GetItemCount(KrodItems.TimsCrucible);
                 args.attackSpeedMultAdd += 0.3f * m;

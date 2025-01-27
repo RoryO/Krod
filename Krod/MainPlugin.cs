@@ -1,11 +1,13 @@
 using BepInEx;
-using Krod.Buffs;
 using Krod.Equipment;
+using Krod.Items.Lunar;
 using Krod.Items.Tier1;
 using Krod.Items.Tier2;
 using Krod.Items.Tier2.Void;
 using Krod.Items.Tier3;
 using R2API;
+using RoR2;
+using UnityEngine;
 
 namespace Krod
 {
@@ -30,7 +32,6 @@ namespace Krod
             PInfo = Info;
 
             Assets.Init();
-            Defs.Awake();
 
             LooseCards.Awake();
             MisterBoinky.Awake();
@@ -46,6 +47,7 @@ namespace Krod
             CaudalFin.Awake();
 #if DEBUG
             PrismaticCoral.Awake();
+            ShipOfRegret.Awake();
 #endif
 
             TimsCrucible.Awake();
@@ -71,7 +73,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = KrodItems.CaudalFin.itemIndex;
+                var testItem = KrodItems.ShipOfRegret.itemIndex;
 
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
             }
