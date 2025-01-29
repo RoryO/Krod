@@ -45,9 +45,11 @@ namespace Krod
             NinjaShowerScrub.Awake();
 
             CaudalFin.Awake();
+
+            ShipOfRegret.Awake();
+
 #if DEBUG
             PrismaticCoral.Awake();
-            ShipOfRegret.Awake();
 #endif
 
             TimsCrucible.Awake();
