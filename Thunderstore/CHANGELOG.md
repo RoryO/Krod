@@ -1,3 +1,9 @@
+## 0.0.18
+
+- Added Ship of Regret
+- Added final art for Aileen's Glas Eye
+- Fixed taking Arcade Token while also holding Executive Card
+
 ## 0.0.17
 
 - Fixed Caudal Fin not working for network clients
