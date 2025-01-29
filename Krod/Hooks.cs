@@ -68,7 +68,11 @@ namespace Krod
                         Chat.SimpleChatMessage msg = new()
                         {
                             baseToken = "Cannot leave, {0} holds regret",
-                            paramTokens = [body.GetDisplayName()]
+                            paramTokens = [
+                                Util.EscapeRichTextForTextMeshPro(
+                                    Util.GetBestBodyName(body.gameObject)
+                                )
+                            ]
                         };
                         Chat.SendBroadcastChat(msg);
                         shouldPreventExit = true;
