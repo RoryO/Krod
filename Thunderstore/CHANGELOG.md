@@ -1,3 +1,9 @@
+## 0.0.19
+
+- Fixed Ship of Regret not appearing
+- Fixed Caudal Fin not working on host
+- Fixed Caudal Fin allowing fall damage on client
+
 ## 0.0.18
 
 - Added Ship of Regret
