@@ -34,7 +34,6 @@ namespace Krod
             On.RoR2.EquipmentSlot.UpdateTargets += EquipmentSlot_UpdateTargets;
             On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
 
-            On.RoR2.GlobalEventManager.IsImmuneToFallDamage += GlobalEventManager_IsImmuneToFallDamage;
             On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
@@ -141,20 +140,6 @@ namespace Krod
         private static bool PurchaseInteraction_CanBeAffordedByInteractor(On.RoR2.PurchaseInteraction.orig_CanBeAffordedByInteractor orig, PurchaseInteraction self, Interactor activator)
         {
             return orig(self, activator);
-        }
-
-        private static bool GlobalEventManager_IsImmuneToFallDamage(On.RoR2.GlobalEventManager.orig_IsImmuneToFallDamage orig, GlobalEventManager self, CharacterBody body)
-        {
-            if (body.inventory.GetItemCount(KrodItems.CaudalFin) > 0)
-            {
-                CaudalFin.Behavior b = body.gameObject.GetComponent<CaudalFin.Behavior>();
-                if (!b) { return orig(self, body); }
-                return b.launchState == CaudalFin.Behavior.LaunchState.Launched;
-            }
-            else
-            {
-                return orig(self, body);
-            }
         }
 
         private static void GenericCharacterMain_ProcessJump(On.EntityStates.GenericCharacterMain.orig_ProcessJump orig, EntityStates.GenericCharacterMain self)

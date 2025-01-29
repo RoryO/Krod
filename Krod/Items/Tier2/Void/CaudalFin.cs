@@ -2,7 +2,6 @@
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier2.Void
 {
@@ -63,6 +62,7 @@ namespace Krod.Items.Tier2.Void
                     launchState = LaunchState.Walking;
                     launchStopwatch = 0;
                     accelerate = false;
+                    body.RemoveBuff(JunkContent.Buffs.IgnoreFallDamage);
                     body.RecalculateStats();
                 }
             }
@@ -129,6 +129,7 @@ namespace Krod.Items.Tier2.Void
                     b.launchState = Behavior.LaunchState.Launched;
                     b.launchStopwatch = 0;
                     EntityStates.GenericCharacterMain.ApplyJumpVelocity(body.characterMotor, body, 2, 2.3f + (0.2f * c));
+                    body.AddBuff(JunkContent.Buffs.IgnoreFallDamage);
                     return true;
                 }
                 /*
