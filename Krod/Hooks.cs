@@ -350,10 +350,7 @@ namespace Krod
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
                 }
-                else
-                {
-                    self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
-                }
+                self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
             }
         }
 
