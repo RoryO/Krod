@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 using Krod.Items.Tier2;
 using Krod.Items.Tier3;
 using Krod.Items.Tier2.Void;
-using System;
 using UnityEngine;
 using Krod.Items.Lunar;
 
@@ -16,66 +15,105 @@ namespace Krod
     {
         public static void Awake()
         {
-            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
-            On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
-            On.RoR2.CharacterBody.OnSkillActivated += CharacterBody_OnSkillActivated;
+            On.EntityStates.GenericCharacterMain.ProcessJump += GenericCharacterMain_ProcessJump;
+
             On.RoR2.CharacterBody.OnEquipmentGained += CharacterBody_OnEquipmentGained;
             On.RoR2.CharacterBody.OnEquipmentLost += CharacterBody_OnEquipmentLost;
+            On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
+            On.RoR2.CharacterBody.OnSkillActivated += CharacterBody_OnSkillActivated;
+            On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
 
-            On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
+            On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
 
             On.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
 
             On.RoR2.DotController.OnDotStackAddedServer += DotController_OnDotStackAddedServer;
             On.RoR2.DotController.OnDotStackRemovedServer += DotController_OnDotStackRemovedServer;
 
-            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
-
-            On.EntityStates.GenericCharacterMain.ProcessJump += GenericCharacterMain_ProcessJump;
-
             On.RoR2.EquipmentSlot.UpdateTargets += EquipmentSlot_UpdateTargets;
             On.RoR2.EquipmentSlot.PerformEquipmentAction += EquipmentSlot_PerformEquipmentAction;
 
+            On.RoR2.GlobalEventManager.IsImmuneToFallDamage += GlobalEventManager_IsImmuneToFallDamage;
+            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
             On.RoR2.GlobalEventManager.OnHitEnemy += GlobalEventManager_OnHitEnemy;
             On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
-            On.RoR2.GlobalEventManager.OnCharacterDeath += GlobalEventManager_OnCharacterDeath;
-            On.RoR2.GlobalEventManager.IsImmuneToFallDamage += GlobalEventManager_IsImmuneToFallDamage;
 
-            On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
+            On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+
             On.RoR2.PurchaseInteraction.CanBeAffordedByInteractor += PurchaseInteraction_CanBeAffordedByInteractor;
+            On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
 
-            On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
+            On.RoR2.SceneExitController.Begin += SceneExitController_Begin;
 
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
-            On.RoR2.Stats.StatManager.OnGoldCollected += StatManager_OnGoldCollected;
+            On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
 
             RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
         }
 
+        private static void SceneExitController_Begin(On.RoR2.SceneExitController.orig_Begin orig, SceneExitController self)
+        {
+            if (NetworkServer.active)
+            {
+                bool shouldPreventExit = false;
+                for (int i = 0; i < PlayerCharacterMasterController.instances.Count; i++)
+                {
+                    CharacterBody body = PlayerCharacterMasterController.instances[i].body;
+                    if (body && body.HasBuff(ShipOfRegret.buffDef))
+                    {
+                        Chat.SimpleChatMessage msg = new()
+                        {
+                            baseToken = "Cannot leave, {0} holds regret",
+                            paramTokens = [body.GetDisplayName()]
+                        };
+                        Chat.SendBroadcastChat(msg);
+                        shouldPreventExit = true;
+                    }
+                }
+                if (shouldPreventExit) {
+                    self.SetState(SceneExitController.ExitState.Idle);
+                    GenericInteraction genericInteraction = self.GetComponent<GenericInteraction>();
+                    if (genericInteraction)
+                    {
+                        genericInteraction.SetInteractabilityAvailable();
+                    }
+                    return; 
+                }
+                else { orig(self); }
+            }
+            else { orig(self); }
+        }
+
         private static void DeathRewards_OnKilledServer(On.RoR2.DeathRewards.orig_OnKilledServer orig, DeathRewards self, DamageReport damageReport)
         {
-            if(damageReport.attackerBody.inventory)
+            CharacterBody body = damageReport.attackerBody;
+            if (!body)
             {
-                int c = damageReport.attackerBody.inventory.GetItemCount(KrodItems.ShipOfRegret);
-                ShipOfRegret.Behavior b = damageReport.attackerBody.GetComponent<ShipOfRegret.Behavior>();
+                orig(self, damageReport);
+                return;
+            }
+            Inventory inventory = body.inventory;
+            if (inventory)
+            {
+                int c = inventory.GetItemCount(KrodItems.ShipOfRegret);
+                ShipOfRegret.Behavior b = body.GetComponent<ShipOfRegret.Behavior>();
                 if (c == 0 || !b)
                 {
                     orig(self, damageReport);
                     return;
                 }
-                uint n = (uint)Mathf.CeilToInt(self.goldReward * c * 3);
                 if (damageReport.victimBody.isElite)
                 {
-                    self.goldReward = n;
+                    self.goldReward = (uint)Mathf.CeilToInt(self.goldReward * c * 3);
                 }
                 else
                 {
+                    b.AddRegret(self.goldReward);
                     self.goldReward = 0;
-                    b.regretAccumulated += n;
                 }
                 orig(self, damageReport);
             }
@@ -87,14 +125,8 @@ namespace Krod
 
         private static void CharacterMaster_GiveMoney(On.RoR2.CharacterMaster.orig_GiveMoney orig, CharacterMaster self, uint amount)
         {
-            System.Diagnostics.StackTrace t = new();
-            Log.Error(t);
+            ShipOfRegret.GiveMoney(self, amount);
             orig(self, amount);
-        }
-
-        private static void StatManager_OnGoldCollected(On.RoR2.Stats.StatManager.orig_OnGoldCollected orig, CharacterMaster characterMaster, ulong amount)
-        {
-            orig(characterMaster, amount);
         }
 
         private static void Ror2Application_onLoad()
@@ -230,7 +262,7 @@ namespace Krod
                 if (fins > 0)
                 {
                     CaudalFin.Behavior behavior = sender.GetComponent<CaudalFin.Behavior>();
-                
+
                     if (behavior && behavior.accelerate)
                     {
                         args.moveSpeedMultAdd += 0.5f * fins;

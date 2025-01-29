@@ -61,7 +61,7 @@ namespace Krod
 
             Hooks.Awake();
 #if DEBUG
-            On.RoR2.Networking.NetworkManagerSystemSteam.OnClientConnect += (s, u, t) => { };
+            //On.RoR2.Networking.NetworkManagerSystemSteam.OnClientConnect += (s, u, t) => { };
 #endif
         }
 
