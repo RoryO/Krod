@@ -48,7 +48,7 @@ namespace Krod.Items.Lunar
                     Log.Info("accelerated regret removal");
                     n *= 4;
                 }
-                int c = (int)regretAccumulated - (int)n;
+                int c = (int)regretAccumulated - Mathf.FloorToInt((n / PlayerCharacterMasterController.instances.Count));
                 if (c < 0)
                 {
                     if (body.HasBuff(buffDef))
