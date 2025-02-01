@@ -22,6 +22,7 @@ namespace Krod
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
             On.RoR2.CharacterBody.OnSkillActivated += CharacterBody_OnSkillActivated;
             On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
+            On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
 
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
             On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
@@ -52,6 +53,23 @@ namespace Krod
             RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
+        {
+            orig(self);
+            if (!self || !self.master) { return; }
+            self.master.luck = 0;
+            self.master.luck += self.inventory.GetItemCount(RoR2Content.Items.Clover);
+            self.master.luck -= self.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck);
+            if (self.HasBuff(WeightedDice.addLuckBuff))
+            {
+                self.master.luck += 1;
+            }
+
+            if (self.HasBuff(WeightedDice.removeLuckBuff)) { 
+                self.master.luck -= 1; 
+            }
         }
 
         private static void SceneExitController_Begin(On.RoR2.SceneExitController.orig_Begin orig, SceneExitController self)
@@ -325,7 +343,6 @@ namespace Krod
             {
                 if (NetworkServer.active)
                 {
-
                     AncientRecordingSystem.OnInventoryChanged(self);
                     self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
                     self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCount(KrodItems.LooseCards));
@@ -334,6 +351,7 @@ namespace Krod
                     self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCount(KrodItems.NinjaShowerScrub));
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
+                    self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
                 }
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
             }

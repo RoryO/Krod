@@ -8,6 +8,7 @@ namespace Krod
         public static ItemDef LooseCards;
         public static ItemDef MisterBoinky;
         public static ItemDef MisterBoinkyConsumed;
+        public static ItemDef WeightedDice;
 
         public static ItemDef DoubleFish;
         public static ItemDef TheExtra;
