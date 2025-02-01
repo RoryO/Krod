@@ -1,0 +1,3 @@
+pre-launch should jump on release
+should keep forward velocity in the air
+charging in air when should not be

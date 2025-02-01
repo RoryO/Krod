@@ -1,3 +1,8 @@
+## 0.0.20
+
+- Added Weighted Dice
+- Adjusted Ship of Regret scaling for multiple players
+
 ## 0.0.19
 
 - Fixed Ship of Regret not appearing
