@@ -1,5 +1,4 @@
-﻿#if DEBUG
-using RoR2;
+﻿using RoR2;
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -28,7 +27,6 @@ namespace Krod.Items.Tier2.Void
             KrodItems.PrismaticCoral.loreToken = "PRISMATIC_CORAL_LORE";
             KrodItems.PrismaticCoral.tags = [
                 ItemTag.Utility, 
-                ItemTag.PriorityScrap
             ];
             KrodItems.PrismaticCoral._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/DLC1/Common/VoidTier2Def.asset").WaitForCompletion();
             KrodItems.PrismaticCoral.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/PrismaticCoral.png");
@@ -60,20 +58,66 @@ namespace Krod.Items.Tier2.Void
             origPayWhiteItemDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].payCost;
             origAffordableWhiteDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].isAffordable;
 
-            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].payCost = PayWhiteCostWithCoral;
-            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].isAffordable = IsAffordableWhiteDelegate;
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].payCost = PayCostWithCoral;
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.WhiteItem].isAffordable = IsAffordableDelegate;
 
             origPayGreenItemDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.GreenItem].payCost;
             origAffordableGreenDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.GreenItem].isAffordable;
 
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.GreenItem].payCost = PayCostWithCoral;
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.GreenItem].isAffordable = IsAffordableDelegate;
+
             origPayRedItemDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.RedItem].payCost;
             origAffordableRedDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.RedItem].isAffordable;
 
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.RedItem].payCost = PayCostWithCoral;
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.RedItem].isAffordable = IsAffordableDelegate;
+
             origPayBossItemDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.BossItem].payCost;
             origAffordableBossDelegate = CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.BossItem].isAffordable;
+
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.BossItem].payCost = PayCostWithCoral;
+            CostTypeCatalog.costTypeDefs[(int)CostTypeIndex.BossItem].isAffordable = IsAffordableDelegate;
         }
 
-        public static void PayWhiteCostWithCoral(CostTypeDef costTypeDef, CostTypeDef.PayCostContext context)
+        public static void CallOriginalPayDelegate(CostTypeDef costTypeDef, CostTypeDef.PayCostContext context)
+        {
+                switch(costTypeDef.itemTier)
+                {
+                    case ItemTier.Tier1:
+                        origPayWhiteItemDelegate(costTypeDef, context);
+                        break;
+                    case ItemTier.Tier2:
+                        origPayGreenItemDelegate(costTypeDef, context);
+                        break;
+                    case ItemTier.Tier3:
+                        origPayRedItemDelegate(costTypeDef, context);
+                        break;
+                    case ItemTier.Boss:
+                        origPayBossItemDelegate(costTypeDef, context);
+                        break;
+                    default:
+                        throw new System.Exception($"Unsupported tier {costTypeDef.itemTier}");
+                }
+        }
+        public static bool CallOriginalAffordableDelegate(CostTypeDef costTypeDef, CostTypeDef.IsAffordableContext context)
+        {
+                switch(costTypeDef.itemTier)
+                {
+                    case ItemTier.Tier1:
+                        return origAffordableWhiteDelegate(costTypeDef, context);
+                    case ItemTier.Tier2:
+                        return origAffordableGreenDelegate(costTypeDef, context);
+                    case ItemTier.Tier3:
+                        return origAffordableRedDelegate(costTypeDef, context);
+                    case ItemTier.Boss:
+                        return origAffordableBossDelegate(costTypeDef, context);
+                    default:
+                        throw new System.Exception($"Unsupported tier {costTypeDef.itemTier}");
+                }
+        }
+
+        public static void PayCostWithCoral(CostTypeDef costTypeDef, CostTypeDef.PayCostContext context)
         {
             CharacterBody body = context.activator.GetComponent<CharacterBody>();
             if (!body) { return; }
@@ -82,11 +126,75 @@ namespace Krod.Items.Tier2.Void
             int numCoral = inv.GetItemCount(KrodItems.PrismaticCoral);
             if (numCoral == 0)
             {
-                origPayWhiteItemDelegate(costTypeDef, context);
+                CallOriginalPayDelegate(costTypeDef, context);
+                return;
+            }
+
+            ItemDef scrap = ScrapItemForTier(costTypeDef.itemTier);
+            int numScrapHeld = inv.GetItemCount(scrap);
+
+            if (numScrapHeld == context.cost)
+            {
+                CallOriginalPayDelegate(costTypeDef, context);
+                return;
+            }
+
+            int totalCostPaid = 0;
+            while (numScrapHeld > 0)
+            {
+                context.results.itemsTaken.Add(scrap.itemIndex);
+                numScrapHeld--;
+                totalCostPaid++;
+            }
+
+            while (numCoral > 0)
+            {
+                context.results.itemsTaken.Add(KrodItems.PrismaticCoral.itemIndex);
+                numCoral--;
+                totalCostPaid++;
+                if (totalCostPaid >= context.cost) { break; }
+            }
+
+            if (totalCostPaid < context.cost)
+            {
+                var selection = new WeightedSelection<ItemIndex>();
+                foreach (var idx in ItemCatalog.allItems)
+                {
+                    if (ItemCatalog.GetItemDef(idx).tier == costTypeDef.itemTier &&
+                        (idx != scrap.itemIndex || idx != context.avoidedItemIndex)
+                    )
+                    {
+                        int c = inv.GetItemCount(idx);
+                        if (c == 0) { continue; }
+                        selection.AddChoice(idx, c);
+                    }
+                }
+
+                while (totalCostPaid < context.cost)
+                {
+                    int choiceIdx = selection.EvaluateToChoiceIndex(context.rng.nextNormalizedFloat);
+                    var choice = selection.GetChoice(choiceIdx);
+                    ItemIndex itemIdx = choice.value;
+                    float weight = choice.weight - 1;
+                    context.results.itemsTaken.Add(itemIdx);
+                    if (weight <= 0)
+                    {
+                        selection.RemoveChoice(choiceIdx);
+                    }
+                    else
+                    {
+                        selection.ModifyChoiceWeight(choiceIdx, weight);
+                    }
+                    totalCostPaid++;
+                }
+            }
+            foreach (ItemIndex idx in context.results.itemsTaken)
+            {
+                inv.RemoveItem(idx);
             }
         }
 
-        public static bool IsAffordableWhiteDelegate(CostTypeDef costTypeDef, CostTypeDef.IsAffordableContext context)
+        public static bool IsAffordableDelegate(CostTypeDef costTypeDef, CostTypeDef.IsAffordableContext context)
         {
             CharacterBody body = context.activator.GetComponent<CharacterBody>();
             if (!body) { return false; }
@@ -95,76 +203,21 @@ namespace Krod.Items.Tier2.Void
             int numCoral = inv.GetItemCount(KrodItems.PrismaticCoral);
             if (numCoral == 0)
             {
-                return origAffordableWhiteDelegate(costTypeDef, context);
+                return CallOriginalAffordableDelegate(costTypeDef, context);
             }
             else
             {
                 return inv.HasAtLeastXTotalItemsOfTier(costTypeDef.itemTier, context.cost - numCoral);
             }
-
         }
 
-        // CostTypeDef.payCost delegate might work instead. The original delegates are 'hidden'
-        // as they are defined within CostTypeCatalog.Init method and not accessable static methods.
-
-        /*
-        public static (bool, CostTypeDef.PayCostResults) CanBePaidWithCoral(PurchaseInteraction purchaseInteraction, Interactor activator)
+        public static ItemDef ScrapItemForTier(ItemTier tier) => tier switch
         {
-            CharacterBody body = activator.GetComponent<CharacterBody>();
-            List<PayCoralCost> rvalue = new List<PayCoralCost>();
-
-            if (!body) { return (false, rvalue); }
-            Inventory inv = body.inventory;
-            if (!inv) { return (false, rvalue); }
-            int numCoral = inv.GetItemCount(KrodItems.PrismaticCoral);
-            if (numCoral == 0)
-            {
-                return (false, rvalue);
-            }
-            if (
-                purchaseInteraction.costType != CostTypeIndex.WhiteItem ||
-                purchaseInteraction.costType != CostTypeIndex.GreenItem ||
-                purchaseInteraction.costType != CostTypeIndex.RedItem ||
-                purchaseInteraction.costType != CostTypeIndex.BossItem)
-            {
-                return (false, rvalue);
-            }
-
-            ItemDef scrapDef = ScrapItemForPrinter(purchaseInteraction.costType);
-
-            int numScrapHeld = inv.GetItemCount(scrapDef);
-            if (numScrapHeld >= purchaseInteraction.cost)
-            {
-                return (false, rvalue);
-            }
-            if ((numScrapHeld + numCoral) < purchaseInteraction.cost)
-            {
-                return (false, rvalue);
-            }
-
-            int coralRequired = numCoral;
-            if (numScrapHeld > 0)
-            {
-                coralRequired -= numScrapHeld;
-                for (int i = 0; i < numScrapHeld; i++)
-                {
-                }
-            }
-            for (int i = 0; i < coralRequired; ++i)
-            {
-            }
-            return (true, rvalue);
-        }
-
-        public static ItemDef ScrapItemForPrinter(CostTypeIndex idx) => idx switch
-        {
-            CostTypeIndex.WhiteItem => RoR2Content.Items.ScrapWhite,
-            CostTypeIndex.GreenItem => RoR2Content.Items.ScrapGreen,
-            CostTypeIndex.RedItem => RoR2Content.Items.ScrapRed,
-            CostTypeIndex.BossItem => RoR2Content.Items.ScrapYellow,
-            _ => throw new System.ArgumentException($"Unknown cost type {idx}"),
+            ItemTier.Tier1 => RoR2Content.Items.ScrapWhite,
+            ItemTier.Tier2 => RoR2Content.Items.ScrapGreen,
+            ItemTier.Tier3 => RoR2Content.Items.ScrapRed,
+            ItemTier.Boss => RoR2Content.Items.ScrapYellow,
+            _ => throw new System.ArgumentException($"Unknown tier {tier}"),
         };
-        */
     }
 }
-#endif

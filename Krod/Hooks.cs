@@ -152,7 +152,7 @@ namespace Krod
 
         private static void Ror2Application_onLoad()
         {
-            //PrismaticCoral.SetUpPayCostDelegates();
+            PrismaticCoral.SetUpPayCostDelegates();
         }
 
         private static bool PurchaseInteraction_CanBeAffordedByInteractor(On.RoR2.PurchaseInteraction.orig_CanBeAffordedByInteractor orig, PurchaseInteraction self, Interactor activator)

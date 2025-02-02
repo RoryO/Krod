@@ -46,12 +46,7 @@ namespace Krod
             NinjaShowerScrub.Awake();
 
             CaudalFin.Awake();
-
-            ShipOfRegret.Awake();
-
-#if DEBUG
             PrismaticCoral.Awake();
-#endif
 
             TimsCrucible.Awake();
             GodHand.Awake();
@@ -61,6 +56,8 @@ namespace Krod
             AileensGlassEye.Awake();
             AncientRecordingSystem.Awake();
             JeremiahsAccident.Awake();
+
+            ShipOfRegret.Awake();
 
             Hooks.Awake();
 #if DEBUG
