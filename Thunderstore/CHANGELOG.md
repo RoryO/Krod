@@ -1,3 +1,7 @@
+## 0.0.21
+
+- Adding Prismatic Coral
+
 ## 0.0.20
 
 - Added Weighted Dice
