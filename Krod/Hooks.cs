@@ -56,6 +56,28 @@ namespace Krod
             RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+
+#if DEBUG
+            On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
+            On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
+#endif
+        }
+
+        private static void MPEventSystemManager_Update(On.RoR2.MPEventSystemManager.orig_Update orig, MPEventSystemManager self)
+        {
+            orig(self);
+            if (Cursor.lockState == CursorLockMode.Confined)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+        private static void RoR2Application_UpdateCursorState(On.RoR2.RoR2Application.orig_UpdateCursorState orig)
+        {
+            orig();
+            if (Cursor.lockState == CursorLockMode.Confined)
+            {
+                Cursor.lockState = CursorLockMode.None;
         }
 
         private static void PingIndicator_RebuildPing(On.RoR2.UI.PingIndicator.orig_RebuildPing orig, RoR2.UI.PingIndicator self)
