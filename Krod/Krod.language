@@ -61,6 +61,11 @@
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
     "TIMS_CRUCIBLE_DESC": "<style=cIsHealing>Negates all fire damage</style>. While on fire, increases <style=cIsHealing>armor by 20</style> <style=cStack>(+20 per stack)</style>, <style=cIsDamage>attack speed by 30%</style> <style=cStack>(+30% per stack)</style>, and <style=cIsUtility>movement speed by 20%</style> <style=cStack>(+20% per stack)</style>. Using your utility skill lights you on fire for 2.5 <style=cStack>(+0.5 seconds per stack)</style>, maximum of 7.5 seconds.",
 
+    "RORYS_FORSIGHT_NAME": "Rory's Forsight",
+    "RORYS_FORSIGHT_PICKUP": "Manifest the future",
+    "RORYS_FORSIGHT_DESC": "Manifest the future",
+    "RORYS_FORSIGHT_LORE": "You'd think this would be a wonderful gift. Having trustworthy knowledge of the future. I've relied on it. I had to. It's all I know.\n\nIt sounds so conceited. I don't like this part of me.\n\nI can't explain it. Part of me knows, and the other part catches up later. That's the frustrating part. I can't explain how it happens, because half of me doesn't know what the other half is doing. One part of me tells the other part what the answer is, what to do, and the other part has to go backwards from there and figure it out. It's always right. Is it?\n\nI have to have confidence in it, which makes others have confidence in me. I don't like that part either. Others follow me. I'm following something else. We are all blindly following something nobody understands. They don't know that. I hardly know it. I cannot tell them. I'm not crazy. I'm not. Right?\n\nI've relied on it. I had to. It's all I know. Is it?\n\nWhat happens when it fails? What happens when I cannot understand? That won't happen. Right?",
+
     "JEFFS_SERVICE_NAME": "Jeff's Service Medal",
     "JEFFS_SERVICE_PICKUP": "Creates a formation of friendly Alpha Constructs.",
     "JEFFS_SERVICE_DESC": "<style=cIsUtility>Creates a formation of friendly Alpha Constructs</style>.",

@@ -17,6 +17,7 @@ namespace Krod
         {
             On.EntityStates.GenericCharacterMain.ProcessJump += GenericCharacterMain_ProcessJump;
 
+            On.RoR2.CharacterBody.OnBuffFinalStackLost += CharacterBody_OnBuffFinalStackLost;
             On.RoR2.CharacterBody.OnEquipmentGained += CharacterBody_OnEquipmentGained;
             On.RoR2.CharacterBody.OnEquipmentLost += CharacterBody_OnEquipmentLost;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
@@ -50,9 +51,17 @@ namespace Krod
 
             On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
 
+            On.RoR2.UI.PingIndicator.RebuildPing += PingIndicator_RebuildPing;
+
             RoR2Application.onLoad += Ror2Application_onLoad;
 
             RecalculateStatsAPI.GetStatCoefficients += RecalculateStatsAPI_GetStatCoefficients;
+        }
+
+        private static void PingIndicator_RebuildPing(On.RoR2.UI.PingIndicator.orig_RebuildPing orig, RoR2.UI.PingIndicator self)
+        {
+            orig(self);
+            RorysForsight.RevealContents(self);
         }
 
         private static void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
@@ -352,6 +361,23 @@ namespace Krod
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
                     self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
+                    if (self.inventory.GetItemCount(KrodItems.RorysForsight) > 0)
+                    {
+                        if (!self.HasBuff(RorysForsight.cooldownBuff) &&
+                           !self.HasBuff(RorysForsight.isAvailableBuff))
+                        {
+                            self.AddBuff(RorysForsight.isAvailableBuff);
+                        }
+                    }
+                    else
+                    {
+                        self.RemoveBuff(RorysForsight.cooldownBuff);
+                        self.RemoveBuff(RorysForsight.isAvailableBuff);
+                    }
+                    if (self.inventory.GetItemCount(KrodItems.CaudalFin) > 0)
+                    {
+                        self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
+                    }
                 }
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
             }

@@ -50,7 +50,7 @@ namespace Krod
 
             TimsCrucible.Awake();
             GodHand.Awake();
-            //RorysForsight.Awake();
+            RorysForsight.Awake();
 
             JeffsServiceMedal.Awake();
             AileensGlassEye.Awake();
