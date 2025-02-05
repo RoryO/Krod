@@ -1,3 +1,11 @@
+## 0.0.22
+
+- Adding the final planned item
+- Rework all buff assignments to work in multiplayer
+- Caudal Fin temporarily prevents all fall damage
+  - The intended behavior is to only prevent fall damage after leaping until hitting the ground. Temp work around until that behavior works consistently in multiplayer.
+- Description tweaks and clarifications
+
 ## 0.0.21
 
 - Adding Prismatic Coral
