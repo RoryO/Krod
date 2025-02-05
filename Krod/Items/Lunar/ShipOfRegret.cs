@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace Krod.Items.Lunar
 {
@@ -42,6 +43,7 @@ namespace Krod.Items.Lunar
 
             public void RemoveRegret(uint n)
             {
+                if (!NetworkServer.active) { return; }
                 if (n == 0) { return; }
                 if (TeleporterInteraction.instance.isCharged)
                 {

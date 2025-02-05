@@ -2,6 +2,7 @@
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace Krod.Items.Tier1
 {
@@ -19,28 +20,31 @@ namespace Krod.Items.Tier1
 
             public void Update()
             {
-                rerollStopwatch += Time.deltaTime;
-                float reductionPct = 1.0f - (1.0f / stack);
-                float reductionAmt = 45.0f * reductionPct;
-                float v = 45 - reductionAmt;
-                if (rerollStopwatch >= 45 - reductionAmt)
+                if (NetworkServer.active)
                 {
-                    Log.Info(rerollStopwatch);
-                    Log.Info(reductionPct);
-                    Log.Info(reductionAmt);
-                    float cheatFactor = body.HasBuff(addLuckBuff) ? 1 : 0;
-                    body.RemoveBuff(addLuckBuff);
-                    body.RemoveBuff(removeLuckBuff);
-                    body.RecalculateStats();
-                    if(Util.CheckRoll(30f, body.master.luck + cheatFactor, body.master))
+                    rerollStopwatch += Time.deltaTime;
+                    float reductionPct = 1.0f - (1.0f / stack);
+                    float reductionAmt = 45.0f * reductionPct;
+                    float v = 45 - reductionAmt;
+                    if (rerollStopwatch >= 45 - reductionAmt)
                     {
-                        body.AddBuff(addLuckBuff);
+                        Log.Info(rerollStopwatch);
+                        Log.Info(reductionPct);
+                        Log.Info(reductionAmt);
+                        float cheatFactor = body.HasBuff(addLuckBuff) ? 1 : 0;
+                        body.RemoveBuff(addLuckBuff);
+                        body.RemoveBuff(removeLuckBuff);
+                        body.RecalculateStats();
+                        if (Util.CheckRoll(30f, body.master.luck + cheatFactor, body.master))
+                        {
+                            body.AddBuff(addLuckBuff);
+                        }
+                        else if (Util.CheckRoll(10f, body.master.luck, body.master))
+                        {
+                            body.AddBuff(removeLuckBuff);
+                        }
+                        rerollStopwatch = 0;
                     }
-                    else if(Util.CheckRoll(10f, body.master.luck, body.master))
-                    {
-                        body.AddBuff(removeLuckBuff);
-                    }
-                    rerollStopwatch = 0;
                 }
             }
         }

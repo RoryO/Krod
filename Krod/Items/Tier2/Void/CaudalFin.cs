@@ -2,6 +2,7 @@
 using R2API;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace Krod.Items.Tier2.Void
 {
@@ -27,10 +28,44 @@ namespace Krod.Items.Tier2.Void
                 enabled = false;
             }
 
+            public void OnEnable()
+            {
+                body.characterMotor.onHitGroundAuthority += CharacterMotor_onHitGroundAuthority;
+            }
+
+            public void OnDisable()
+            {
+                if (body && body.characterMotor)
+                {
+                    body.characterMotor.onHitGroundAuthority -= CharacterMotor_onHitGroundAuthority;
+                }
+            }
+
+            public void CharacterMotor_onHitGroundAuthority(ref CharacterMotor.HitGroundInfo hitGroundInfo)
+            {
+                if (!body.inputBank.jump.down)
+                {
+                    launchState = body.isSprinting ? LaunchState.Sprinting : LaunchState.Walking;
+                    launchStopwatch = 0;
+                    accelerate = false;
+                    body.RecalculateStats();
+                }
+            }
+
             public void Update()
             {
-                if (!body || !body.inputBank) { return; }
-                if (body.isSprinting)
+                if (!body) { return; }
+                if (launchState == LaunchState.Launched)
+                {
+                    if (NetworkServer.active)
+                    {
+                        // 0.25s timed buff Comes from Croco.BaseLeap.OnEnter
+                        //body.AddTimedBuff(JunkContent.Buffs.IgnoreFallDamage, 0.25f, 1);
+                    }
+                }
+                else if (body.isSprinting && 
+                         body.inputBank &&
+                         Util.HasEffectiveAuthority(body.networkIdentity))
                 {
                     if (launchState == LaunchState.Walking)
                     {
@@ -54,16 +89,6 @@ namespace Krod.Items.Tier2.Void
                             launchStopwatch += Time.deltaTime;
                         }
                     }
-                }
-                else if (launchState == LaunchState.Launched && 
-                    body.characterMotor.isGrounded &&
-                    !body.inputBank.jump.down)
-                {
-                    launchState = LaunchState.Walking;
-                    launchStopwatch = 0;
-                    accelerate = false;
-                    body.RemoveBuff(JunkContent.Buffs.IgnoreFallDamage);
-                    body.RecalculateStats();
                 }
             }
         }
@@ -99,12 +124,12 @@ namespace Krod.Items.Tier2.Void
         public static bool ProcessJump(EntityStates.GenericCharacterMain characterMain)
         {
             CharacterBody body = characterMain.characterBody;
-            if (!body || 
-                !body.isSprinting || 
+            if (!body ||
+                !body.isSprinting ||
                 !body.inventory ||
                 !body.characterMotor)
-            { 
-                return false; 
+            {
+                return false;
             }
 
             int c = body.inventory.GetItemCount(KrodItems.CaudalFin);
@@ -113,7 +138,7 @@ namespace Krod.Items.Tier2.Void
             Behavior b = body.GetComponent<Behavior>();
             if (!b) { return false; }
 
-            if (characterMain.isAuthority && 
+            if (characterMain.isAuthority &&
                 body.characterMotor.isGrounded
             )
             {
@@ -126,10 +151,9 @@ namespace Krod.Items.Tier2.Void
                 }
                 else if (body.inputBank.jump.justReleased)
                 {
+                    EntityStates.GenericCharacterMain.ApplyJumpVelocity(body.characterMotor, body, 2, 2.3f + (0.2f * c));
                     b.launchState = Behavior.LaunchState.Launched;
                     b.launchStopwatch = 0;
-                    EntityStates.GenericCharacterMain.ApplyJumpVelocity(body.characterMotor, body, 2, 2.3f + (0.2f * c));
-                    body.AddBuff(JunkContent.Buffs.IgnoreFallDamage);
                     return true;
                 }
                 /*

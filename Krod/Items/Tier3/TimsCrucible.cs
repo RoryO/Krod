@@ -3,6 +3,7 @@ using RoR2;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Networking;
 
 namespace Krod.Items.Tier3
 {
@@ -48,7 +49,8 @@ namespace Krod.Items.Tier3
             if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex &&
                 self != null &&
                 self.inventory != null &&
-                self.inventory.GetItemCount(KrodItems.TimsCrucible) > 0)
+                self.inventory.GetItemCount(KrodItems.TimsCrucible) > 0 &&
+                NetworkServer.active)
             {
                 self.AddBuff(buffDef);
             }
@@ -73,7 +75,9 @@ namespace Krod.Items.Tier3
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void OnSkillActivated(CharacterBody self, GenericSkill skill)
         {
-            if (self != null && self.inventory != null)
+            if (self != null && 
+                self.inventory != null &&
+                NetworkServer.active)
             {
                 int c = self.inventory.GetItemCount(KrodItems.TimsCrucible);
                 if (c > 0)
@@ -125,7 +129,8 @@ namespace Krod.Items.Tier3
                 if (body != null && 
                     body.inventory != null && 
                     body?.inventory?.GetItemCount(KrodItems.TimsCrucible) > 0 && 
-                    !body.HasBuff(buffDef))
+                    !body.HasBuff(buffDef) &&
+                    NetworkServer.active)
                 {
                     self.victimBody.AddBuff(buffDef);
                     self.victimBody.AddBuff(RoR2Content.Buffs.AffixRed);

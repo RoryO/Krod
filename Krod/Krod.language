@@ -55,7 +55,7 @@
 
     "PRISMATIC_CORAL_NAME": "Prismatic Coral",
     "PRISMATIC_CORAL_PICKUP": "Compatible with any 3D printer. <style=cIsVoid>Corrupts all Regenerating Scrap</style>.",
-    "PRISMATIC_CORAL_DESC": "Used in any 3D printer. Will use normal compatible scrap first. <style=cIsUtility>Removed from inventory on use</style>. <style=cIsVoid>Corrupts all used and unused Regenerating Scrap</style>",
+    "PRISMATIC_CORAL_DESC": "Used in any 3D printer. Regular scrap takes priority. <style=cIsUtility>Removed from inventory on use</style>. <style=cIsVoid>Corrupts all used and unused Regenerating Scrap</style>",
 
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",

@@ -78,6 +78,22 @@ namespace Krod
             if (Cursor.lockState == CursorLockMode.Confined)
             {
                 Cursor.lockState = CursorLockMode.None;
+            }
+        }
+
+        private static void CharacterBody_OnBuffFinalStackLost(On.RoR2.CharacterBody.orig_OnBuffFinalStackLost orig, CharacterBody self, BuffDef buffDef)
+        {
+            orig(self, buffDef);
+            if (NetworkServer.active)
+            {
+                if (buffDef == RorysForsight.cooldownBuff &&
+                   self &&
+                   self.inventory &&
+                   self.inventory.GetItemCount(KrodItems.RorysForsight) > 0)
+                {
+                    self.AddBuff(RorysForsight.isAvailableBuff);
+                }
+            }
         }
 
         private static void PingIndicator_RebuildPing(On.RoR2.UI.PingIndicator.orig_RebuildPing orig, RoR2.UI.PingIndicator self)
@@ -219,7 +235,10 @@ namespace Krod
         private static void CharacterBody_OnEquipmentLost(On.RoR2.CharacterBody.orig_OnEquipmentLost orig, CharacterBody self, EquipmentDef equipmentDef)
         {
             orig(self, equipmentDef);
-            TimsCrucible.OnEquipmentLost(self, equipmentDef);
+            if (NetworkServer.active)
+            {
+                TimsCrucible.OnEquipmentLost(self, equipmentDef);
+            }
             if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
             {
                 JeremiahsAccident.OnEquipmentLost(self, equipmentDef);
@@ -374,7 +393,6 @@ namespace Krod
             {
                 if (NetworkServer.active)
                 {
-                    AncientRecordingSystem.OnInventoryChanged(self);
                     self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
                     self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCount(KrodItems.LooseCards));
                     self.AddItemBehavior<MisterBoinky.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
@@ -401,6 +419,7 @@ namespace Krod
                         self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                     }
                 }
+                AncientRecordingSystem.OnInventoryChanged(self);
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
             }
         }
