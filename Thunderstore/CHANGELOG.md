@@ -1,3 +1,7 @@
+## 0.0.23
+
+- Lore dump
+
 ## 0.0.22
 
 - Adding the final planned item
