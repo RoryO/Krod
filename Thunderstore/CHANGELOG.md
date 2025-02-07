@@ -1,3 +1,9 @@
+## 0.0.24
+
+- Fixed Prismatic Coral taking all scrap when number held is more than the cost
+- Vastly increase Jeremiah's Accident damage to 10,000%
+- Changed Weighted Dice behavior to match description
+
 ## 0.0.23
 
 - Lore dump
