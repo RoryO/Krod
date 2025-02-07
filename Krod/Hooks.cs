@@ -93,6 +93,15 @@ namespace Krod
                 {
                     self.AddBuff(RorysForsight.isAvailableBuff);
                 }
+                if (buffDef == WeightedDice.addLuckBuff ||
+                    buffDef == WeightedDice.removeLuckBuff)
+                {
+                    WeightedDice.Behavior b = self.GetComponent<WeightedDice.Behavior>();
+                    if (b)
+                    {
+                        b.Reroll();
+                    }
+                }
             }
         }
 
