@@ -133,7 +133,7 @@ namespace Krod.Items.Tier2.Void
             ItemDef scrap = ScrapItemForTier(costTypeDef.itemTier);
             int numScrapHeld = inv.GetItemCount(scrap);
 
-            if (numScrapHeld == context.cost)
+            if (numScrapHeld >= context.cost)
             {
                 CallOriginalPayDelegate(costTypeDef, context);
                 return;
