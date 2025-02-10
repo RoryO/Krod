@@ -95,7 +95,7 @@
 
     "GOD_HAND_NAME": "Alien God Hand",
     "GOD_HAND_PICKUP": "Activating a skill reduces the cooldown of other skills. Activating the special skill resets the cooldown of all other skills.",
-    "GOD_HAND_DESC": "Activating primary skill reduces the cooldown of the secondary skill by 1s <style=cStack>(+0.25 s per stack)</style>. Activing secondary skill reduces the coolodown of the utility skill by 1s <style=cStack>(+0.5s per stack)</style>. Activating utility skill reduces the cooldown of the primary and special skills by 1s <style=cStack>(+0.5s per stack)</style>. Activating the special skill reset the cooldowns of all other skills.",
+    "GOD_HAND_DESC": "Activating primary skill reduces the cooldown of the secondary skill by 1s <style=cStack>(+0.25 s per stack)</style>. Activating the secondary skill reduces the cooldown of the utility skill by 1s <style=cStack>(+0.5s per stack)</style>. Activating utility skill reduces the cooldown of the primary and special skills by 1s <style=cStack>(+0.5s per stack)</style>. Activating the special skill reset the cooldowns of all other skills.",
 
     "SHIP_OF_REGRET_NAME": "Ship of Regret",
     "SHIP_OF_REGRET_PICKUP": "Gain money every minute. Elite monsters are worth more gold. Regular non-boss monsters do not give gold, instead builds Regret. You cannot leave a stage with Regret. Regret fades when acquiring gold.",
