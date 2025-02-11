@@ -99,6 +99,6 @@
 
     "SHIP_OF_REGRET_NAME": "Ship of Regret",
     "SHIP_OF_REGRET_PICKUP": "Gain money every minute. Elite monsters are worth more gold. Regular non-boss monsters do not give gold, instead builds Regret. You cannot leave a stage with Regret. Regret fades when acquiring gold.",
-    "SHIP_OF_REGRET_DESC": "Gain the equivalent of <style=cIsUtility>one <style=cStack>(+1 per stack)</style> large chest of gold</style> every minute. Elite monsters give <style=cIsUtility>300% (+300% per stack)</style> more gold</style>. Regular non-boss monsters <style=cIsHealth>do not give gold</style>, instead <style=cIsHealth>accumulates Regret</style> <style=cStack>(+100% more per stack)</style>. <style=cIsHealth>You cannot exit a stage while you have Regret</style>. Regret fades when acquiring gold."
+    "SHIP_OF_REGRET_DESC": "Gain the equivalent of <style=cIsUtility>one <style=cStack>(+1 per stack)</style> large chest of gold</style> every minute. Elite monsters give <style=cIsUtility>300% <style=cStack>(+300% per stack)</style></style> more gold</style>. Regular non-boss monsters <style=cIsHealth>do not give gold</style>, instead <style=cIsHealth>accumulates Regret</style> <style=cStack>(+100% more per stack)</style>. <style=cIsHealth>You cannot exit a stage while you have Regret</style>. Regret fades when acquiring gold."
   }
 }
