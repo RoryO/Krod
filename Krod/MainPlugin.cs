@@ -1,5 +1,6 @@
 using BepInEx;
 using Krod.Equipment;
+using Krod.Items.Boss;
 using Krod.Items.Lunar;
 using Krod.Items.Tier1;
 using Krod.Items.Tier2;
@@ -22,7 +23,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.24";
+        public const string PluginVersion = "0.0.25";
         public static PluginInfo PInfo;
 
         public void Awake()
@@ -58,6 +59,12 @@ namespace Krod
             JeremiahsAccident.Awake();
 
             ShipOfRegret.Awake();
+
+#if DEBUG
+            MisterBoinkyReborn.Awake();
+            MisterBoinkyAscended.Awake();
+            MisterBoinkyTranscended.Awake();
+#endif
 
             Hooks.Awake();
 #if DEBUG

@@ -1,3 +1,9 @@
+## 0.0.25
+
+- Ship of Regret downside is much more harsh
+- Each Toy Motorcycle now adds an additional 5% bonus per stack
+- Lore dump
+
 ## 0.0.24
 
 - Fixed Prismatic Coral taking all scrap when number held is more than the cost
