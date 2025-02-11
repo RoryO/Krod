@@ -310,7 +310,8 @@ namespace Krod
 
             if (sender.isSprinting)
             {
-                if (sender.inventory.GetItemCount(KrodItems.ToyMotorcycle) > 0)
+                int numMotorcycle = sender.inventory.GetItemCount(KrodItems.ToyMotorcycle);
+                if (numMotorcycle > 0)
                 {
                     int c = 0;
                     foreach (var i in ItemCatalog.tier2ItemList)
@@ -322,7 +323,11 @@ namespace Krod
                     int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
                     int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
 
-                    args.moveSpeedMultAdd += .05f + (c * .05f) + (white * 0.03f) + (green * .1f) + (red * 0.5f) + (yellow * 0.5f);
+                    args.moveSpeedMultAdd += .05f + (c * (.05f * numMotorcycle)) + 
+                        (white * 0.03f) + 
+                        (green * .1f) + 
+                        (red * 0.5f) + 
+                        (yellow * 0.5f);
                 }
                 int fins = sender.inventory.GetItemCount(KrodItems.CaudalFin);
                 if (fins > 0)
@@ -430,6 +435,29 @@ namespace Krod
                 }
                 AncientRecordingSystem.OnInventoryChanged(self);
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
+                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0 &&
+                    self.inventory.GetItemCount(KrodItems.MisterBoinky) >= 2)
+                {
+                    CharacterMasterNotificationQueue.SendTransformNotification(self.master, 
+                        KrodItems.MisterBoinky.itemIndex, 
+                        KrodItems.MisterBoinkyReborn.itemIndex, 
+                        CharacterMasterNotificationQueue.TransformationType.Default);
+                }
+                int boinkyReborn = self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
+                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn) > 2)
+                {
+                    CharacterMasterNotificationQueue.SendTransformNotification(self.master, 
+                        KrodItems.MisterBoinkyReborn.itemIndex, 
+                        KrodItems.MisterBoinkyAscended.itemIndex, 
+                        CharacterMasterNotificationQueue.TransformationType.Default);
+                }
+                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 2)
+                {
+                    CharacterMasterNotificationQueue.SendTransformNotification(self.master, 
+                        KrodItems.MisterBoinkyAscended.itemIndex, 
+                        KrodItems.MisterBoinkyTranscended.itemIndex, 
+                        CharacterMasterNotificationQueue.TransformationType.Default);
+                }
             }
         }
 
