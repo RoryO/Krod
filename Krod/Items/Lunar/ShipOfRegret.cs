@@ -27,7 +27,7 @@ namespace Krod.Items.Lunar
                 if (!body.inventory) { return; }
                 if (n == 0) { return; }
 
-                regretAccumulated += n * (uint)body.inventory.GetItemCount(KrodItems.ShipOfRegret);
+                regretAccumulated += 6 * n * (uint)body.inventory.GetItemCount(KrodItems.ShipOfRegret);
                 Log.Info($"add: total regret {regretAccumulated}");
                 if (regretAccumulated > largeChestCost)
                 {
@@ -45,7 +45,7 @@ namespace Krod.Items.Lunar
             {
                 if (!NetworkServer.active) { return; }
                 if (n == 0) { return; }
-                if (TeleporterInteraction.instance.isCharged)
+                if (TeleporterInteraction.instance && TeleporterInteraction.instance.isCharged)
                 {
                     Log.Info("accelerated regret removal");
                     n *= 4;
