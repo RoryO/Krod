@@ -30,7 +30,10 @@ namespace Krod.Items.Tier2.Void
 
             public void OnEnable()
             {
-                body.characterMotor.onHitGroundAuthority += CharacterMotor_onHitGroundAuthority;
+                if (body && body.characterMotor)
+                {
+                    body.characterMotor.onHitGroundAuthority += CharacterMotor_onHitGroundAuthority;
+                }
             }
 
             public void OnDisable()
