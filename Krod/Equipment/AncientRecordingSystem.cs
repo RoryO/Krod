@@ -52,21 +52,28 @@ namespace Krod.Equipment
                     healthComponent.body) {
                     d.position = healthComponent.body.transform.position;
                     healthComponent.TakeDamage(d);
-                    string eventName = d.damage switch
+                    GameObject fx = d.damage switch
                     {
-                        < 10_000 => "KCrowd1",
-                        (> 10_000 and < 100_000) => "KCrowd2",
-                        (> 100_000 and < 500_000) => "KCrowd3",
-                        (> 500_000) => "KCrowd4",
-                        _ => "KCrowd1"
+                        < 10_000 => effect1,
+                        (> 10_000 and < 100_000) => effect2,
+                        (> 100_000 and < 500_000) => effect3,
+                        (> 500_000) => effect4,
+                        _ => effect1
                     };
-                    Log.Info(eventName);
-                    AkSoundEngine.PostEvent(eventName, d.attacker.gameObject);
+                    EffectManager.SpawnEffect(fx, new()
+                    {
+                        origin = d.attacker.transform.position,
+                        scale = 1f
+                    }, true);
                 }
             }
         }
 
         public static DamageAPI.ModdedDamageType customDamageType;
+        public static GameObject effect1;
+        public static GameObject effect2;
+        public static GameObject effect3;
+        public static GameObject effect4;
         public static void Awake()
         {
             KrodEquipment.AncientRecordingSystem = ScriptableObject.CreateInstance<EquipmentDef>();
@@ -81,6 +88,42 @@ namespace Krod.Equipment
             KrodEquipment.AncientRecordingSystem.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
             customDamageType = DamageAPI.ReserveDamageType();
+
+            effect1 = new("Recorder FX Effect 1", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(effect1);
+            EffectComponent ec1 = effect1.GetComponent<EffectComponent>();
+            ec1.noEffectData = true;
+            ec1.soundName = "KCrowd1";
+            ContentAddition.AddEffect(effect1);
+
+            effect1 = new("Recorder FX Effect 2", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(effect2);
+            EffectComponent ec2 = effect2.GetComponent<EffectComponent>();
+            ec2.noEffectData = true;
+            ec2.soundName = "KCrowd2";
+            ContentAddition.AddEffect(effect2);
+
+            effect1 = new("Recorder FX Effect 3", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(effect3);
+            EffectComponent ec3 = effect1.GetComponent<EffectComponent>();
+            ec3.noEffectData = true;
+            ec3.soundName = "KCrowd3";
+            ContentAddition.AddEffect(effect3);
+
+            effect1 = new("Recorder FX Effect 4", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(effect4);
+            EffectComponent ec4 = effect4.GetComponent<EffectComponent>();
+            ec4.noEffectData = true;
+            ec4.soundName = "KCrowd4";
+            ContentAddition.AddEffect(effect4);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -108,7 +151,6 @@ namespace Krod.Equipment
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            Log.Info("hi");
             CharacterBody body = self.characterBody;
             if (body == null) { return false; }
             Behavior b = body.gameObject.GetComponent<Behavior>();

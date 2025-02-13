@@ -9,6 +9,7 @@ namespace Krod.Items.Tier1
 {
     public static class ArcadeToken
     {
+        public static GameObject insertTokenEffect;
         public static void Awake()
         {
             KrodItems.ArcadeToken = ScriptableObject.CreateInstance<ItemDef>();
@@ -23,6 +24,15 @@ namespace Krod.Items.Tier1
             KrodItems.ArcadeToken.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             KrodItems.ArcadeToken.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
             ItemAPI.Add(new CustomItem(KrodItems.ArcadeToken, new ItemDisplayRuleDict(null)));
+
+            insertTokenEffect = new("Token Use Effect", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(insertTokenEffect);
+            EffectComponent ec = insertTokenEffect.GetComponent<EffectComponent>();
+            ec.noEffectData = true;
+            ec.soundName = "KInsertToken";
+            ContentAddition.AddEffect(insertTokenEffect);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -44,7 +54,11 @@ namespace Krod.Items.Tier1
                     PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position,
                         context.purchasedObject.gameObject,
                         KrodItems.ArcadeToken.itemIndex);
-                    AkSoundEngine.PostEvent("KInsertToken", context.activatorBody.gameObject);
+                    EffectManager.SpawnEffect(insertTokenEffect, new()
+                    {
+                        origin = context.activatorBody.gameObject.transform.position,
+                        scale = 1f
+                    }, true);
                 }
             }
         }

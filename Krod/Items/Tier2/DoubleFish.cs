@@ -36,11 +36,16 @@ namespace Krod.Items.Tier2
                 {
                     di.position = damageReport.victim.transform.position;
                     damageReport.victimBody.healthComponent.TakeDamage(di);
-                    AkSoundEngine.PostEvent("KDoubleFishStrike", damageReport.attackerBody.gameObject);
+                    EffectManager.SpawnEffect(strikeEffect, new()
+                    {
+                        origin = damageReport.victim.transform.position,
+                        scale = 1f
+                    }, true);
                 }
             }
         }
         public static DamageAPI.ModdedDamageType fishDamageType;
+        public static GameObject strikeEffect;
         public static void Awake()
         {
             KrodItems.DoubleFish = ScriptableObject.CreateInstance<ItemDef>();
@@ -55,7 +60,17 @@ namespace Krod.Items.Tier2
             KrodItems.DoubleFish.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
             KrodItems.DoubleFish.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
+
             fishDamageType = DamageAPI.ReserveDamageType();
+
+            strikeEffect = new("Double Fish Strike Effect", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(strikeEffect);
+            EffectComponent ec = strikeEffect.GetComponent<EffectComponent>();
+            ec.noEffectData = true;
+            ec.soundName = "KDoubleFishStrike";
+            ContentAddition.AddEffect(strikeEffect);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -34,7 +34,7 @@ namespace Krod.Equipment
         }
     }
 
-    public class AileensGlassEye
+    public static class AileensGlassEye
     {
         public class AileensGlassEyeCracked
         {
@@ -106,9 +106,11 @@ namespace Krod.Equipment
 
 
         public static InteractableSpawnCard isc;
+        public static GameObject createScrapperEffect;
         public static void Awake()
         {
             AileensGlassEyeCracked.Awake();
+
             KrodEquipment.AileensGlassEye = ScriptableObject.CreateInstance<EquipmentDef>();
             KrodEquipment.AileensGlassEye.name = "AILEENS_EYE_NAME";
             KrodEquipment.AileensGlassEye.nameToken = "AILEENS_EYE_NAME";
@@ -120,27 +122,41 @@ namespace Krod.Equipment
             KrodEquipment.AileensGlassEye.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
             KrodEquipment.AileensGlassEye.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
-
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
+
+            createScrapperEffect = new("Create Scrapper Effect", 
+                typeof(EffectComponent), 
+                typeof(VFXAttributes));
+            Object.DontDestroyOnLoad(createScrapperEffect);
+            EffectComponent ec = createScrapperEffect.GetComponent<EffectComponent>();
+            ec.noEffectData = true;
+            ec.soundName = "KCreateScrapper";
+            ContentAddition.AddEffect(createScrapperEffect);
         }
 
         public static bool PerformEquipmentAction(EquipmentSlot self, EquipmentDef equipmentDef)
         {
-            if (!self || !self.characterBody) { return false; }
+            if (!createScrapperEffect)
             {
-                CharacterBody body = self.characterBody;
-                DirectorPlacementRule rule = new DirectorPlacementRule()
-                {
-                    placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
-                    preventOverhead = true,
-                    spawnOnTarget = body.coreTransform
-                };
-                DirectorSpawnRequest dsc = new(isc, rule, RoR2Application.rng);
-                GameObject created = DirectorCore.instance.TrySpawnObject(dsc);
-                body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex);
-                Util.PlaySound("KCreateScrapper", created.gameObject);
-                return true;
+                Log.Error("where is the effect");
             }
+            if (!self || !self.characterBody) { return false; }
+            CharacterBody body = self.characterBody;
+            DirectorPlacementRule rule = new DirectorPlacementRule()
+            {
+                placementMode = DirectorPlacementRule.PlacementMode.NearestNode,
+                preventOverhead = true,
+                spawnOnTarget = body.coreTransform
+            };
+            DirectorSpawnRequest dsc = new(isc, rule, RoR2Application.rng);
+            GameObject created = DirectorCore.instance.TrySpawnObject(dsc);
+            body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex);
+            EffectManager.SpawnEffect(createScrapperEffect, new EffectData()
+            {
+                origin = created.gameObject.transform.position,
+                scale = 1f,
+            }, true);
+            return true;
         }
     }
 }
