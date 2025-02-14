@@ -15,7 +15,6 @@ namespace Krod.Items.Tier1
             {
                 enabled = false;
             }
-        
 
             public void OnEnable()
             {
@@ -36,6 +35,8 @@ namespace Krod.Items.Tier1
             }
         }
         public static BuffDef buff;
+        public static GameObject coffeeBeginEffect;
+        public static GameObject coffeeEndEffect;
         public static void Awake()
         {
             KrodItems.DiscountCoffee = ScriptableObject.CreateInstance<ItemDef>();
@@ -50,12 +51,35 @@ namespace Krod.Items.Tier1
             KrodItems.DiscountCoffee.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
             KrodItems.DiscountCoffee.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.DiscountCoffee, new ItemDisplayRuleDict(null)));
+
             buff = ScriptableObject.CreateInstance<BuffDef>();
             buff.isDebuff = false;
             buff.canStack = false;
             buff.name = "Discount Coffee";
             buff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffeeBD.png");
             ContentAddition.AddBuffDef(buff);
+
+            {
+                coffeeBeginEffect = new("Coffee Begin Effect",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(coffeeBeginEffect);
+                EffectComponent ec = coffeeBeginEffect.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCoffeeStart";
+                ContentAddition.AddEffect(coffeeBeginEffect);
+            }
+
+            {
+                coffeeEndEffect = new("Coffee End Effect",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(coffeeEndEffect);
+                EffectComponent ec = coffeeEndEffect.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCoffeeEnd";
+                ContentAddition.AddEffect(coffeeEndEffect);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -69,6 +93,14 @@ namespace Krod.Items.Tier1
                 int c = characterBody.inventory.GetItemCount(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
+                    if (!characterBody.HasBuff(buff))
+                    {
+                        EffectManager.SpawnEffect(coffeeBeginEffect, new EffectData()
+                        {
+                            origin = characterBody.gameObject.transform.position,
+                            scale = 1f,
+                        }, true);
+                    }
                     characterBody.AddTimedBuff(buff, 50f + (c * 10f));
                 }
             }

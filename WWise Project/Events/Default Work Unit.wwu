@@ -102,6 +102,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="KCoffeeStart" ID="{8F39F456-EC0C-4EDB-BBF3-9A22D5FAF51E}">
+					<ChildrenList>
+						<Action Name="" ID="{DD7690E2-5F3E-4180-8420-2C51E029F0C5}" ShortID="870692764">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCoffeeStart" ID="{6D7E5D46-D9DD-47FB-83DE-4AD281984AB7}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KCoffeeEnd" ID="{23ECF537-0091-4916-961A-1442B4EC83A7}">
+					<ChildrenList>
+						<Action Name="" ID="{69A0BDAF-667C-4BC9-80E0-C77DCFCCDC5B}" ShortID="964063014">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCoffeeEnd" ID="{45C43117-3982-4110-94E1-9500B6FC8A72}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
