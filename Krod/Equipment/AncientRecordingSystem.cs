@@ -89,41 +89,49 @@ namespace Krod.Equipment
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
             customDamageType = DamageAPI.ReserveDamageType();
 
-            effect1 = new("Recorder FX Effect 1", 
-                typeof(EffectComponent), 
-                typeof(VFXAttributes));
-            Object.DontDestroyOnLoad(effect1);
-            EffectComponent ec1 = effect1.GetComponent<EffectComponent>();
-            ec1.noEffectData = true;
-            ec1.soundName = "KCrowd1";
-            ContentAddition.AddEffect(effect1);
+            {
+                effect1 = new("Recorder FX Effect 1",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(effect1);
+                EffectComponent ec = effect1.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCrowd1";
+                ContentAddition.AddEffect(effect1);
+            }
 
-            effect1 = new("Recorder FX Effect 2", 
-                typeof(EffectComponent), 
-                typeof(VFXAttributes));
-            Object.DontDestroyOnLoad(effect2);
-            EffectComponent ec2 = effect2.GetComponent<EffectComponent>();
-            ec2.noEffectData = true;
-            ec2.soundName = "KCrowd2";
-            ContentAddition.AddEffect(effect2);
+            {
+                effect2 = new("Recorder FX Effect 2",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(effect2);
+                EffectComponent ec = effect2.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCrowd2";
+                ContentAddition.AddEffect(effect2);
+            }
 
-            effect1 = new("Recorder FX Effect 3", 
-                typeof(EffectComponent), 
-                typeof(VFXAttributes));
-            Object.DontDestroyOnLoad(effect3);
-            EffectComponent ec3 = effect1.GetComponent<EffectComponent>();
-            ec3.noEffectData = true;
-            ec3.soundName = "KCrowd3";
-            ContentAddition.AddEffect(effect3);
+            {
+                effect3 = new("Recorder FX Effect 3",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(effect3);
+                EffectComponent ec = effect3.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCrowd3";
+                ContentAddition.AddEffect(effect3);
+            }
 
-            effect1 = new("Recorder FX Effect 4", 
-                typeof(EffectComponent), 
-                typeof(VFXAttributes));
-            Object.DontDestroyOnLoad(effect4);
-            EffectComponent ec4 = effect4.GetComponent<EffectComponent>();
-            ec4.noEffectData = true;
-            ec4.soundName = "KCrowd4";
-            ContentAddition.AddEffect(effect4);
+            {
+                effect4 = new("Recorder FX Effect 4",
+                    typeof(EffectComponent),
+                    typeof(VFXAttributes));
+                Object.DontDestroyOnLoad(effect4);
+                EffectComponent ec = effect4.GetComponent<EffectComponent>();
+                ec.noEffectData = true;
+                ec.soundName = "KCrowd4";
+                ContentAddition.AddEffect(effect4);
+            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
