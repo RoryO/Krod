@@ -1,3 +1,9 @@
+## 0.0.26
+
+- SFX now works multiplayer
+- Discount Coffee SFX
+- Toy Motorcycle final art
+
 ## 0.0.25
 
 - Ship of Regret downside is much more harsh
