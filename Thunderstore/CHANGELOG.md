@@ -1,3 +1,8 @@
+## 0.0.27
+
+- Foresight works with chance shrines
+- A Wood Hat adds 30 armor (+15 per stack), up from 10 armor (+10 per stack)
+
 ## 0.0.26
 
 - SFX now works multiplayer

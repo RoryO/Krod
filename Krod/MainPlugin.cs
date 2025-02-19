@@ -23,7 +23,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.26";
+        public const string PluginVersion = "0.0.27";
         public static PluginInfo PInfo;
 
         public void Awake()
@@ -80,7 +80,7 @@ namespace Krod
                 // Get the player body to use a position:
                 var t = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
                 // And then drop our defined item in front of the player.
-                var testItem = KrodItems.RorysForsight.itemIndex;
+                var testItem = KrodItems.RorysForesight.itemIndex;
 
                 PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(testItem), t.position, t.forward * 20f);
             }
