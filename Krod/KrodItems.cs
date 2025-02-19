@@ -18,7 +18,7 @@ namespace Krod
 
         public static ItemDef TimsCrucible;
         public static ItemDef GodHand;
-        public static ItemDef RorysForsight;
+        public static ItemDef RorysForesight;
 
         public static ItemDef CaudalFin;
         public static ItemDef PrismaticCoral;

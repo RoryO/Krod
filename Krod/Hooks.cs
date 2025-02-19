@@ -47,6 +47,9 @@ namespace Krod
 
             On.RoR2.SceneExitController.Begin += SceneExitController_Begin;
 
+            On.RoR2.ShrineChanceBehavior.AddShrineStack += ShrineChanceBehavior_AddShrineStack;
+            On.RoR2.ShrineChanceBehavior.FixedUpdate += ShrineChanceBehavior_FixedUpdate;
+
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
             On.RoR2.Items.MultiShopCardUtils.OnPurchase += MultiShopCardUtils_OnPurchase;
@@ -61,6 +64,38 @@ namespace Krod
             On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
             On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
 #endif
+        }
+
+        private static void ShrineChanceBehavior_FixedUpdate(On.RoR2.ShrineChanceBehavior.orig_FixedUpdate orig, ShrineChanceBehavior self)
+        {
+            var b = self.GetComponent<RorysForsight.ChanceShrineForsightBehavior>();
+            if(b && self.waitingForRefresh)
+            {
+                self.refreshTimer -= Time.fixedDeltaTime;
+                if (self.refreshTimer <= 0 && self.successfulPurchaseCount < self.maxPurchaseCount)
+                {
+                    self.purchaseInteraction.SetAvailable(true);
+                    self.purchaseInteraction.Networkcost = b.revealedCosts[b.lastPurchasedIndex].cost;
+                    self.waitingForRefresh = false;
+                }
+            }
+            else
+            {
+                orig(self);
+            }
+        }
+
+        private static void ShrineChanceBehavior_AddShrineStack(On.RoR2.ShrineChanceBehavior.orig_AddShrineStack orig, ShrineChanceBehavior self, Interactor activator)
+        {
+            var b = self.GetComponent<RorysForsight.ChanceShrineForsightBehavior>();
+            if(b)
+            {
+                RorysForsight.AddShrineStack(self, activator, b);
+            }
+            else
+            {
+                orig(self, activator);
+            }
         }
 
         private static void MPEventSystemManager_Update(On.RoR2.MPEventSystemManager.orig_Update orig, MPEventSystemManager self)
@@ -89,7 +124,7 @@ namespace Krod
                 if (buffDef == RorysForsight.cooldownBuff &&
                    self &&
                    self.inventory &&
-                   self.inventory.GetItemCount(KrodItems.RorysForsight) > 0)
+                   self.inventory.GetItemCount(KrodItems.RorysForesight) > 0)
                 {
                     self.AddBuff(RorysForsight.isAvailableBuff);
                 }
@@ -365,7 +400,7 @@ namespace Krod
             }
 
             args.armorAdd += 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
-            args.armorAdd += 10 * sender.inventory.GetItemCount(KrodItems.Woodhat);
+            args.armorAdd += 15 + (sender.inventory.GetItemCount(KrodItems.Woodhat) * 15);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
@@ -425,7 +460,7 @@ namespace Krod
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
                     self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
-                    if (self.inventory.GetItemCount(KrodItems.RorysForsight) > 0)
+                    if (self.inventory.GetItemCount(KrodItems.RorysForesight) > 0)
                     {
                         if (!self.HasBuff(RorysForsight.cooldownBuff) &&
                            !self.HasBuff(RorysForsight.isAvailableBuff))
