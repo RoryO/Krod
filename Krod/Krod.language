@@ -1,6 +1,6 @@
 {
   "strings": {
-    "LOOSE_CARDS_NAME": "Loose Culdcept Cards",
+    "LOOSE_CARDS_NAME": "Loose TCG Cards",
     "LOOSE_CARDS_PICKUP": "Chance to cause a random debuff on hit. Debuff chosen at stage start.",
     "LOOSE_CARDS_DESC": "<style=cIsDamage>5%</style> <style=cStack>(+2.5% per stack)</style> chance on hit to apply a <style=cIsDamage>random damage over time debuff</style>. Debuff chosen on stage start.",
     "LOOSE_CARDS_LORE": "\"Again.\", he said, scooping up an assortment of colorful cards off the deck floor.\n\n\"Look, you can't win with that setup. It is too spread out. Go think about it. Trim it down some.\", she suggested. Almost pleaded.\n\n\"Again.\", he said, more commanding this time than the previous. Trying to contain his frustration, the way he awkwardly shuffled his cards betrayed his emotions.\n\n\"Yes, Sir.\", she said, while picking up her monochromatic cards into a neat pile.",

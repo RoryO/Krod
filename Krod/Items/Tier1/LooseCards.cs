@@ -23,13 +23,43 @@ namespace Krod.Items.Tier1
                 Array x = Enum.GetValues(typeof(DotController.DotIndex));
                 var y = (DotController.DotIndex)x.GetValue(UnityEngine.Random.Range(0, x.Length - 2));
                 dotIndex = y;
+                body.RemoveBuff(redBuff);
+                body.RemoveBuff(greenBuff);
+                body.RemoveBuff(blueBuff);
+                body.RemoveBuff(orangeBuff);
+                Log.Info(dotIndex);
+                if (dotIndex is DotController.DotIndex.Burn or DotController.DotIndex.StrongerBurn)
+                {
+                    body.AddBuff(orangeBuff);
+                }
+                else if (dotIndex is DotController.DotIndex.Bleed or DotController.DotIndex.SuperBleed)
+                {
+                    body.AddBuff(redBuff);
+                }
+                else if (dotIndex is DotController.DotIndex.Blight or DotController.DotIndex.Poison)
+                {
+                    body.AddBuff(greenBuff);
+                }
+                else
+                {
+                    body.AddBuff(blueBuff);
+                }
             }
 
-            private void OnDisabled()
+            private void OnDisable()
             {
                 dotIndex = DotController.DotIndex.None;
+                body.RemoveBuff(redBuff);
+                body.RemoveBuff(greenBuff);
+                body.RemoveBuff(blueBuff);
+                body.RemoveBuff(orangeBuff);
             }
         }
+
+        public static BuffDef redBuff;
+        public static BuffDef greenBuff;
+        public static BuffDef blueBuff;
+        public static BuffDef orangeBuff;
 
         public static void Awake()
         {
@@ -45,6 +75,34 @@ namespace Krod.Items.Tier1
             KrodItems.LooseCards.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
             KrodItems.LooseCards.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict(null)));
+
+            redBuff = ScriptableObject.CreateInstance<BuffDef>();
+            redBuff.isDebuff = false;
+            redBuff.canStack = false;
+            redBuff.name = "Loose Cards Red";
+            redBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCardsRedBD.png");
+            ContentAddition.AddBuffDef(redBuff);
+
+            blueBuff = ScriptableObject.CreateInstance<BuffDef>();
+            blueBuff.isDebuff = false;
+            blueBuff.canStack = false;
+            blueBuff.name = "Loose Cards Blue";
+            blueBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCardsBlueBD.png");
+            ContentAddition.AddBuffDef(blueBuff);
+
+            greenBuff = ScriptableObject.CreateInstance<BuffDef>();
+            greenBuff.isDebuff = false;
+            greenBuff.canStack = false;
+            greenBuff.name = "Loose Cards Green";
+            greenBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCardsGreenBD.png");
+            ContentAddition.AddBuffDef(greenBuff);
+
+            orangeBuff = ScriptableObject.CreateInstance<BuffDef>();
+            orangeBuff.isDebuff = false;
+            orangeBuff.canStack = false;
+            orangeBuff.name = "Loose Cards Orange";
+            orangeBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCardsOrangeBD.png");
+            ContentAddition.AddBuffDef(orangeBuff);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
