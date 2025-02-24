@@ -1,3 +1,7 @@
+## 0.0.28
+
+- Adding art for Jeremiah's Accident and Loose TCG Cards
+
 ## 0.0.27
 
 - Foresight works with chance shrines
