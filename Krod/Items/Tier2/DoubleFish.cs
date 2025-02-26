@@ -62,7 +62,6 @@ namespace Krod.Items.Tier2
             ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
 
             fishDamageType = DamageAPI.ReserveDamageType();
-
             strikeEffect = new("Double Fish Strike Effect", 
                 typeof(EffectComponent), 
                 typeof(VFXAttributes));
