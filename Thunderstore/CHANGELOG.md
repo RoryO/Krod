@@ -1,3 +1,7 @@
+## 0.0.29
+
+- SFX for Loose TGC cards and Weighted Dice
+
 ## 0.0.28
 
 - Adding art for Jeremiah's Accident and Loose TCG Cards
