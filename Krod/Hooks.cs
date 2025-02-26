@@ -18,6 +18,7 @@ namespace Krod
             On.EntityStates.GenericCharacterMain.ProcessJump += GenericCharacterMain_ProcessJump;
 
             On.RoR2.CharacterBody.OnBuffFinalStackLost += CharacterBody_OnBuffFinalStackLost;
+            On.RoR2.CharacterBody.OnBuffFirstStackGained += CharacterBody_OnBuffFirstStackGained;
             On.RoR2.CharacterBody.OnEquipmentGained += CharacterBody_OnEquipmentGained;
             On.RoR2.CharacterBody.OnEquipmentLost += CharacterBody_OnEquipmentLost;
             On.RoR2.CharacterBody.OnInventoryChanged += CharacterBody_OnInventoryChanged;
@@ -64,6 +65,19 @@ namespace Krod
             On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
             On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
 #endif
+        }
+
+        private static void CharacterBody_OnBuffFirstStackGained(On.RoR2.CharacterBody.orig_OnBuffFirstStackGained orig, CharacterBody self, BuffDef buffDef)
+        {
+            orig(self, buffDef);
+            if (buffDef == WeightedDice.addLuckBuff)
+            {
+                Util.PlaySound("KDiceSuccess", self.gameObject);
+            }
+            if (buffDef == WeightedDice.removeLuckBuff)
+            {
+                Util.PlaySound("KDiceFail", self.gameObject);
+            }
         }
 
         private static void ShrineChanceBehavior_FixedUpdate(On.RoR2.ShrineChanceBehavior.orig_FixedUpdate orig, ShrineChanceBehavior self)

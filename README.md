@@ -2,6 +2,10 @@
 
 FilmCow Sound Packs -- https://filmcow.itch.io/
 
+Sonniss GDC Archive 2024 -- https://gdc.sonniss.com/
+
+Sonniss GDC Archive 2015-2023 -- https://sonniss.com/gameaudiogdc
+
 fish slap ground or snow writhing wet.wav by kyles -- https://freesound.org/s/450830/ -- License: Creative Commons 0
 
 slot_machine_insert_3_coins_and_spin.wav by lukaso -- https://freesound.org/s/69698/ -- License: Sampling+
@@ -19,3 +23,7 @@ Clapping at a conference by lucyve -- https://freesound.org/s/370244/ -- License
 Clapping Large Crowd at Choir Concert 2 by pluralz -- https://freesound.org/s/735562/ -- License: Creative Commons 0
 
 Pouring the water/coffee by CaKon -- https://freesound.org/s/522143/ -- License: Attribution 4.0
+
+Card Shuffle by empraetorius -- https://freesound.org/s/201253/ -- License: Attribution 4.0
+
+Dice Set A.m4a by Phorgador -- https://freesound.org/s/678196/ -- License: Attribution 4.0

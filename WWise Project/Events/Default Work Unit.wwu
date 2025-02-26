@@ -124,6 +124,17 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="KCardHit" ID="{C250AEA4-3D10-48CB-A1B2-112725EB1A29}">
+					<ChildrenList>
+						<Action Name="" ID="{0CE9092A-FE3F-4FE5-BD55-209185823107}" ShortID="503551826">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="KCardHit" ID="{9A04AB78-B6FB-4083-845E-EB0EDF7DB1D0}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

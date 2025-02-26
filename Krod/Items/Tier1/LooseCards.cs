@@ -60,6 +60,7 @@ namespace Krod.Items.Tier1
         public static BuffDef greenBuff;
         public static BuffDef blueBuff;
         public static BuffDef orangeBuff;
+        public static GameObject cardHitSFX;
 
         public static void Awake()
         {
@@ -103,6 +104,9 @@ namespace Krod.Items.Tier1
             orangeBuff.name = "Loose Cards Orange";
             orangeBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCardsOrangeBD.png");
             ContentAddition.AddBuffDef(orangeBuff);
+
+            cardHitSFX = KUtils.SFXEffect("Loose Cards Hit", "KCardHit");
+            ContentAddition.AddEffect(cardHitSFX);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -123,7 +127,7 @@ namespace Krod.Items.Tier1
                             if (b)
                             {
                                 DotController.DotIndex idx = b.dotIndex;
-                                InflictDotInfo dotInfo = new InflictDotInfo()
+                                InflictDotInfo dotInfo = new()
                                 {
                                     dotIndex = idx,
                                     victimObject = victim,
@@ -131,6 +135,14 @@ namespace Krod.Items.Tier1
                                     duration = 3f * damageInfo.procCoefficient
                                 };
                                 DotController.InflictDot(ref dotInfo);
+                                if (UnityEngine.Random.Range(0, 100) < 10f)
+                                {
+                                    EffectManager.SpawnEffect(cardHitSFX, new()
+                                    {
+                                        origin = damageInfo.position,
+                                        scale = 1f,
+                                    }, true);
+                                }
                             }
                         }
                     }
