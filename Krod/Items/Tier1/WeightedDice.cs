@@ -23,7 +23,7 @@ namespace Krod.Items.Tier1
                 body.RecalculateStats();
                 if (Util.CheckRoll(30f, body.master.luck, body.master))
                 {
-                    body.AddTimedBuff(addLuckBuff, 40 + (20 * stack));
+                    body.AddTimedBuff(addLuckBuff, 10 + (20 * stack));
                 }
                 else if (Util.CheckRoll(10f, body.master.luck * -1, body.master))
                 {
