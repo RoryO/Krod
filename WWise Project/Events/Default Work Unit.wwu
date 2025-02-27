@@ -135,6 +135,39 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="KDiceFail" ID="{F34E0C99-46D9-4FA3-A88E-84B905B2ED83}">
+					<ChildrenList>
+						<Action Name="" ID="{944F6EC0-8988-4660-AAE9-4E8D16CAA147}" ShortID="110180298">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DiceFail" ID="{C39A5FFD-7D4D-4449-902A-CC4D40F62475}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KDiceSuccess" ID="{978282EE-7DCB-45AE-BBAA-A0A2EC687C35}">
+					<ChildrenList>
+						<Action Name="" ID="{DDC0835F-F0E9-45EE-B46C-A23A7A68F282}" ShortID="754309806">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DiceSuccess" ID="{5AEF8D74-4FBC-450E-83A3-A4773A92834E}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="KTheExtraBlast" ID="{9245CC98-FA20-41EC-B186-F56DA27EE7F0}">
+					<ChildrenList>
+						<Action Name="" ID="{1E98DF73-9234-4D2B-8518-FF397D33F570}" ShortID="539989019">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="TheExtra" ID="{0A01CF20-52CF-4808-A876-587774E6A95F}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

@@ -21,7 +21,7 @@ namespace Krod.Items.Tier2
             public void Update()
             {
                 extraStopwatch += Time.deltaTime;
-                if (extraStopwatch > 5f)
+                if (extraStopwatch > 8f)
                 {
                     extraStopwatch = 0;
                     if (!body || !body.teamComponent) { return; }
@@ -66,10 +66,19 @@ namespace Krod.Items.Tier2
                         StrengthenBurnUtils.CheckDotForUpgrade(body.inventory, ref dotInfo);
                         DotController.InflictDot(ref dotInfo);
                     }
+                    if (results.Count > 0)
+                    {
+                        EffectManager.SpawnEffect(blastSFX, new()
+                        {
+                            origin = body.transform.position,
+                            scale = 1f
+                        }, true);
+                    }
                 }
             }
         }
 
+        public static GameObject blastSFX;
         public static void Awake()
         {
             KrodItems.TheExtra = ScriptableObject.CreateInstance<ItemDef>();
@@ -84,6 +93,9 @@ namespace Krod.Items.Tier2
             KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
             KrodItems.TheExtra.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
+
+            blastSFX = KUtils.SFXEffect("The Extra Blast", "KTheExtraBlast");
+            ContentAddition.AddEffect(blastSFX);
         }
     }
 }

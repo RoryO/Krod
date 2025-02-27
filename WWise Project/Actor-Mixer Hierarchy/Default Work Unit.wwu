@@ -564,6 +564,402 @@
 												</Sound>
 											</ChildrenList>
 										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="DiceSuccess" ID="{5AEF8D74-4FBC-450E-83A3-A4773A92834E}" ShortID="176902751">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="BodyAttenuation" ID="{B9EF64F0-6868-40C2-9DD0-B71CCC5EE9E5}" WorkUnitID="{8A8B3EA4-F888-4CE2-8A06-BC47CBEB1372}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<RandomSequenceContainer Name="KDiceRoll" ID="{47632A39-86D6-444E-9748-35DF0F9FF5F1}" ShortID="364588521">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="KDiceRoll1" ID="{F763CCE2-675E-4BA5-BA8D-C79B802F0B4E}" ShortID="209579050">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll1" ID="{E4EB4F5C-EACD-40E6-88A4-F477257EFED2}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll1.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="143122102"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll1" ID="{E4EB4F5C-EACD-40E6-88A4-F477257EFED2}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="KDiceRoll2" ID="{51BFF56F-2C7C-48CB-B4AE-3B9FB9CB5F76}" ShortID="632959296">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll2" ID="{884F78C9-64FF-4C9A-A06A-AE0718D5A205}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll2.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="667483556"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll2" ID="{884F78C9-64FF-4C9A-A06A-AE0718D5A205}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="KDiceRoll3" ID="{1DA3A8A4-ACB1-42FE-B618-877115706A59}" ShortID="327474542">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll3" ID="{17650768-2985-4EEF-A497-6648F499AA0D}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll3.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="272584940"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll3" ID="{17650768-2985-4EEF-A497-6648F499AA0D}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<Sound Name="DiceSuccess" ID="{588EEFE1-A205-417C-BEE2-9646E31D71C1}" ShortID="617239149">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KDiceSuccess" ID="{C4236F7F-404D-47C5-920F-AFCB343C4450}">
+															<Language>SFX</Language>
+															<AudioFile>KDiceSuccess.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="84035416"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KDiceSuccess" ID="{C4236F7F-404D-47C5-920F-AFCB343C4450}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Playlist">
+													<Reference>
+														<ObjectRef Name="KDiceRoll" ID="{47632A39-86D6-444E-9748-35DF0F9FF5F1}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+													</Reference>
+													<Reference>
+														<ObjectRef Name="DiceSuccess" ID="{588EEFE1-A205-417C-BEE2-9646E31D71C1}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="DiceFail" ID="{C39A5FFD-7D4D-4449-902A-CC4D40F62475}" ShortID="566366879">
+											<PropertyList>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="BodyAttenuation" ID="{B9EF64F0-6868-40C2-9DD0-B71CCC5EE9E5}" WorkUnitID="{8A8B3EA4-F888-4CE2-8A06-BC47CBEB1372}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<RandomSequenceContainer Name="KDiceRoll_01" ID="{E3A3E9A0-A088-402D-92C4-B504AC31B1D7}" ShortID="711886853">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<Sound Name="KDiceRoll1" ID="{4FBD7744-58C3-49D7-8F7B-68BAE107B2BE}" ShortID="485406631">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll1" ID="{73303F1E-75DA-45B3-AB10-437FCCA67692}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll1.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="143122102"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll1" ID="{73303F1E-75DA-45B3-AB10-437FCCA67692}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="KDiceRoll2" ID="{1D3C1FC9-A9CA-4F78-92AC-DE799D588F95}" ShortID="956745946">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll2" ID="{5997EB26-D14A-4879-953C-15E5E41FF850}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll2.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="667483556"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll2" ID="{5997EB26-D14A-4879-953C-15E5E41FF850}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+														<Sound Name="KDiceRoll3" ID="{657734C2-FA26-4D00-BD26-E652104D6953}" ShortID="951805140">
+															<ReferenceList>
+																<Reference Name="Conversion">
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+																</Reference>
+																<Reference Name="OutputBus">
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+																</Reference>
+															</ReferenceList>
+															<ChildrenList>
+																<AudioFileSource Name="KDiceRoll3" ID="{1DB324E0-0801-4A06-8D39-437A9A7FF089}">
+																	<Language>SFX</Language>
+																	<AudioFile>KDiceRoll3.wav</AudioFile>
+																	<MediaIDList>
+																		<MediaID ID="272584940"/>
+																	</MediaIDList>
+																</AudioFileSource>
+															</ChildrenList>
+															<ActiveSourceList>
+																<ActiveSource Name="KDiceRoll3" ID="{1DB324E0-0801-4A06-8D39-437A9A7FF089}" Platform="Linked"/>
+															</ActiveSourceList>
+														</Sound>
+													</ChildrenList>
+												</RandomSequenceContainer>
+												<Sound Name="DiceFail" ID="{06527136-DAEE-4070-BBDA-7C591CF5BD2F}" ShortID="753843646">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KDiceFail" ID="{A9F37635-4CC6-48C6-839F-3762CE5178C9}">
+															<Language>SFX</Language>
+															<AudioFile>KDiceFail.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="580734424"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KDiceFail" ID="{A9F37635-4CC6-48C6-839F-3762CE5178C9}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Playlist">
+													<Reference>
+														<ObjectRef Name="KDiceRoll_01" ID="{E3A3E9A0-A088-402D-92C4-B504AC31B1D7}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+													</Reference>
+													<Reference>
+														<ObjectRef Name="DiceFail" ID="{06527136-DAEE-4070-BBDA-7C591CF5BD2F}" WorkUnitID="{57CC4B29-8484-4946-A8FD-0469DF19EA35}"/>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="TheExtra" ID="{0A01CF20-52CF-4808-A876-587774E6A95F}" ShortID="376802234">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+												<Property Name="OverridePositioning" Type="bool" Value="True"/>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{F1C8416B-08FB-4378-9B3F-C0DE80BCC9FC}">
+																<PropertyList>
+																	<Property Name="Enabled" Type="bool" Value="True"/>
+																	<Property Name="Max" Type="Real64" Value="10"/>
+																	<Property Name="Min" Type="Real64" Value="-5"/>
+																</PropertyList>
+															</Modifier>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>5</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="BodyAttenuation" ID="{B9EF64F0-6868-40C2-9DD0-B71CCC5EE9E5}" WorkUnitID="{8A8B3EA4-F888-4CE2-8A06-BC47CBEB1372}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="KTheExtra1" ID="{0D01462E-5A62-453B-B1EC-CBF42779465B}" ShortID="1065082405">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KTheExtra1" ID="{02A8B063-2A7C-4F85-B3A8-039412CB2666}">
+															<Language>SFX</Language>
+															<AudioFile>KTheExtra1.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="302991713"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KTheExtra1" ID="{02A8B063-2A7C-4F85-B3A8-039412CB2666}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="KTheExtra2" ID="{BA2DF005-59E4-4D4B-9041-0F97C9188F5F}" ShortID="494843206">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KTheExtra2" ID="{D8902D61-BB30-4801-9B5F-389F43ECDECD}">
+															<Language>SFX</Language>
+															<AudioFile>KTheExtra2.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="44578746"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KTheExtra2" ID="{D8902D61-BB30-4801-9B5F-389F43ECDECD}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="KTheExtra3" ID="{ED1FACE1-0AD3-4E9F-9333-DD9743D66345}" ShortID="271381615">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KTheExtra3" ID="{B7B2A2A8-DE4D-4CDA-8556-66BAE7EB7206}">
+															<Language>SFX</Language>
+															<AudioFile>KTheExtra3.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="387172570"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KTheExtra3" ID="{B7B2A2A8-DE4D-4CDA-8556-66BAE7EB7206}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="KTheExtra4" ID="{A34577F5-9CD1-43C2-AF16-454084460066}" ShortID="793265632">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{DD75655C-DADB-48CF-92E8-CEB09FDD0A8C}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{8ED5D0A0-ADA9-4C61-9DA8-9B86DC78138D}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="KTheExtra4" ID="{6910B914-95A8-4652-ADDB-EE32D8B1D4A1}">
+															<Language>SFX</Language>
+															<AudioFile>KTheExtra4.wav</AudioFile>
+															<MediaIDList>
+																<MediaID ID="741591047"/>
+															</MediaIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="KTheExtra4" ID="{6910B914-95A8-4652-ADDB-EE32D8B1D4A1}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
 									</ChildrenList>
 								</Folder>
 								<Folder Name="Equipment" ID="{18FCE75A-7801-4ED9-B004-1049417E3661}" ShortID="923188760">
