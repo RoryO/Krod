@@ -130,68 +130,18 @@ namespace Krod.Items.Tier3
             }
 
             ChestBehavior chestBehavior = indicator.pingTarget.GetComponent<ChestBehavior>();
+            OptionChestBehavior optionChestBehavior = indicator.pingTarget.GetComponent<OptionChestBehavior>();
             ShopTerminalBehavior shopTerminalBehavior = indicator.pingTarget.GetComponent<ShopTerminalBehavior>();
             ShrineChanceBehavior shrineBehavior = indicator.pingTarget.GetComponent<ShrineChanceBehavior>();
-            if (chestBehavior || shopTerminalBehavior)
-            {
-                List<PickupDef> revealedItems = [];
-                if (chestBehavior)
-                {
-                    ChestForsightBehavior chestForsight = indicator.pingTarget.GetComponent<ChestForsightBehavior>();
-                    if (!chestForsight)
-                    {
-                        chestForsight = indicator.pingTarget.AddComponent<ChestForsightBehavior>();
-                    }
-                    PickupIndex idx = chestBehavior.dropPickup;
-                    revealedItems = chestForsight.RevealedItemsForCharacter(body);
-                    if (revealedItems.Count == 0)
-                    {
-                        revealedItems.Add(PickupCatalog.GetPickupDef(idx));
-                        int saleStars = body.inventory.GetItemCount(DLC2Content.Items.LowerPricedChests);
-                        if (saleStars > 0)
-                        {
-                            // derp
-                        }
-                        chestForsight.AddRevealedItemsForCharacter(body, revealedItems);
-                    }
-                }
-                else if (shopTerminalBehavior)
-                {
-                    if (shopTerminalBehavior.hidden)
-                    {
-                        revealedItems.Add(PickupCatalog.GetPickupDef(shopTerminalBehavior.CurrentPickupIndex()));
-                        shopTerminalBehavior.SetHidden(false);
-                    }
-                }
-                StringBuilder tokenMsg = new("<style=cIsDamage>{0} revealed:</style> ");
-                string[] itemMessages = new string[revealedItems.Count];
-                string[] paramTokens = new string[revealedItems.Count + 1];
-                paramTokens[0] = Util.GetBestMasterName(ms);
-                string equipmentColor = ColorCatalog.GetColorHexString(ColorCatalog.ColorIndex.Equipment);
-                for (int i = 0; i < revealedItems.Count; i = i + 1)
-                {
-                    string hexColor = null;
-                    if (revealedItems[i].itemIndex != ItemIndex.None)
-                    {
-                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(revealedItems[i].itemTier);
-                        hexColor = ColorCatalog.GetColorHexString(tier.colorIndex);
-                        CharacterMasterNotificationQueue.PushItemNotification(ms, revealedItems[i].itemIndex);
-                    }
-                    else
-                    {
-                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, revealedItems[i].equipmentIndex);
-                    }
-                    itemMessages[i] = "<color=#" + (hexColor != null ? hexColor : equipmentColor) + ">{" + (i + 1) + "}</color> ";
-                    paramTokens[i + 1] = Language.GetString(revealedItems[i].nameToken);
-                }
-                Chat.SimpleChatMessage m = new()
-                {
-                    baseToken = tokenMsg.Append(System.String.Join(", ", itemMessages)).ToString(),
-                    paramTokens = paramTokens
-                };
-                Chat.SendBroadcastChat(m);
-            }
-            else if (shrineBehavior)
+
+            bool didRevealObject = chestBehavior != null ||
+                shopTerminalBehavior != null ||
+                shrineBehavior != null ||
+                optionChestBehavior != null;
+
+            bool isShrine = shrineBehavior != null;
+
+            if (isShrine)
             {
                 ChanceShrineForsightBehavior b = indicator.pingTarget.GetComponent<ChanceShrineForsightBehavior>();
                 if (!b)
@@ -205,7 +155,6 @@ namespace Krod.Items.Tier3
                 int costMultiplier = 1;
                 while (b.revealedCosts.Count < purchasesRemaining)
                 {
-                    Log.Info($"loop {costMultiplier}");
                     if (shrineBehavior.dropTable)
                     {
                         if (shrineBehavior.rng.nextNormalizedFloat > shrineBehavior.failureChance)
@@ -300,11 +249,80 @@ namespace Krod.Items.Tier3
                 };
                 Chat.SendBroadcastChat(msg);
             }
+            else
+            {
+                List<PickupDef> revealedItems = [];
+                if (chestBehavior)
+                {
+                    ChestForsightBehavior chestForsight = indicator.pingTarget.GetComponent<ChestForsightBehavior>();
+                    if (!chestForsight)
+                    {
+                        chestForsight = indicator.pingTarget.AddComponent<ChestForsightBehavior>();
+                    }
+                    PickupIndex idx = chestBehavior.dropPickup;
+                    revealedItems = chestForsight.RevealedItemsForCharacter(body);
+                    if (revealedItems.Count == 0)
+                    {
+                        revealedItems.Add(PickupCatalog.GetPickupDef(idx));
+                        int saleStars = body.inventory.GetItemCount(DLC2Content.Items.LowerPricedChests);
+                        if (saleStars > 0)
+                        {
+                            // derp
+                        }
+                        chestForsight.AddRevealedItemsForCharacter(body, revealedItems);
+                    }
+                }
+                else if (shopTerminalBehavior)
+                {
+                    if (shopTerminalBehavior.hidden)
+                    {
+                        revealedItems.Add(PickupCatalog.GetPickupDef(shopTerminalBehavior.CurrentPickupIndex()));
+                        shopTerminalBehavior.SetHidden(false);
+                    }
+                }
+                else if (optionChestBehavior)
+                {
+                    for (int i = 0; i < optionChestBehavior.generatedDrops.Length; i = i + 1)
+                    {
+                        revealedItems.Add(PickupCatalog.GetPickupDef(optionChestBehavior.generatedDrops[i]));
+                    }
+                }
+                StringBuilder tokenMsg = new("<style=cIsDamage>{0} revealed:</style> ");
+                string[] itemMessages = new string[revealedItems.Count];
+                string[] paramTokens = new string[revealedItems.Count + 1];
+                paramTokens[0] = Util.GetBestMasterName(ms);
+                string equipmentColor = ColorCatalog.GetColorHexString(ColorCatalog.ColorIndex.Equipment);
+                for (int i = 0; i < revealedItems.Count; i = i + 1)
+                {
+                    string hexColor = null;
+                    if (revealedItems[i].itemIndex != ItemIndex.None)
+                    {
+                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(revealedItems[i].itemTier);
+                        hexColor = ColorCatalog.GetColorHexString(tier.colorIndex);
+                        CharacterMasterNotificationQueue.PushItemNotification(ms, revealedItems[i].itemIndex);
+                    }
+                    else
+                    {
+                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, revealedItems[i].equipmentIndex);
+                    }
+                    itemMessages[i] = "<color=#" + (hexColor != null ? hexColor : equipmentColor) + ">{" + (i + 1) + "}</color>";
+                    paramTokens[i + 1] = Language.GetString(revealedItems[i].nameToken);
+                }
+                Chat.SimpleChatMessage m = new()
+                {
+                    baseToken = tokenMsg.Append(System.String.Join(", ", itemMessages)).ToString(),
+                    paramTokens = paramTokens
+                };
+                Chat.SendBroadcastChat(m);
+            }
 
-            int c = body.inventory.GetItemCount(KrodItems.RorysForesight) - 1;
-            float pctReduction = (float)System.Math.Tanh(c * 0.2f);
-            body.RemoveBuff(isAvailableBuff);
-            body.AddTimedBuff(cooldownBuff, 60 - (60 * pctReduction));
+            if (didRevealObject)
+            {
+                int c = body.inventory.GetItemCount(KrodItems.RorysForesight) - 1;
+                float pctReduction = (float)System.Math.Tanh(c * 0.2f);
+                body.RemoveBuff(isAvailableBuff);
+                body.AddTimedBuff(cooldownBuff, 60 - (60 * pctReduction));
+            }
         }
     }
 }
