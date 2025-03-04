@@ -20,6 +20,7 @@ namespace Krod.Items.Tier1
 
             private void OnEnable()
             {
+                if (!body) { return;  }
                 Array x = Enum.GetValues(typeof(DotController.DotIndex));
                 var y = (DotController.DotIndex)x.GetValue(UnityEngine.Random.Range(0, x.Length - 2));
                 dotIndex = y;
@@ -48,6 +49,7 @@ namespace Krod.Items.Tier1
 
             private void OnDisable()
             {
+                if (!body) { return; }
                 dotIndex = DotController.DotIndex.None;
                 body.RemoveBuff(redBuff);
                 body.RemoveBuff(greenBuff);
