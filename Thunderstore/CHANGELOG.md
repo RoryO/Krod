@@ -1,3 +1,11 @@
+## 0.0.30
+
+- SFX for The Extra
+- Increased The Extra timer to 8 seconds
+- Weighted Dice successful roll base time down to 30 seconds
+- Foresight now works with void potentials
+- Foresight no longer resets timer when using on something it cannot see
+
 ## 0.0.29
 
 - SFX for Loose TGC cards and Weighted Dice
