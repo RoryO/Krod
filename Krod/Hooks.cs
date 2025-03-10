@@ -8,6 +8,8 @@ using Krod.Items.Tier3;
 using Krod.Items.Tier2.Void;
 using UnityEngine;
 using Krod.Items.Lunar;
+using Krod.Items.Boss;
+using UnityEngine.AddressableAssets;
 
 namespace Krod
 {
@@ -28,6 +30,7 @@ namespace Krod
 
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
             On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
+            On.RoR2.CharacterMaster.OnServerStageBegin += CharacterMaster_OnServerStageBegin;
 
             On.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
 
@@ -46,10 +49,14 @@ namespace Krod
             On.RoR2.PurchaseInteraction.CanBeAffordedByInteractor += PurchaseInteraction_CanBeAffordedByInteractor;
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
 
+            On.RoR2.SceneDirector.PopulateScene += SceneDirector_PopulateScene;
+
             On.RoR2.SceneExitController.Begin += SceneExitController_Begin;
 
             On.RoR2.ShrineChanceBehavior.AddShrineStack += ShrineChanceBehavior_AddShrineStack;
             On.RoR2.ShrineChanceBehavior.FixedUpdate += ShrineChanceBehavior_FixedUpdate;
+
+            On.RoR2.ShrineColossusAccessBehavior.OnInteraction += ShrineColossusAccessBehavior_OnInteraction;
 
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
@@ -65,6 +72,80 @@ namespace Krod
             On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
             On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
 #endif
+        }
+
+        private static void SceneDirector_PopulateScene(On.RoR2.SceneDirector.orig_PopulateScene orig, SceneDirector self)
+        {
+            orig(self);
+            for (int i = 0; i < CharacterMaster.readOnlyInstancesList.Count; i++)
+            {
+                CharacterMaster cm = CharacterMaster.readOnlyInstancesList[i];
+                if (cm.inventory && cm.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed) > 0)
+                {
+                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/DLC2/iscShrineColossusAccess.asset").WaitForCompletion();
+                    if (!sc)
+                    {
+                        Log.Error("no rebirth shrine isc");
+                        break;
+                    }
+                    DirectorPlacementRule dpr = new() {
+                         placementMode = DirectorPlacementRule.PlacementMode.Random
+                    };
+                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
+                    DirectorCore.instance.TrySpawnObject(dsc);
+                    break;
+                }
+            }
+        }
+
+        private static void CharacterMaster_OnServerStageBegin(On.RoR2.CharacterMaster.orig_OnServerStageBegin orig, CharacterMaster self, Stage stage)
+        {
+            orig(self, stage);
+            int ascendedCount = self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended);
+            if (ascendedCount > 0)
+            {
+                self.inventory.RemoveItem(KrodItems.MisterBoinkyAscended, ascendedCount);
+                self.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, ascendedCount);
+                CharacterMasterNotificationQueue.SendTransformNotification(
+                    self,
+                    KrodItems.MisterBoinkyAscended.itemIndex,
+                    KrodItems.MisterBoinkyTranscended.itemIndex,
+                    CharacterMasterNotificationQueue.TransformationType.Default
+                );
+            }
+            int rebornCount = self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
+            if (rebornCount > 0)
+            {
+                self.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, rebornCount);
+                self.inventory.GiveItem(KrodItems.MisterBoinkyAscended, rebornCount);
+                CharacterMasterNotificationQueue.SendTransformNotification(
+                    self,
+                    KrodItems.MisterBoinkyReborn.itemIndex,
+                    KrodItems.MisterBoinkyAscended.itemIndex,
+                    CharacterMasterNotificationQueue.TransformationType.Default
+                );
+            }
+        }
+
+        private static void ShrineColossusAccessBehavior_OnInteraction(On.RoR2.ShrineColossusAccessBehavior.orig_OnInteraction orig, ShrineColossusAccessBehavior self, Interactor interactor)
+        {
+            orig(self, interactor);
+            CharacterBody body = interactor.GetComponent<CharacterBody>();
+            if (body && body.inventory)
+            {
+                int c = body.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+                if (c > 0)
+                {
+                    body.inventory.RemoveItem(KrodItems.MisterBoinkyConsumed, c);
+                    body.inventory.GiveItem(KrodItems.MisterBoinkyReborn, c);
+                    CharacterMasterNotificationQueue.SendTransformNotification(
+                        body.master,
+                        KrodItems.MisterBoinkyConsumed.itemIndex,
+                        KrodItems.MisterBoinkyReborn.itemIndex,
+                        CharacterMasterNotificationQueue.TransformationType.Default
+                    );
+                }
+            }
         }
 
         private static void CharacterBody_OnBuffFirstStackGained(On.RoR2.CharacterBody.orig_OnBuffFirstStackGained orig, CharacterBody self, BuffDef buffDef)
@@ -413,6 +494,12 @@ namespace Krod
                 args.critAdd += 5f;
             }
 
+            int requitalStacks = sender.GetBuffCount(MisterBoinkyAscended.buffDef);
+            if (requitalStacks > 0) 
+            {
+                args.damageMultAdd += requitalStacks * .1f;
+            }
+
             args.armorAdd += 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
             args.armorAdd += 15 + (sender.inventory.GetItemCount(KrodItems.Woodhat) * 15);
         }
@@ -469,6 +556,9 @@ namespace Krod
                     self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
                     self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCount(KrodItems.LooseCards));
                     self.AddItemBehavior<MisterBoinky.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
+                    self.AddItemBehavior<MisterBoinkyReborn.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn));
+                    self.AddItemBehavior<MisterBoinkyAscended.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended));
+                    self.AddItemBehavior<MisterBoinkyTranscended.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyTranscended));
                     self.AddItemBehavior<TheExtra.Behavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
                     self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCount(KrodItems.NinjaShowerScrub));
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
@@ -494,29 +584,6 @@ namespace Krod
                 }
                 AncientRecordingSystem.OnInventoryChanged(self);
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
-                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0 &&
-                    self.inventory.GetItemCount(KrodItems.MisterBoinky) >= 2)
-                {
-                    CharacterMasterNotificationQueue.SendTransformNotification(self.master,
-                        KrodItems.MisterBoinky.itemIndex,
-                        KrodItems.MisterBoinkyReborn.itemIndex,
-                        CharacterMasterNotificationQueue.TransformationType.Default);
-                }
-                int boinkyReborn = self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
-                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn) > 2)
-                {
-                    CharacterMasterNotificationQueue.SendTransformNotification(self.master,
-                        KrodItems.MisterBoinkyReborn.itemIndex,
-                        KrodItems.MisterBoinkyAscended.itemIndex,
-                        CharacterMasterNotificationQueue.TransformationType.Default);
-                }
-                if (self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 2)
-                {
-                    CharacterMasterNotificationQueue.SendTransformNotification(self.master,
-                        KrodItems.MisterBoinkyAscended.itemIndex,
-                        KrodItems.MisterBoinkyTranscended.itemIndex,
-                        CharacterMasterNotificationQueue.TransformationType.Default);
-                }
             }
         }
 
@@ -541,6 +608,29 @@ namespace Krod
             else if (equipmentDef.equipmentIndex == KrodEquipment.JeremiahsAccident.equipmentIndex)
             {
                 return JeremiahsAccident.PerformEquipmentAction(self, equipmentDef);
+            }
+            else if (equipmentDef.equipmentIndex == DLC2Content.Equipment.HealAndRevive.equipmentIndex)
+            {
+                if (self.characterBody.inventory)
+                {
+                    int c = self.characterBody.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+                    if (c > 0)
+                    {
+                        self.characterBody.inventory.RemoveItem(KrodItems.MisterBoinkyConsumed, c);
+                        self.characterBody.inventory.GiveItem(KrodItems.MisterBoinkyReborn, c);
+                        CharacterMasterNotificationQueue.SendTransformNotification(
+                            self.characterBody.master,
+                            KrodItems.MisterBoinkyConsumed.itemIndex,
+                            KrodItems.MisterBoinkyReborn.itemIndex,
+                            CharacterMasterNotificationQueue.TransformationType.Default
+                        );
+                    }
+                    return orig(self, equipmentDef);
+                }
+                else
+                {
+                    return orig(self, equipmentDef);
+                }
             }
             else
             {

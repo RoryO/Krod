@@ -15,14 +15,18 @@ namespace Krod
         public static ItemDef ToyMotorcycle;
         public static ItemDef Woodhat;
         public static ItemDef NinjaShowerScrub;
+        public static ItemDef MisterBoinkyReborn;
 
         public static ItemDef TimsCrucible;
         public static ItemDef GodHand;
         public static ItemDef RorysForesight;
+        public static ItemDef MisterBoinkyAscended;
 
         public static ItemDef CaudalFin;
         public static ItemDef PrismaticCoral;
 
         public static ItemDef ShipOfRegret;
+
+        public static ItemDef MisterBoinkyTranscended;
     }
 }
