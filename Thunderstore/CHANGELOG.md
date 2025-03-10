@@ -1,3 +1,9 @@
+## 0.0.31
+
+- Double Fish final art
+- Caudal Fin final art
+- boINKyshiDDenSecReTs
+
 ## 0.0.30
 
 - SFX for The Extra
