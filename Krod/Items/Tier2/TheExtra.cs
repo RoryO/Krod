@@ -44,6 +44,7 @@ namespace Krod.Items.Tier2
                         .FilterCandidatesByHurtBoxTeam(TeamMask.GetEnemyTeams(body.teamComponent.teamIndex))
                         .RefreshCandidates()
                         .GetColliders(results);
+                    int actual = 0;
                     for (int i = 0; i < results.Count; ++i)
                     {
                         CharacterBody found = Util.HurtBoxColliderToBody(results[i]);
@@ -65,8 +66,9 @@ namespace Krod.Items.Tier2
                         };
                         StrengthenBurnUtils.CheckDotForUpgrade(body.inventory, ref dotInfo);
                         DotController.InflictDot(ref dotInfo);
+                        actual++;
                     }
-                    if (results.Count > 0)
+                    if (actual > 0)
                     {
                         EffectManager.SpawnEffect(blastSFX, new()
                         {
