@@ -1,3 +1,11 @@
+## 0.0.33
+
+- Adding The Extra and Alien God Hand final art
+- The Extra FX now only triggers when there are nearby enemies to reduce FX fatigue
+- Adjusted Boinky's evolution conditions to be more intentional. You can keep wrathful Boinky if you prefer that over serene
+- Fixed Foresight triggering on printers
+- Fixed Weighted Dice not rolling on first pickup
+
 ## 0.0.32
 
 - Fix for missing content
