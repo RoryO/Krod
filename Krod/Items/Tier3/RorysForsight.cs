@@ -274,6 +274,11 @@ namespace Krod.Items.Tier3
                 }
                 else if (shopTerminalBehavior)
                 {
+                    // is there any better way to do this?
+                    if (indicator.pingTarget.ToString().Contains("Duplicator"))
+                    {
+                        return;
+                    }
                     if (shopTerminalBehavior.hidden)
                     {
                         revealedItems.Add(PickupCatalog.GetPickupDef(shopTerminalBehavior.CurrentPickupIndex()));
