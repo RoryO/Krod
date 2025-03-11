@@ -69,6 +69,10 @@ namespace Krod.Items.Tier2
     }
     public static class MisterBoinkyReborn
     {
+        public class RebornTracker : MonoBehaviour
+        {
+            public Run.FixedTimeStamp evolveAt;
+        }
         public class Behavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver
         {
             public void Awake()
@@ -117,6 +121,12 @@ namespace Krod.Items.Tier2
                         PickupIndex idx = PickupCatalog.FindPickupIndex(KrodItems.MisterBoinkyReborn.itemIndex);
                         c.networkUser.localUser?.userProfile.DiscoverPickup(idx);
                     }
+                    RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
+                    if (!t)
+                    {
+                        t = body.master.gameObject.AddComponent<RebornTracker>();
+                        t.evolveAt = Run.FixedTimeStamp.now + 600f;
+                    }
                 }
             }
 
@@ -129,10 +139,10 @@ namespace Krod.Items.Tier2
                     body.healthComponent.onIncomingDamageReceivers = body.healthComponent.onIncomingDamageReceivers.Where(val => (object)val != this).ToArray();
                 }
             }
-            
-            public void Update()
+
+            public void FixedUpdate()
             {
-                if (!body || !body.inventory) { return; }
+                if (!body || !body.inventory || !body.master) { return; }
                 int boinkyCount = body.inventory.GetItemCount(KrodItems.MisterBoinky);
                 if (boinkyCount > 0)
                 {
@@ -142,6 +152,21 @@ namespace Krod.Items.Tier2
                         body.master,
                         KrodItems.MisterBoinky.itemIndex,
                         KrodItems.MisterBoinkyReborn.itemIndex,
+                        CharacterMasterNotificationQueue.TransformationType.Default
+                    );
+                }
+
+                RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
+                if (!t) { return; }
+                if (Run.FixedTimeStamp.now > t.evolveAt)
+                {
+                    body.inventory.GiveItem(KrodItems.MisterBoinkyAscended, stack);
+                    body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, stack);
+                    Destroy(t);
+                    CharacterMasterNotificationQueue.SendTransformNotification(
+                        body.master,
+                        KrodItems.MisterBoinkyReborn.itemIndex,
+                        KrodItems.MisterBoinkyAscended.itemIndex,
                         CharacterMasterNotificationQueue.TransformationType.Default
                     );
                 }

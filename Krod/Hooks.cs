@@ -30,7 +30,6 @@ namespace Krod
 
             On.RoR2.CharacterMaster.GetDeployableSameSlotLimit += CharacterMaster_GetDeployableSameSlotLimit;
             On.RoR2.CharacterMaster.GiveMoney += CharacterMaster_GiveMoney;
-            On.RoR2.CharacterMaster.OnServerStageBegin += CharacterMaster_OnServerStageBegin;
 
             On.RoR2.DeathRewards.OnKilledServer += DeathRewards_OnKilledServer;
 
@@ -53,10 +52,12 @@ namespace Krod
 
             On.RoR2.SceneExitController.Begin += SceneExitController_Begin;
 
+            On.RoR2.ShrineColossusAccessBehavior.OnInteraction += ShrineColossusAccessBehavior_OnInteraction;
+
             On.RoR2.ShrineChanceBehavior.AddShrineStack += ShrineChanceBehavior_AddShrineStack;
             On.RoR2.ShrineChanceBehavior.FixedUpdate += ShrineChanceBehavior_FixedUpdate;
 
-            On.RoR2.ShrineColossusAccessBehavior.OnInteraction += ShrineColossusAccessBehavior_OnInteraction;
+            On.RoR2.ShrineBloodBehavior.AddShrineStack += ShrineBloodBehavior_AddShrineStack;
 
             On.RoR2.ShopTerminalBehavior.GetInfo += ShopTerminalBehavior_GetInfo;
 
@@ -72,59 +73,6 @@ namespace Krod
             On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
             On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
 #endif
-        }
-
-        private static void SceneDirector_PopulateScene(On.RoR2.SceneDirector.orig_PopulateScene orig, SceneDirector self)
-        {
-            orig(self);
-            for (int i = 0; i < CharacterMaster.readOnlyInstancesList.Count; i++)
-            {
-                CharacterMaster cm = CharacterMaster.readOnlyInstancesList[i];
-                if (cm.inventory && cm.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed) > 0)
-                {
-                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/DLC2/iscShrineColossusAccess.asset").WaitForCompletion();
-                    if (!sc)
-                    {
-                        Log.Error("no rebirth shrine isc");
-                        break;
-                    }
-                    DirectorPlacementRule dpr = new() {
-                         placementMode = DirectorPlacementRule.PlacementMode.Random
-                    };
-                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
-                    DirectorCore.instance.TrySpawnObject(dsc);
-                    break;
-                }
-            }
-        }
-
-        private static void CharacterMaster_OnServerStageBegin(On.RoR2.CharacterMaster.orig_OnServerStageBegin orig, CharacterMaster self, Stage stage)
-        {
-            orig(self, stage);
-            int ascendedCount = self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended);
-            if (ascendedCount > 0)
-            {
-                self.inventory.RemoveItem(KrodItems.MisterBoinkyAscended, ascendedCount);
-                self.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, ascendedCount);
-                CharacterMasterNotificationQueue.SendTransformNotification(
-                    self,
-                    KrodItems.MisterBoinkyAscended.itemIndex,
-                    KrodItems.MisterBoinkyTranscended.itemIndex,
-                    CharacterMasterNotificationQueue.TransformationType.Default
-                );
-            }
-            int rebornCount = self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
-            if (rebornCount > 0)
-            {
-                self.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, rebornCount);
-                self.inventory.GiveItem(KrodItems.MisterBoinkyAscended, rebornCount);
-                CharacterMasterNotificationQueue.SendTransformNotification(
-                    self,
-                    KrodItems.MisterBoinkyReborn.itemIndex,
-                    KrodItems.MisterBoinkyAscended.itemIndex,
-                    CharacterMasterNotificationQueue.TransformationType.Default
-                );
-            }
         }
 
         private static void ShrineColossusAccessBehavior_OnInteraction(On.RoR2.ShrineColossusAccessBehavior.orig_OnInteraction orig, ShrineColossusAccessBehavior self, Interactor interactor)
@@ -144,6 +92,72 @@ namespace Krod
                         KrodItems.MisterBoinkyReborn.itemIndex,
                         CharacterMasterNotificationQueue.TransformationType.Default
                     );
+                }
+            }
+        }
+
+        private static void ShrineBloodBehavior_AddShrineStack(On.RoR2.ShrineBloodBehavior.orig_AddShrineStack orig, ShrineBloodBehavior self, Interactor interactor)
+        {
+            orig(self, interactor);
+            CharacterBody body = interactor.GetComponent<CharacterBody>();
+            if (body && body.inventory)
+            {
+                int c = body.inventory.GetItemCount(KrodItems.MisterBoinkyAscended);
+                if (c > 0)
+                {
+                    body.inventory.RemoveItem(KrodItems.MisterBoinkyAscended, c);
+                    body.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, c);
+                    CharacterMasterNotificationQueue.SendTransformNotification(
+                        body.master,
+                        KrodItems.MisterBoinkyAscended.itemIndex,
+                        KrodItems.MisterBoinkyTranscended.itemIndex,
+                        CharacterMasterNotificationQueue.TransformationType.Default
+                    );
+                }
+            }
+        }
+
+        private static void SceneDirector_PopulateScene(On.RoR2.SceneDirector.orig_PopulateScene orig, SceneDirector self)
+        {
+            orig(self);
+            // Similar to lockbox spawn
+            if (!SceneInfo.instance.countsAsStage && !SceneInfo.instance.sceneDef.allowItemsToSpawnObjects)
+            {
+                return;
+            }
+            for (int i = 0; i < CharacterMaster.readOnlyInstancesList.Count; i++)
+            {
+                CharacterMaster cm = CharacterMaster.readOnlyInstancesList[i];
+                if (!cm.inventory) { return; }
+                if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed) > 0)
+                {
+                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/DLC2/iscShrineColossusAccess.asset").WaitForCompletion();
+                    if (!sc)
+                    {
+                        Log.Error("no rebirth shrine isc");
+                        break;
+                    }
+                    DirectorPlacementRule dpr = new() {
+                         placementMode = DirectorPlacementRule.PlacementMode.Random
+                    };
+                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
+                    DirectorCore.instance.TrySpawnObject(dsc);
+                    break;
+                }
+                if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0)
+                {
+                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/Base/ShrineBlood/iscShrineBlood.asset").WaitForCompletion();
+                    if (!sc)
+                    {
+                        Log.Error("no blood shrine isc");
+                        break;
+                    }
+                    DirectorPlacementRule dpr = new() {
+                         placementMode = DirectorPlacementRule.PlacementMode.Random
+                    };
+                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
+                    DirectorCore.instance.TrySpawnObject(dsc);
+                    break;
                 }
             }
         }
