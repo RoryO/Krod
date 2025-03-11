@@ -45,6 +45,11 @@ namespace Krod.Items.Tier1
                     }
                 }
             }
+
+            public void OnEnable()
+            {
+                Reroll();
+            }
         }
         public static void Awake()
         {
