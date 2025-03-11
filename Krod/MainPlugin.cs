@@ -23,7 +23,7 @@ namespace Krod
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "Rory";
         public const string PluginName = "Krod";
-        public const string PluginVersion = "0.0.30";
+        public const string PluginVersion = "0.0.32";
         public static PluginInfo PInfo;
 
         public void Awake()
@@ -60,11 +60,9 @@ namespace Krod
 
             ShipOfRegret.Awake();
 
-#if DEBUG
             MisterBoinkyReborn.Awake();
             MisterBoinkyAscended.Awake();
             MisterBoinkyTranscended.Awake();
-#endif
 
             Hooks.Awake();
 #if DEBUG

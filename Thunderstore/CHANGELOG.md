@@ -1,3 +1,7 @@
+## 0.0.32
+
+- Fix for missing content
+
 ## 0.0.31
 
 - Double Fish final art
