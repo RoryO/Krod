@@ -51,7 +51,7 @@ namespace Krod.Equipment
                 KrodEquipment.AileensGlassEyeCracked.canDrop = false;
                 KrodEquipment.AileensGlassEyeCracked.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
                 KrodEquipment.AileensGlassEyeCracked.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-                KrodEquipment.AileensGlassEye.canBeRandomlyTriggered = false;
+                KrodEquipment.AileensGlassEyeCracked.canBeRandomlyTriggered = false;
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
 
                 ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEyeCracked, new ItemDisplayRuleDict(null)));
