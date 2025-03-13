@@ -37,7 +37,12 @@ namespace Krod.Equipment
             KrodEquipment.JeremiahsAccident.pickupToken = "JEREMIAHS_ACCIDENT_PICKUP";
             KrodEquipment.JeremiahsAccident.descriptionToken = "JEREMIAHS_ACCIDENT_DESC";
             KrodEquipment.JeremiahsAccident.loreToken = "JEREMIAHS_ACCIDENT_LORE";
+#if DEBUG
+            KrodEquipment.JeremiahsAccident.cooldown = 1;
+#else
             KrodEquipment.JeremiahsAccident.cooldown = 20;
+#endif
+
             KrodEquipment.JeremiahsAccident.canDrop = true;
             KrodEquipment.JeremiahsAccident.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeremiahsAccident.png");
             KrodEquipment.JeremiahsAccident.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
@@ -71,8 +76,8 @@ namespace Krod.Equipment
                 tracer.headTransform = tracerTrail.transform.GetChild(0).transform;
                 tracer.tailTransform = tracerTrail.transform.GetChild(1).transform;
                 tracer.startTransform = tracerTrail.transform.GetChild(2).transform;
-                tracer.speed = 400f;
-                tracer.length = 600f;
+                tracer.speed = 500f;
+                tracer.length = 10_000f;
             }
             else
             {
