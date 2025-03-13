@@ -1,3 +1,10 @@
+## 0.0.34
+
+- Weighted Dice final art
+- Bottled Chaos no longer triggers any of Aileen's effects
+- Jeremiah's Accident trail a little more visible
+- FX for Boinky's journey to make it a bit more obvious what happens
+
 ## 0.0.33
 
 - Adding The Extra and Alien God Hand final art
