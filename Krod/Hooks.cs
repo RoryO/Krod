@@ -92,6 +92,9 @@ namespace Krod
                         KrodItems.MisterBoinkyReborn.itemIndex,
                         CharacterMasterNotificationQueue.TransformationType.Default
                     );
+                    PurchaseInteraction.CreateItemTakenOrb(body.transform.position, 
+                        self.gameObject, 
+                        KrodItems.MisterBoinkyConsumed.itemIndex);
                 }
             }
         }
@@ -113,6 +116,9 @@ namespace Krod
                         KrodItems.MisterBoinkyTranscended.itemIndex,
                         CharacterMasterNotificationQueue.TransformationType.Default
                     );
+                    PurchaseInteraction.CreateItemTakenOrb(body.transform.position, 
+                        self.gameObject, 
+                        KrodItems.MisterBoinkyAscended.itemIndex);
                 }
             }
         }
