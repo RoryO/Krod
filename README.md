@@ -1,3 +1,27 @@
+## Project Layout
+
+Assets -- Unity Project with Thunderkit
+Krod -- C# project
+Out -- Empty. Thunderkit asset export location as krod.assetbundle
+ProjectSettings -- Thunderkit stuff
+Thunderstore -- Helpers for packaging an upload to Thunderstore.io
+WWise Project -- WWise
+WWise Project/Originals -- Master completed sound files
+WWise Project/GeneratedSoundBanks/Windows -- Output sound bank file as krod.sound
+
+## Initial Setup
+
+- Using [r2modman](https://r2modman.com/), create a profle named 'dev'.
+- Create the assetbundle by executing the pipeline in the Unity project
+- Create the soundbank by in WWise
+- Create a new directory `%APPDATA%/r2modmanplus-local/profiles/dev/BepInEx/plugins/Krod/`
+- Copy `Out/krod.assetbundle` and `WWise Project/GeneratedSoundBanks/Windows/krod.sound` to `%APPDATA%/r2modmanplus-local/profiles/dev/BepInEx/plugins/Krod/`
+- Build the C# project, which automatically copies the dll and language files to the r2modman dev profile
+- Manually add the R2API dependencies with r2modman. Reference the [project file](Krod/Krod.csproj)
+- Optional ease of use: create a shortcut to launch the exe without having to go through r2modman with target `"%PROGRAMFILES(X86)%\Steam\steamapps\common\Risk of Rain 2\Risk of Rain 2.exe" --doorstop-enabled true --doorstop-target-assembly "%APPDATA%\r2modmanPlus-local\RiskOfRain2\profiles\dev\BepInEx\core\BepInEx.Preloader.dll"`
+
+## Attributions
+
 ### Logo font
 
 IvySoft Variable -- https://fonts.adobe.com/fonts/ivysoft-variable
