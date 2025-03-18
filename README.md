@@ -1,13 +1,20 @@
 ## Project Layout
 
-Assets -- Unity Project with Thunderkit
-Krod -- C# project
-Out -- Empty. Thunderkit asset export location as krod.assetbundle
-ProjectSettings -- Thunderkit stuff
-Thunderstore -- Helpers for packaging an upload to Thunderstore.io
-WWise Project -- WWise
-WWise Project/Originals -- Master completed sound files
-WWise Project/GeneratedSoundBanks/Windows -- Output sound bank file as krod.sound
+`Assets` -- Unity Project with Thunderkit
+
+`Krod` -- C# project
+
+`Out` -- Empty. Thunderkit asset export location as krod.assetbundle
+
+`ProjectSettings` -- Thunderkit stuff
+
+`Thunderstore` -- Helpers for packaging an upload to Thunderstore.io
+
+`WWise Project` -- WWise
+
+`WWise Project/Originals` -- Master completed sound files
+
+`WWise Project/GeneratedSoundBanks/Windows` -- Output sound bank file as krod.sound
 
 ## Initial Setup
 
