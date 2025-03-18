@@ -37,7 +37,7 @@
     </ItemGroup>
   </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="copy /y $(OutDir)* C:\Users\rto\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\dev\BepInEx\plugins\Krod&#xD;&#xA;copy /y $(OutDir)\..\..\..\Krod.language C:\Users\rto\AppData\Roaming\r2modmanPlus-local\RiskOfRain2\profiles\dev\BepInEx\plugins\Krod" />
+	  <Exec Command="copy /y $(OutDir)* %25APPDATA%25\r2modmanPlus-local\RiskOfRain2\profiles\dev\BepInEx\plugins\Krod&#xD;&#xA;copy /y $(OutDir)\..\..\..\Krod.language %25APPDATA%25\r2modmanPlus-local\RiskOfRain2\profiles\dev\BepInEx\plugins\Krod" />
 	</Target>
 
 </Project>
