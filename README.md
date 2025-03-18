@@ -1,3 +1,7 @@
+### Logo font
+
+IvySoft Variable -- https://fonts.adobe.com/fonts/ivysoft-variable
+
 ### Sound Attributions
 
 FilmCow Sound Packs -- https://filmcow.itch.io/
