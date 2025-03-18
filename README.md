@@ -13,7 +13,7 @@ WWise Project/GeneratedSoundBanks/Windows -- Output sound bank file as krod.soun
 
 - Using [r2modman](https://r2modman.com/), create a profle named 'dev'.
 - Create the assetbundle by executing the pipeline in the Unity project
-- Create the soundbank by in WWise
+- Create the soundbank in WWise
 - Create a new directory `%APPDATA%/r2modmanplus-local/profiles/dev/BepInEx/plugins/Krod/`
 - Copy `Out/krod.assetbundle` and `WWise Project/GeneratedSoundBanks/Windows/krod.sound` to `%APPDATA%/r2modmanplus-local/profiles/dev/BepInEx/plugins/Krod/`
 - Build the C# project, which automatically copies the dll and language files to the r2modman dev profile
