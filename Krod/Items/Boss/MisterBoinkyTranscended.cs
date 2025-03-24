@@ -243,14 +243,14 @@ namespace Krod.Items.Boss
             radiantBuff.isDebuff = false;
             radiantBuff.canStack = false;
             radiantBuff.name = "Radiant";
-            radiantBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/MisterBoinkyTranscended.png");
+            radiantBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/RadiantBD.png");
             ContentAddition.AddBuffDef(radiantBuff);
 
             tranquilityBuff = ScriptableObject.CreateInstance<BuffDef>();
             tranquilityBuff.isDebuff = false;
             tranquilityBuff.canStack = true;
             tranquilityBuff.name = "Tranquility";
-            tranquilityBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/MisterBoinkyTranscended.png");
+            tranquilityBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/TranquilityBD.png");
             ContentAddition.AddBuffDef(tranquilityBuff);
         }
     }
