@@ -107,7 +107,7 @@ namespace Krod.Items.Tier2.Void
             KrodItems.CaudalFin.tags = [ItemTag.Utility, ItemTag.SprintRelated];
             KrodItems.CaudalFin._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/DLC1/Common/VoidTier2Def.asset").WaitForCompletion();
             KrodItems.CaudalFin.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/CaudalFin.png");
-            KrodItems.CaudalFin.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.CaudalFin.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/CaudalFin.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.CaudalFin, new ItemDisplayRuleDict(null)));
 
             ItemDef feather = Addressables.LoadAssetAsync<ItemDef>("RoR2/Base/Feather/Feather.asset").WaitForCompletion();

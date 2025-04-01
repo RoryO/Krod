@@ -93,7 +93,7 @@ namespace Krod.Items.Tier2
             KrodItems.TheExtra.tags = [ItemTag.Damage, ItemTag.AIBlacklist];
             KrodItems.TheExtra._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
-            KrodItems.TheExtra.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.TheExtra.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/TheExtra.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
 
             blastSFX = KUtils.SFXEffect("The Extra Blast", "KTheExtraBlast");

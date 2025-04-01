@@ -45,7 +45,7 @@ namespace Krod.Equipment
 
             KrodEquipment.JeremiahsAccident.canDrop = true;
             KrodEquipment.JeremiahsAccident.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeremiahsAccident.png");
-            KrodEquipment.JeremiahsAccident.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodEquipment.JeremiahsAccident.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccident.prefab");
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeremiahsAccident, new ItemDisplayRuleDict(null)));
             damageType = DamageAPI.ReserveDamageType();
             tracerTrail = Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccidentTrail.prefab");

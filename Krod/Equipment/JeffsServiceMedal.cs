@@ -22,7 +22,7 @@ namespace Krod.Equipment
             KrodEquipment.JeffsServiceMedal.cooldown = 180;
             KrodEquipment.JeffsServiceMedal.canDrop = true;
             KrodEquipment.JeffsServiceMedal.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
-            KrodEquipment.JeffsServiceMedal.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodEquipment.JeffsServiceMedal.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeffsServiceMedal.prefab");
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeffsServiceMedal, new ItemDisplayRuleDict(null)));
         }
 

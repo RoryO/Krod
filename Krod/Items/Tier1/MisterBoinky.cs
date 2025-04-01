@@ -108,7 +108,7 @@ namespace Krod.Items.Tier1
             KrodItems.MisterBoinky.loreToken = "MISTERBOINKY_LORE";
             KrodItems.MisterBoinky._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.MisterBoinky.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
-            KrodItems.MisterBoinky.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.MisterBoinky.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/MisterBoinky.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict(null)));
         }
     }

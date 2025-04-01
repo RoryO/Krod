@@ -76,7 +76,7 @@ namespace Krod.Items.Tier1
             KrodItems.LooseCards.tags = [ItemTag.Damage];
             KrodItems.LooseCards._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.LooseCards.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
-            KrodItems.LooseCards.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.LooseCards.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/LooseCards.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict(null)));
 
             redBuff = ScriptableObject.CreateInstance<BuffDef>();

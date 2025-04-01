@@ -112,7 +112,7 @@ namespace Krod.Items.Tier3
             KrodItems.GodHand.tags = [ItemTag.Damage];
             KrodItems.GodHand._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.GodHand.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/AlienGodHand.png");
-            KrodItems.GodHand.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.GodHand.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/AlienGodHand.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.GodHand, new ItemDisplayRuleDict(null)));
         }
 

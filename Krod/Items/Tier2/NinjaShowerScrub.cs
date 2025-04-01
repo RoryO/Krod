@@ -142,7 +142,7 @@ namespace Krod.Items.Tier2
             KrodItems.NinjaShowerScrub.tags = [ItemTag.Damage];
             KrodItems.NinjaShowerScrub._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.NinjaShowerScrub.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/NinjaShowerScrub.png");
-            KrodItems.NinjaShowerScrub.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.NinjaShowerScrub.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/NinjaShowerScrub.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.NinjaShowerScrub, new ItemDisplayRuleDict(null)));
         }
 

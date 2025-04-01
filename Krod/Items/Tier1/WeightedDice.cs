@@ -62,7 +62,7 @@ namespace Krod.Items.Tier1
             KrodItems.WeightedDice.loreToken = "WEIGHTED_DICE_LORE";
             KrodItems.WeightedDice.tags = [ItemTag.Utility];
             KrodItems.WeightedDice._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
-            KrodItems.WeightedDice.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.WeightedDice.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/WeightedDice.prefab");
             KrodItems.WeightedDice.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/WeightedDice.png");
             ItemAPI.Add(new CustomItem(KrodItems.WeightedDice, new ItemDisplayRuleDict(null)));
 

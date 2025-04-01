@@ -58,7 +58,7 @@ namespace Krod.Items.Tier2
             KrodItems.DoubleFish.tags = [ItemTag.Damage];
             KrodItems.DoubleFish._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.DoubleFish.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
-            KrodItems.DoubleFish.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.DoubleFish.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/DoubleFish.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
 
             fishDamageType = DamageAPI.ReserveDamageType();

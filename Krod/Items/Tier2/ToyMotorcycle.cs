@@ -20,7 +20,7 @@ namespace Krod.Items.Tier2
             KrodItems.ToyMotorcycle.tags = [ItemTag.Utility];
             KrodItems.ToyMotorcycle._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.ToyMotorcycle.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/ToyMotorcycle.png");
-            KrodItems.ToyMotorcycle.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.ToyMotorcycle.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/ToyMotorcycle.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.ToyMotorcycle, new ItemDisplayRuleDict(null)));
         }
     }

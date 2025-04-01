@@ -113,6 +113,7 @@ namespace Krod.Equipment
             bool present = self.currentTarget.transformToIndicateAt;
             if (present)
             {
+                //self.targetIndicator.visualizerPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AncientRecordingSystemIndicator.prefab");
                 self.targetIndicator.visualizerPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/LightningIndicator");
                 self.targetIndicator.targetTransform = self.currentTarget.transformToIndicateAt;
                 self.targetIndicator.active = true;

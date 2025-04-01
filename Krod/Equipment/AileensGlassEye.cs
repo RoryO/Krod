@@ -50,7 +50,7 @@ namespace Krod.Equipment
                 KrodEquipment.AileensGlassEyeCracked.cooldown = 60;
                 KrodEquipment.AileensGlassEyeCracked.canDrop = false;
                 KrodEquipment.AileensGlassEyeCracked.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
-                KrodEquipment.AileensGlassEyeCracked.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+                KrodEquipment.AileensGlassEyeCracked.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AileensGlassEyeCracked.prefab");
                 KrodEquipment.AileensGlassEyeCracked.canBeRandomlyTriggered = false;
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
 
@@ -121,9 +121,7 @@ namespace Krod.Equipment
             KrodEquipment.AileensGlassEye.cooldown = 60;
             KrodEquipment.AileensGlassEye.canDrop = true;
             KrodEquipment.AileensGlassEye.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
-            KrodEquipment.AileensGlassEye.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
-            KrodEquipment.AileensGlassEye.canBeRandomlyTriggered = false;
-            isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
+            KrodEquipment.AileensGlassEye.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AileensGlassEye.prefab");
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
 
             createScrapperEffect = new("Create Scrapper Effect", 

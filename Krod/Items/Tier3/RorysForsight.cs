@@ -69,7 +69,7 @@ namespace Krod.Items.Tier3
             KrodItems.RorysForesight.loreToken = "RORYS_FORESIGHT_LORE";
             KrodItems.RorysForesight._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.RorysForesight.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/RorysForsight.png");
-            KrodItems.RorysForesight.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.RorysForesight.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/RorysForesight.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
             isAvailableBuff.isDebuff = false;
