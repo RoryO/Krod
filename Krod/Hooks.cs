@@ -173,11 +173,11 @@ namespace Krod
             orig(self, buffDef);
             if (buffDef == WeightedDice.addLuckBuff)
             {
-                Util.PlaySound("KDiceSuccess", self.gameObject);
+                Util.PlaySound("KDiceSuccess", RoR2Application.instance.gameObject);
             }
             if (buffDef == WeightedDice.removeLuckBuff)
             {
-                Util.PlaySound("KDiceFail", self.gameObject);
+                Util.PlaySound("KDiceFail", RoR2Application.instance.gameObject);
             }
         }
 

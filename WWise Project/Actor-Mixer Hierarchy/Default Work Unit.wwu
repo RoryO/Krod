@@ -566,7 +566,7 @@
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="DiceSuccess" ID="{5AEF8D74-4FBC-450E-83A3-A4773A92834E}" ShortID="176902751">
 											<PropertyList>
-												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+												<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 												<Property Name="RandomOrSequence" Type="int16" Value="0"/>
@@ -702,6 +702,7 @@
 										</RandomSequenceContainer>
 										<RandomSequenceContainer Name="DiceFail" ID="{C39A5FFD-7D4D-4449-902A-CC4D40F62475}" ShortID="566366879">
 											<PropertyList>
+												<Property Name="EnableAttenuation" Type="bool" Value="False"/>
 												<Property Name="OverridePositioning" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 												<Property Name="RandomOrSequence" Type="int16" Value="0"/>
