@@ -73,6 +73,7 @@
     "TIMS_CRUCIBLE_NAME": "Tim's Crucible",
     "TIMS_CRUCIBLE_PICKUP": "Immune to fire damage. Become stronger while on fire. Activate utility skill to briefly set yourself on fire.",
     "TIMS_CRUCIBLE_DESC": "<style=cIsHealing>Negates all fire damage</style>. While on fire, increases <style=cIsHealing>armor by 20</style> <style=cStack>(+20 per stack)</style>, <style=cIsDamage>attack speed by 30%</style> <style=cStack>(+30% per stack)</style>, and <style=cIsUtility>movement speed by 20%</style> <style=cStack>(+20% per stack)</style>. Using your utility skill lights you on fire for 2.5 <style=cStack>(+0.5 seconds per stack)</style>, maximum of 7.5 seconds.",
+    "TIMS_CRUCIBLE_LORE": "Expedition id 6854489e-33cc-497f-8609-9b8d38ad5f1. Expedition members MB, RO, TE attending. Transcript follows.\n\nRO: Same as every other. Split up and scout around. \n\n[Hydraulic and metallic sounds]\n\nMB: Big box!\n\n[Scattered gunfire and mechanical noises]\n\nTE: They're flying.\n\nRO: You can handle it.\n\n[Shrieking noises]\n\nTE: They're on fire.\n\nRO: Good, that's the side that should be on fire.\n\n[Shrieking, gunfire, heavy sigh]\n\nTE: I am on fire.\n\nRO: That's not the side that should be on fire.\n\n[Frantic gunfire]\n\nTE: I'm down.\n\n[Silence]\n\nMB: I'll go pick him up.\n\nRO: Same as every other. Back to the ship.\n\nEnd of expedition 6854489e-33cc-497f-8609-9b8d38ad5f1. Expedition time: 00:05:14\n",
 
     "RORYS_FORESIGHT_NAME": "Rory's Foresight",
     "RORYS_FORESIGHT_PICKUP": "Manifest the future",
