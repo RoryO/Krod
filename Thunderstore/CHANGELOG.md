@@ -1,3 +1,9 @@
+## 0.0.35
+
+- Placeholder drop cubes for all items with final art
+- Added Prismatic Coral final art
+- Adding lore for Prismatic Coral and Tim's Crucible
+
 ## 0.0.34
 
 - Weighted Dice final art

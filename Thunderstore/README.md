@@ -1,3 +1,3 @@
 # Krod
 
-Not yet.
+Almost.
