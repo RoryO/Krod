@@ -44,6 +44,7 @@ namespace Krod
             On.RoR2.GlobalEventManager.ServerDamageDealt += GlobalEventManager_ServerDamageDealt;
 
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            On.RoR2.HealthComponent.TakeDamageProcess += HealthComponent_TakeDamageProcess;
 
             On.RoR2.PurchaseInteraction.CanBeAffordedByInteractor += PurchaseInteraction_CanBeAffordedByInteractor;
             On.RoR2.PurchaseInteraction.OnInteractionBegin += PurchaseInteraction_OnInteractionBegin;
@@ -73,6 +74,27 @@ namespace Krod
             On.RoR2.RoR2Application.UpdateCursorState += RoR2Application_UpdateCursorState;
             On.RoR2.MPEventSystemManager.Update += MPEventSystemManager_Update;
 #endif
+        }
+
+        private static void HealthComponent_TakeDamageProcess(On.RoR2.HealthComponent.orig_TakeDamageProcess orig, HealthComponent self, DamageInfo damageInfo)
+        {
+            if (damageInfo == null || (damageInfo.damage > 0 && !damageInfo.rejected))
+            {
+                Woodhat.Behavior b = self.body.GetComponent<Woodhat.Behavior>();
+                if (b && b.ready)
+                {
+                    int woodArmor = self.body.GetBuffCount(Woodhat.buffDef);
+                    if (woodArmor > 0)
+                    {
+                        float d = damageInfo.damage;
+                        float n = d * (float)0.5;
+                        damageInfo.damage = n;
+                        self.body.RemoveBuff(Woodhat.buffDef);
+                    }
+                    b.ready = false;
+                }
+            }
+            orig(self, damageInfo);
         }
 
         private static void ShrineColossusAccessBehavior_OnInteraction(On.RoR2.ShrineColossusAccessBehavior.orig_OnInteraction orig, ShrineColossusAccessBehavior self, Interactor interactor)
@@ -521,7 +543,6 @@ namespace Krod
             }
 
             args.armorAdd += 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
-            args.armorAdd += 15 + (sender.inventory.GetItemCount(KrodItems.Woodhat) * 15);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
@@ -584,6 +605,7 @@ namespace Krod
                     self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
                     self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
+                    self.AddItemBehavior<Woodhat.Behavior>(self.inventory.GetItemCount(KrodItems.Woodhat));
                     if (self.inventory.GetItemCount(KrodItems.RorysForesight) > 0)
                     {
                         if (!self.HasBuff(RorysForsight.cooldownBuff) &&
