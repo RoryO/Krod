@@ -138,6 +138,11 @@ namespace Krod.Items.Tier2
                 {
                     body.healthComponent.onIncomingDamageReceivers = body.healthComponent.onIncomingDamageReceivers.Where(val => (object)val != this).ToArray();
                 }
+                RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
+                if (t)
+                {
+                    Destroy(t);
+                }
             }
 
             public void FixedUpdate()
