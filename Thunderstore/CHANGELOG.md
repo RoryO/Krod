@@ -1,3 +1,9 @@
+## 0.0.36
+
+- Reworked A Wood Hat
+- Clarify Discount Coffee wording
+- Reset Boinky evolution timer when losing them all
+
 ## 0.0.35
 
 - Placeholder drop cubes for all items with final art
