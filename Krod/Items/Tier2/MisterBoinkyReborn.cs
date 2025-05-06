@@ -91,18 +91,28 @@ namespace Krod.Items.Tier2
                     if ((damageInfo.damage / c.fullCombinedHealth) > 0.25f)
                     {
                         damageInfo.rejected = true;
-                        body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, 1);
-                        body.inventory.GiveItem(RoR2Content.Items.ScrapGreen, 1);
+                        Inventory inventory = body.inventory;
+                        if (!inventory) { return; }
+                        inventory.RemoveItem(KrodItems.MisterBoinkyReborn, 1);
+                        inventory.GiveItem(RoR2Content.Items.ScrapGreen, 1);
                         CharacterMasterNotificationQueue.SendTransformNotification(
                             body.master, 
                             KrodItems.MisterBoinkyReborn.itemIndex, 
                             RoR2Content.Items.ScrapGreen.itemIndex,
                             CharacterMasterNotificationQueue.TransformationType.Default);
                         body.AddTimedBuff(RoR2Content.Buffs.Immune, 5);
+                        if (inventory.GetItemCount(KrodItems.MisterBoinkyReborn) == 0)
+                        {
+                            RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
+                            if (t)
+                            {
+                                Destroy(t);
+                            }
+                        }
                     }
                 }
             }
-            
+
             public void OnEnable()
             {
                 if (body.healthComponent)
@@ -137,11 +147,6 @@ namespace Krod.Items.Tier2
                 if (i > -1)
                 {
                     body.healthComponent.onIncomingDamageReceivers = body.healthComponent.onIncomingDamageReceivers.Where(val => (object)val != this).ToArray();
-                }
-                RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
-                if (t)
-                {
-                    Destroy(t);
                 }
             }
 
