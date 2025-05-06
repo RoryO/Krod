@@ -85,7 +85,7 @@ namespace Krod.Equipment
             KrodEquipment.AncientRecordingSystem.cooldown = 60;
             KrodEquipment.AncientRecordingSystem.canDrop = true;
             KrodEquipment.AncientRecordingSystem.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
-            KrodEquipment.AncientRecordingSystem.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodEquipment.AncientRecordingSystem.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AncientRecordingEquipment.prefab");
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
             customDamageType = DamageAPI.ReserveDamageType();
 
