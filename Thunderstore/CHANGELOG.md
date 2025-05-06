@@ -1,3 +1,9 @@
+## 0.0.37
+
+- Fixed Aileen not creating a scrapper
+- Fixed Ancient Recording System placeholder drop cube
+- Fixed Boinky timer resetting across stages
+
 ## 0.0.36
 
 - Reworked A Wood Hat
