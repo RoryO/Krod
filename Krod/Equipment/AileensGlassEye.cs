@@ -122,6 +122,9 @@ namespace Krod.Equipment
             KrodEquipment.AileensGlassEye.canDrop = true;
             KrodEquipment.AileensGlassEye.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
             KrodEquipment.AileensGlassEye.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AileensGlassEye.prefab");
+            KrodEquipment.AileensGlassEye.canBeRandomlyTriggered = false;
+            isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
+
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
 
             createScrapperEffect = new("Create Scrapper Effect", 
