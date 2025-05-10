@@ -420,3 +420,6 @@ ThunderKit/
 AkWwiseProjectData.asset
 IncrementalSoundBankData.xml
 /WWise Project/GeneratedSoundBanks/*
+
+# Staging area for hopoo shaders
+Assets/Shaders/HG
