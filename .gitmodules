@@ -1,0 +1,3 @@
+[submodule "ShaderSwapper"]
+	path = ShaderSwapper
+	url = https://github.com/Priscillalala/ShaderSwapper

@@ -9,6 +9,8 @@ using Krod.Items.Tier3;
 using R2API;
 using RoR2;
 using UnityEngine;
+using ShaderSwapper;
+using System.Collections;
 
 namespace Krod
 {
@@ -65,9 +67,21 @@ namespace Krod
             MisterBoinkyTranscended.Awake();
 
             Hooks.Awake();
+            // Some reason just calling StartCoroutine on UpgradeStubbedShadersAsync doesn't work?
+            //StartCoroutine(Assets.bundle.UpgradeStubbedShadersAsync());
+            StartCoroutine(UpgradeShaders());
 #if DEBUG
             On.RoR2.Networking.NetworkManagerSystemSteam.OnClientConnect += (s, u, t) => { };
 #endif
+        }
+
+        public IEnumerator UpgradeShaders()
+        {
+            var s = Assets.bundle.UpgradeStubbedShadersAsync();
+            while (s.MoveNext())
+            {
+                yield return s.Current;
+            }
         }
 
         private void Update()
