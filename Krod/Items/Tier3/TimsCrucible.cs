@@ -104,9 +104,9 @@ namespace Krod.Items.Tier3
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void OnDotStackRemovedServer(DotController self, object _dotStack)
+        public static void OnDotStackRemovedServer(DotController self, DotController.DotStack dotStack)
         {            
-            if (_dotStack is DotController.DotStack dotStack && dotStack.dotIndex == DotController.DotIndex.Burn)
+            if (dotStack.dotIndex == DotController.DotIndex.Burn)
             {
                 if(self.dotStackList.Find(e => e.dotIndex == DotController.DotIndex.Burn) == null)
                 {
@@ -121,9 +121,9 @@ namespace Krod.Items.Tier3
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void OnDotStackAddedServer(DotController self, object _dotStack)
+        public static void OnDotStackAddedServer(DotController self, DotController.DotStack dotStack)
         {
-            if (_dotStack is DotController.DotStack dotStack && dotStack.dotIndex == DotController.DotIndex.Burn)
+            if (dotStack.dotIndex == DotController.DotIndex.Burn)
             {
                 CharacterBody body = self.victimBody;
                 if (body != null && 

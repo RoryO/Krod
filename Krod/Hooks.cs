@@ -453,13 +453,14 @@ namespace Krod
             GodHand.OnSkillActivated(self, skill);
         }
 
-        private static void DotController_OnDotStackRemovedServer(On.RoR2.DotController.orig_OnDotStackRemovedServer orig, DotController self, object dotStack)
+
+        private static void DotController_OnDotStackRemovedServer(On.RoR2.DotController.orig_OnDotStackRemovedServer orig, DotController self, DotController.DotStack dotStack)
         {
             orig(self, dotStack);
             TimsCrucible.OnDotStackRemovedServer(self, dotStack);
         }
 
-        private static void DotController_OnDotStackAddedServer(On.RoR2.DotController.orig_OnDotStackAddedServer orig, DotController self, object dotStack)
+        private static void DotController_OnDotStackAddedServer(On.RoR2.DotController.orig_OnDotStackAddedServer orig, DotController self, DotController.DotStack dotStack)
         {
             orig(self, dotStack);
             TimsCrucible.OnDotStackAddedServer(self, dotStack);
