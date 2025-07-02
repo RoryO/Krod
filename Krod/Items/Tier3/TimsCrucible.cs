@@ -21,8 +21,8 @@ namespace Krod.Items.Tier3
             KrodItems.TimsCrucible.loreToken = "TIMS_CRUCIBLE_LORE";
             KrodItems.TimsCrucible.tags = [ItemTag.Utility];
             KrodItems.TimsCrucible._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
-            KrodItems.TimsCrucible.pickupIconSprite = Addressables.LoadAssetAsync<Sprite>("RoR2/Base/Common/MiscIcons/texMysteryIcon.png").WaitForCompletion();
-            KrodItems.TimsCrucible.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+            KrodItems.TimsCrucible.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/TimsCrucible.png");
+            KrodItems.TimsCrucible.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/TimsCrucible.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.TimsCrucible, new ItemDisplayRuleDict(null)));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.canStack = false;

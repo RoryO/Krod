@@ -94,8 +94,8 @@ namespace Krod.Items.Lunar
             KrodItems.ShipOfRegret.loreToken = "SHIP_OF_REGRET_LORE";
             KrodItems.ShipOfRegret.tags = [];
             KrodItems.ShipOfRegret._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/LunarTierDef.asset").WaitForCompletion();
-            KrodItems.ShipOfRegret.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
             KrodItems.ShipOfRegret.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Lunar/ShipOfRegret.png");
+            KrodItems.ShipOfRegret.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Lunar/ShipOfRegret.prefab");
             ItemAPI.Add(new CustomItem(KrodItems.ShipOfRegret, new ItemDisplayRuleDict(null)));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Lunar/ShipOfRegret.png");
