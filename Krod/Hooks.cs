@@ -153,39 +153,58 @@ namespace Krod
             {
                 return;
             }
+            bool maybeCreateReviveShrine = false;
+            bool maybeCreateBloodShrine = false;
             for (int i = 0; i < CharacterMaster.readOnlyInstancesList.Count; i++)
             {
                 CharacterMaster cm = CharacterMaster.readOnlyInstancesList[i];
                 if (!cm.inventory) { return; }
                 if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed) > 0)
                 {
-                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/DLC2/iscShrineColossusAccess.asset").WaitForCompletion();
-                    if (!sc)
-                    {
-                        Log.Error("no rebirth shrine isc");
-                        break;
-                    }
-                    DirectorPlacementRule dpr = new() {
-                         placementMode = DirectorPlacementRule.PlacementMode.Random
-                    };
-                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
-                    DirectorCore.instance.TrySpawnObject(dsc);
+                    maybeCreateReviveShrine = true;
                     break;
                 }
                 if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0)
                 {
-                    SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/Base/ShrineBlood/iscShrineBlood.asset").WaitForCompletion();
-                    if (!sc)
+                    maybeCreateBloodShrine = true;
+                    break;
+                }
+
+            }
+            if (maybeCreateReviveShrine)
+            {
+                SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/DLC2/iscShrineColossusAccess.asset").WaitForCompletion();
+                if (!sc)
+                {
+                    Log.Error("no rebirth shrine isc");
+                }
+                ShrineColossusAccessBehavior existingShrine = InstanceTracker.FirstOrNull<ShrineColossusAccessBehavior>();
+                if (sc && existingShrine == null)
+                {
+                    DirectorPlacementRule dpr = new()
                     {
-                        Log.Error("no blood shrine isc");
-                        break;
-                    }
-                    DirectorPlacementRule dpr = new() {
-                         placementMode = DirectorPlacementRule.PlacementMode.Random
+                        placementMode = DirectorPlacementRule.PlacementMode.Random
                     };
                     DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
                     DirectorCore.instance.TrySpawnObject(dsc);
-                    break;
+                }
+            }
+            if (maybeCreateBloodShrine)
+            {
+                SpawnCard sc = Addressables.LoadAssetAsync<SpawnCard>("RoR2/Base/ShrineBlood/iscShrineBlood.asset").WaitForCompletion();
+                if (!sc)
+                {
+                    Log.Error("no blood shrine isc");
+                }
+                ShrineBloodBehavior existingShrine = InstanceTracker.FirstOrNull<ShrineBloodBehavior>();
+                if (sc && existingShrine == null)
+                {
+                    DirectorPlacementRule dpr = new()
+                    {
+                        placementMode = DirectorPlacementRule.PlacementMode.Random
+                    };
+                    DirectorSpawnRequest dsc = new(sc, dpr, self.rng);
+                    DirectorCore.instance.TrySpawnObject(dsc);
                 }
             }
         }
@@ -206,7 +225,7 @@ namespace Krod
         private static void ShrineChanceBehavior_FixedUpdate(On.RoR2.ShrineChanceBehavior.orig_FixedUpdate orig, ShrineChanceBehavior self)
         {
             var b = self.GetComponent<RorysForsight.ChanceShrineForsightBehavior>();
-            if(b && self.waitingForRefresh)
+            if (b && self.waitingForRefresh)
             {
                 self.refreshTimer -= Time.fixedDeltaTime;
                 if (self.refreshTimer <= 0 && self.successfulPurchaseCount < self.maxPurchaseCount)
@@ -225,7 +244,7 @@ namespace Krod
         private static void ShrineChanceBehavior_AddShrineStack(On.RoR2.ShrineChanceBehavior.orig_AddShrineStack orig, ShrineChanceBehavior self, Interactor activator)
         {
             var b = self.GetComponent<RorysForsight.ChanceShrineForsightBehavior>();
-            if(b)
+            if (b)
             {
                 RorysForsight.AddShrineStack(self, activator, b);
             }
@@ -538,7 +557,7 @@ namespace Krod
             }
 
             int requitalStacks = sender.GetBuffCount(MisterBoinkyAscended.buffDef);
-            if (requitalStacks > 0) 
+            if (requitalStacks > 0)
             {
                 args.damageMultAdd += requitalStacks * .1f;
             }
