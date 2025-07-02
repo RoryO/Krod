@@ -71,7 +71,7 @@ namespace Krod.Items.Tier2
     {
         public class RebornTracker : MonoBehaviour
         {
-            public Run.FixedTimeStamp evolveAt;
+            public float evolveAt;
         }
         public class Behavior : CharacterBody.ItemBehavior, IOnIncomingDamageServerReceiver
         {
@@ -135,7 +135,8 @@ namespace Krod.Items.Tier2
                     if (!t)
                     {
                         t = body.master.gameObject.AddComponent<RebornTracker>();
-                        t.evolveAt = Run.FixedTimeStamp.now + 600f;
+                        Log.Info(Run.instance.GetRunStopwatch());
+                        t.evolveAt = Run.instance.GetRunStopwatch() + 600f;
                     }
                 }
             }
@@ -168,7 +169,7 @@ namespace Krod.Items.Tier2
 
                 RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
                 if (!t) { return; }
-                if (Run.FixedTimeStamp.now > t.evolveAt)
+                if (Run.instance.GetRunStopwatch() > t.evolveAt)
                 {
                     body.inventory.GiveItem(KrodItems.MisterBoinkyAscended, stack);
                     body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, stack);
