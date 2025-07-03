@@ -249,7 +249,7 @@ namespace Krod.Items.Boss
             tranquilityBuff = ScriptableObject.CreateInstance<BuffDef>();
             tranquilityBuff.isDebuff = false;
             tranquilityBuff.canStack = true;
-            tranquilityBuff.name = "Tranquility";
+            tranquilityBuff.name = "Sedatum";
             tranquilityBuff.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/TranquilityBD.png");
             ContentAddition.AddBuffDef(tranquilityBuff);
         }
