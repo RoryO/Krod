@@ -214,11 +214,11 @@ namespace Krod
             orig(self, buffDef);
             if (buffDef == WeightedDice.addLuckBuff)
             {
-                Util.PlaySound("KDiceSuccess", RoR2Application.instance.gameObject);
+                Util.PlaySound("KDiceSuccess", self.gameObject);
             }
             if (buffDef == WeightedDice.removeLuckBuff)
             {
-                Util.PlaySound("KDiceFail", RoR2Application.instance.gameObject);
+                Util.PlaySound("KDiceFail", self.gameObject);
             }
         }
 
