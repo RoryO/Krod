@@ -61,6 +61,7 @@ I accomplished what I wanted, the implementations are complete, and don't want t
 ## Credits
 
 Rory: Concept, item designs, implementation, sound, lore
+
 Erin: Item visual designs
 
 ## Logo font
