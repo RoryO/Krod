@@ -1,3 +1,22 @@
+## 0.1
+
+- Update to game libarary 1.3.9
+- Tried to normalize all sounds for 1.3.9 update
+  - Something changed with 1.3.9 and everything is still too loud, hopefully mitigates it some
+- Added Ship of Regret and Tim's Crucible final art
+- Added Ship of Regret lore
+- The Extra now only activates when in combat
+  - Changed so you can kite enemies around without killing them
+  - And to stop setting the shopkeeper on fire. They suffered enough of your gassy business
+- Boinky no longer creates shrines if one already exists
+- Boinky no longer evolves in stages with frozen time
+- Added white Boinky to monster blacklist so they can no longer spawn with it
+  - All other Boinky tiers were already on monster blacklist
+  - Mithrix does take all Boinky levels. Pay attention!
+- Renamed Boinky debuff frm Tranquility to Sedatum, to not conflate terminology with Seeker's Tranquility buff
+- Adjusted Weighted Dice sounds again so they don't play for everyone
+- Added descriptive README, license code GPLv3, license art CC-SA-BY-NC
+
 ## 0.0.37
 
 - Fixed Aileen not creating a scrapper
