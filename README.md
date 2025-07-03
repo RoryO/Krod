@@ -105,4 +105,4 @@ All text and code licensed through the GPLv3 as stated in LICENSE
 
 All visual and audio assets licensed through Creative Commons CC-BY-SA-NC 4.0 as stated in LICENSE_ASSETS
 
-All contributions subject to the same licence terms
+All contributions subject to the same license terms
