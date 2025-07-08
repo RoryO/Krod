@@ -1,3 +1,10 @@
+## 0.2
+
+- Add Old Arcade Token to monster blacklist
+  - Really funny though useless
+- Adjust the Weighted Dice sound parameters again
+  - Never going to get this right
+  
 ## 0.1
 
 - Update to game libarary 1.3.9
