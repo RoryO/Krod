@@ -212,11 +212,11 @@ namespace Krod
         private static void CharacterBody_OnBuffFirstStackGained(On.RoR2.CharacterBody.orig_OnBuffFirstStackGained orig, CharacterBody self, BuffDef buffDef)
         {
             orig(self, buffDef);
-            if (buffDef == WeightedDice.addLuckBuff)
+            if (buffDef == WeightedDice.addLuckBuff && self.isPlayerControlled)
             {
                 Util.PlaySound("KDiceSuccess", self.gameObject);
             }
-            if (buffDef == WeightedDice.removeLuckBuff)
+            if (buffDef == WeightedDice.removeLuckBuff && self.isPlayerControlled)
             {
                 Util.PlaySound("KDiceFail", self.gameObject);
             }
