@@ -19,7 +19,7 @@ namespace Krod.Items.Tier1
             KrodItems.ArcadeToken.pickupToken = "ARCADE_TOKEN_PICKUP";
             KrodItems.ArcadeToken.descriptionToken = "ARCADE_TOKEN_DESC";
             KrodItems.ArcadeToken.loreToken = "ARCADE_TOKEN_LORE";
-            KrodItems.ArcadeToken.tags = [ItemTag.Utility];
+            KrodItems.ArcadeToken.tags = [ItemTag.Utility, ItemTag.AIBlacklist];
             KrodItems.ArcadeToken._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.ArcadeToken.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/OldArcadeToken.prefab");
             KrodItems.ArcadeToken.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
