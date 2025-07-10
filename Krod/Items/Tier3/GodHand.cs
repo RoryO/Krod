@@ -24,7 +24,7 @@ namespace Krod.Items.Tier3
                 if (primaryStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
                 int c = body.inventory.GetItemCount(KrodItems.GodHand);
-                if (!locator) { return; }
+                if (!locator || !locator.secondary) { return; }
                 if (locator.secondary.stock != locator.secondary.maxStock)
                 {
                     locator.secondary.rechargeStopwatch += (0.75f + (0.25f * c));
@@ -36,7 +36,7 @@ namespace Krod.Items.Tier3
             {
                 if (secondaryStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
-                if (!locator) { return; }
+                if (!locator || !locator.utility) { return; }
                 int c = body.inventory.GetItemCount(KrodItems.GodHand);
                 if (locator.utility.stock != locator.utility.maxStock)
                 {
@@ -50,12 +50,12 @@ namespace Krod.Items.Tier3
                 SkillLocator locator = body.skillLocator;
                 if (!locator) { return; }
                 int c = body.inventory.GetItemCount(KrodItems.GodHand);
-                if (locator.secondary.stock != locator.secondary.maxStock)
+                if (locator.secondary && locator.secondary.stock != locator.secondary.maxStock)
                 {
                     locator.secondary.rechargeStopwatch += (0.5f + (0.5f * c));
                 }
 
-                if (locator.utility.stock != locator.utility.maxStock)
+                if (locator.utility && locator.utility.stock != locator.utility.maxStock)
                 {
                     locator.utility.rechargeStopwatch += (0.5f + (0.5f * c));
                 }
@@ -69,9 +69,9 @@ namespace Krod.Items.Tier3
                 if (!locator) { return; }
                 int c = body.inventory.GetItemCount(KrodItems.GodHand);
 
-                locator.primary.Reset();
-                locator.secondary.Reset();
-                locator.utility.Reset();
+                if (locator.primary) { locator.primary.Reset(); }
+                if (locator.secondary) { locator.secondary.Reset(); }
+                if (locator.utility) { locator.utility.Reset(); }
 
                 specialStopwatch = 3.0f - (c * 0.5f);
             }
@@ -93,10 +93,6 @@ namespace Krod.Items.Tier3
                 if (specialStopwatch > 0)
                 {
                     specialStopwatch -= Time.deltaTime;
-                }
-                if (body.skillLocator.secondary.rechargeStopwatch > 0)
-                {
-                    Log.Info($"s: {body.skillLocator.secondary.rechargeStopwatch}");
                 }
             }
         }
