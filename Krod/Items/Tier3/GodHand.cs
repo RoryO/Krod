@@ -1,6 +1,5 @@
 ﻿using R2API;
 using RoR2;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 

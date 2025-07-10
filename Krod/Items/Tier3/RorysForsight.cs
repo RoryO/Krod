@@ -70,6 +70,7 @@ namespace Krod.Items.Tier3
             KrodItems.RorysForesight._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.RorysForesight.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/RorysForsight.png");
             KrodItems.RorysForesight.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/RorysForesight.prefab");
+            KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist];
             ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
             isAvailableBuff.isDebuff = false;
