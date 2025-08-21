@@ -622,7 +622,6 @@ namespace Krod
                     self.AddItemBehavior<MisterBoinkyTranscended.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyTranscended));
                     self.AddItemBehavior<TheExtra.Behavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
                     self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCount(KrodItems.NinjaShowerScrub));
-                    self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
                     self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
                     self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
                     self.AddItemBehavior<Woodhat.Behavior>(self.inventory.GetItemCount(KrodItems.Woodhat));
@@ -646,6 +645,7 @@ namespace Krod
                 }
                 AncientRecordingSystem.OnInventoryChanged(self);
                 self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
+                self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
             }
         }
 
