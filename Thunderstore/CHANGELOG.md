@@ -1,3 +1,9 @@
+## 0.2.1
+
+- Fix for Alien God Hand causing errors with characters that do not have all skills
+- Add Rory's Foresight to monster blacklist
+  - Also useless for monsters
+  
 ## 0.2
 
 - Add Old Arcade Token to monster blacklist
