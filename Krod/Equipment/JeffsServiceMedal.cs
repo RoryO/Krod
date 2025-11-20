@@ -22,7 +22,9 @@ namespace Krod.Equipment
             KrodEquipment.JeffsServiceMedal.cooldown = 180;
             KrodEquipment.JeffsServiceMedal.canDrop = true;
             KrodEquipment.JeffsServiceMedal.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeffsServiceMedal.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.JeffsServiceMedal.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeffsServiceMedal.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeffsServiceMedal, new ItemDisplayRuleDict(null)));
         }
 
@@ -31,12 +33,13 @@ namespace Krod.Equipment
         {
             if (self.inventory)
             {
-                int c = self.inventory.GetItemCount(DLC1Content.Items.MinorConstructOnKill) * 4;
-                if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot).equipmentIndex == KrodEquipment.JeffsServiceMedal.equipmentIndex)
+                int c = self.inventory.GetItemCountEffective(DLC1Content.Items.MinorConstructOnKill) * 4;
+                if (self.inventory.GetEquipment(self.inventory.activeEquipmentSlot, 
+                    self.inventory.FindBestEquipmentSetIndex()).equipmentIndex == KrodEquipment.JeffsServiceMedal.equipmentIndex)
                 {
                     c += 2;
                 }
-                c += self.inventory.GetEquipmentSlotMaxCharges(self.inventory.activeEquipmentSlot) * 2;
+                c += self.inventory.GetEquipmentSlotMaxCharges() * 2;
                 return c;
             }
             else

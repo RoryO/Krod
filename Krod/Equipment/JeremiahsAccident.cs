@@ -45,7 +45,9 @@ namespace Krod.Equipment
 
             KrodEquipment.JeremiahsAccident.canDrop = true;
             KrodEquipment.JeremiahsAccident.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/JeremiahsAccident.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.JeremiahsAccident.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccident.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeremiahsAccident, new ItemDisplayRuleDict(null)));
             damageType = DamageAPI.ReserveDamageType();
             tracerTrail = Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccidentTrail.prefab");

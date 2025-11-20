@@ -142,7 +142,9 @@ namespace Krod.Items.Tier2
             KrodItems.NinjaShowerScrub.tags = [ItemTag.Damage];
             KrodItems.NinjaShowerScrub._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.NinjaShowerScrub.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/NinjaShowerScrub.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.NinjaShowerScrub.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/NinjaShowerScrub.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.NinjaShowerScrub, new ItemDisplayRuleDict(null)));
         }
 
@@ -154,7 +156,7 @@ namespace Krod.Items.Tier2
                 Inventory inventory = self.inventory ? self.inventory : null;
                 if (inventory)
                 {
-                    int c = self.inventory.GetItemCount(KrodItems.NinjaShowerScrub);
+                    int c = self.inventory.GetItemCountEffective(KrodItems.NinjaShowerScrub);
                     self.AddItemBehavior<Behavior>(c);
                 }
             }
@@ -171,7 +173,7 @@ namespace Krod.Items.Tier2
             {
                 return;
             }
-            if (damageReport.attackerBody.inventory.GetItemCount(KrodItems.NinjaShowerScrub) > 0)
+            if (damageReport.attackerBody.inventory.GetItemCountEffective(KrodItems.NinjaShowerScrub) > 0)
             {
                 damageReport.attackerBody.GetComponent<Behavior>()?.TriggerDistribution();
             }

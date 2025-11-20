@@ -61,7 +61,7 @@ namespace Krod.Items.Tier2
 
         public void OnInventoryChanged()
         {
-            if (currentInventory.GetItemCount(KrodItems.MisterBoinkyReborn) > 0)
+            if (currentInventory.GetItemCountEffective(KrodItems.MisterBoinkyReborn) > 0)
             {
                 Grant();
             }
@@ -93,15 +93,15 @@ namespace Krod.Items.Tier2
                         damageInfo.rejected = true;
                         Inventory inventory = body.inventory;
                         if (!inventory) { return; }
-                        inventory.RemoveItem(KrodItems.MisterBoinkyReborn, 1);
-                        inventory.GiveItem(RoR2Content.Items.ScrapGreen, 1);
+                        inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, 1);
+                        inventory.GiveItemPermanent(RoR2Content.Items.ScrapGreen, 1);
                         CharacterMasterNotificationQueue.SendTransformNotification(
                             body.master, 
                             KrodItems.MisterBoinkyReborn.itemIndex, 
                             RoR2Content.Items.ScrapGreen.itemIndex,
                             CharacterMasterNotificationQueue.TransformationType.Default);
                         body.AddTimedBuff(RoR2Content.Buffs.Immune, 5);
-                        if (inventory.GetItemCount(KrodItems.MisterBoinkyReborn) == 0)
+                        if (inventory.GetItemCountEffective(KrodItems.MisterBoinkyReborn) == 0)
                         {
                             RebornTracker t = body.master.gameObject.GetComponent<RebornTracker>();
                             if (t)
@@ -154,11 +154,11 @@ namespace Krod.Items.Tier2
             public void FixedUpdate()
             {
                 if (!body || !body.inventory || !body.master) { return; }
-                int boinkyCount = body.inventory.GetItemCount(KrodItems.MisterBoinky);
+                int boinkyCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinky);
                 if (boinkyCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyReborn, boinkyCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinky, boinkyCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyReborn, boinkyCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinky, boinkyCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinky.itemIndex,
@@ -171,8 +171,8 @@ namespace Krod.Items.Tier2
                 if (!t) { return; }
                 if (Run.instance.GetRunStopwatch() > t.evolveAt)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyAscended, stack);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, stack);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyAscended, stack);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, stack);
                     Destroy(t);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
@@ -197,7 +197,9 @@ namespace Krod.Items.Tier2
             KrodItems.MisterBoinkyReborn._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.MisterBoinkyReborn.tags = [ItemTag.WorldUnique];
             KrodItems.MisterBoinkyReborn.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/MisterBoinkyReborn.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.MisterBoinkyReborn.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+#pragma warning restore CS0618 // Type or member is obsolete
             unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
             unlockableDef.cachedName = "KrodItems.MisterBoinkyReborn";
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/MisterBoinkyRebornAD.png");

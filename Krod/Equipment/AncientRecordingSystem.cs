@@ -85,7 +85,9 @@ namespace Krod.Equipment
             KrodEquipment.AncientRecordingSystem.cooldown = 60;
             KrodEquipment.AncientRecordingSystem.canDrop = true;
             KrodEquipment.AncientRecordingSystem.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AncientRecordingSystem.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.AncientRecordingSystem.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AncientRecordingEquipment.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
             customDamageType = DamageAPI.ReserveDamageType();
 

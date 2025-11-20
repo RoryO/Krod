@@ -30,8 +30,8 @@ namespace Krod.Items.Tier1
                         Log.Info(c.fullCombinedHealth);
                         Log.Info($"{damageInfo.damage / c.fullCombinedHealth}");
                         damageInfo.rejected = true;
-                        body.inventory.RemoveItem(KrodItems.MisterBoinky, 1);
-                        body.inventory.GiveItem(KrodItems.MisterBoinkyConsumed, 1);
+                        body.inventory.RemoveItemPermanent(KrodItems.MisterBoinky, 1);
+                        body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyConsumed, 1);
                         CharacterMasterNotificationQueue.SendTransformNotification(
                             body.master, 
                             KrodItems.MisterBoinky.itemIndex, 
@@ -92,7 +92,9 @@ namespace Krod.Items.Tier1
                     tier = ItemTier.NoTier,
                 };
                 KrodItems.MisterBoinkyConsumed.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinkyConsumed.png");
+#pragma warning disable CS0618 // Type or member is obsolete
                 KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+#pragma warning restore CS0618 // Type or member is obsolete
                 ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict(null)));
             }
         }
@@ -111,7 +113,9 @@ namespace Krod.Items.Tier1
             ];
             KrodItems.MisterBoinky._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.MisterBoinky.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/MisterBoinky.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.MisterBoinky.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/MisterBoinky.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict(null)));
         }
     }

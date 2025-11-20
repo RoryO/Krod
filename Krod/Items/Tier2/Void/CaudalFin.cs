@@ -107,7 +107,9 @@ namespace Krod.Items.Tier2.Void
             KrodItems.CaudalFin.tags = [ItemTag.Utility, ItemTag.SprintRelated];
             KrodItems.CaudalFin._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/DLC1/Common/VoidTier2Def.asset").WaitForCompletion();
             KrodItems.CaudalFin.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/CaudalFin.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.CaudalFin.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/CaudalFin.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.CaudalFin, new ItemDisplayRuleDict(null)));
 
             ItemDef feather = Addressables.LoadAssetAsync<ItemDef>("RoR2/Base/Feather/Feather.asset").WaitForCompletion();
@@ -135,7 +137,7 @@ namespace Krod.Items.Tier2.Void
                 return false;
             }
 
-            int c = body.inventory.GetItemCount(KrodItems.CaudalFin);
+            int c = body.inventory.GetItemCountEffective(KrodItems.CaudalFin);
             if (c == 0) { return false; }
 
             Behavior b = body.GetComponent<Behavior>();

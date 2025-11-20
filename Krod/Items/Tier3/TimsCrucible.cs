@@ -22,7 +22,9 @@ namespace Krod.Items.Tier3
             KrodItems.TimsCrucible.tags = [ItemTag.Utility];
             KrodItems.TimsCrucible._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.TimsCrucible.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/TimsCrucible.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.TimsCrucible.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/TimsCrucible.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.TimsCrucible, new ItemDisplayRuleDict(null)));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.canStack = false;
@@ -49,7 +51,7 @@ namespace Krod.Items.Tier3
             if (equipmentDef.equipmentIndex == RoR2Content.Equipment.AffixRed.equipmentIndex &&
                 self != null &&
                 self.inventory != null &&
-                self.inventory.GetItemCount(KrodItems.TimsCrucible) > 0 &&
+                self.inventory.GetItemCountEffective(KrodItems.TimsCrucible) > 0 &&
                 NetworkServer.active)
             {
                 self.AddBuff(buffDef);
@@ -64,7 +66,7 @@ namespace Krod.Items.Tier3
                 self.body != null && 
                 self.body.inventory != null)
             {
-                if (self.body.inventory.GetItemCount(KrodItems.TimsCrucible) > 0 &&
+                if (self.body.inventory.GetItemCountEffective(KrodItems.TimsCrucible) > 0 &&
                     damageInfo.dotIndex == DotController.DotIndex.Burn)
                 {
                     damageInfo.rejected = true;
@@ -79,7 +81,7 @@ namespace Krod.Items.Tier3
                 self.inventory != null &&
                 NetworkServer.active)
             {
-                int c = self.inventory.GetItemCount(KrodItems.TimsCrucible);
+                int c = self.inventory.GetItemCountEffective(KrodItems.TimsCrucible);
                 if (c > 0)
                 {
                     string n = (skill.skillFamily as ScriptableObject).name;
@@ -128,7 +130,7 @@ namespace Krod.Items.Tier3
                 CharacterBody body = self.victimBody;
                 if (body != null && 
                     body.inventory != null && 
-                    body?.inventory?.GetItemCount(KrodItems.TimsCrucible) > 0 && 
+                    body?.inventory?.GetItemCountEffective(KrodItems.TimsCrucible) > 0 && 
                     !body.HasBuff(buffDef) &&
                     NetworkServer.active)
                 {

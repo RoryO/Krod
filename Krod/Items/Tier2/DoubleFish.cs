@@ -58,7 +58,9 @@ namespace Krod.Items.Tier2
             KrodItems.DoubleFish.tags = [ItemTag.Damage];
             KrodItems.DoubleFish._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.DoubleFish.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.DoubleFish.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/DoubleFish.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
 
             fishDamageType = DamageAPI.ReserveDamageType();
@@ -84,7 +86,7 @@ namespace Krod.Items.Tier2
             {
                 CharacterBody cb = damageReport.damageInfo.attacker.GetComponent<CharacterBody>();
                 if (!cb || !cb.inventory) { return; }
-                int c = cb.inventory.GetItemCount(KrodItems.DoubleFish);
+                int c = cb.inventory.GetItemCountEffective(KrodItems.DoubleFish);
                 if (c > 0 && Util.CheckRoll(2.5f * c, cb.master))
                 {
                     CharacterBody b = damageReport.victim.GetComponent<CharacterBody>();

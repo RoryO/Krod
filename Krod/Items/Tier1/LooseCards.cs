@@ -76,7 +76,9 @@ namespace Krod.Items.Tier1
             KrodItems.LooseCards.tags = [ItemTag.Damage];
             KrodItems.LooseCards._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.LooseCards.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.LooseCards.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/LooseCards.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict(null)));
 
             redBuff = ScriptableObject.CreateInstance<BuffDef>();
@@ -119,7 +121,7 @@ namespace Krod.Items.Tier1
                 CharacterBody cb = damageInfo.attacker.GetComponent<CharacterBody>();
                 if (cb && cb.master && cb.inventory)
                 {
-                    int c = cb.inventory.GetItemCount(KrodItems.LooseCards);
+                    int c = cb.inventory.GetItemCountEffective(KrodItems.LooseCards);
                     if (c > 0)
                     {
                         float pct = 2.5f + (c * 2.5f);

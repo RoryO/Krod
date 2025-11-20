@@ -62,7 +62,7 @@ namespace Krod.Items.Tier3
 
         public void OnInventoryChanged()
         {
-            if (currentInventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0)
+            if (currentInventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended) > 0)
             {
                 // introduce a delay instead of granting right away
                 // the stage transition hides the grant notification 
@@ -143,12 +143,12 @@ namespace Krod.Items.Tier3
             public void Update()
             {
                 if (!body || !body.inventory) { return; }
-                int boinkyCount = body.inventory.GetItemCount(KrodItems.MisterBoinky);
-                int rebornCount = body.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
+                int boinkyCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinky);
+                int rebornCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyReborn);
                 if (boinkyCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyAscended, boinkyCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinky, boinkyCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyAscended, boinkyCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinky, boinkyCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinky.itemIndex,
@@ -158,8 +158,8 @@ namespace Krod.Items.Tier3
                 }
                 if (rebornCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyAscended, rebornCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, rebornCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyAscended, rebornCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, rebornCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyReborn.itemIndex,
@@ -184,7 +184,9 @@ namespace Krod.Items.Tier3
             KrodItems.MisterBoinkyAscended._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.MisterBoinkyAscended.tags = [ItemTag.WorldUnique];
             KrodItems.MisterBoinkyAscended.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/MisterBoinkyAscended.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.MisterBoinkyAscended.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+#pragma warning restore CS0618 // Type or member is obsolete
             unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
             unlockableDef.cachedName = "KrodItems.MisterBoinkyAscended";
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/MisterBoinkyAscendedAD.png");

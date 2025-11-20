@@ -21,7 +21,9 @@ namespace Krod.Items.Tier1
             KrodItems.ArcadeToken.loreToken = "ARCADE_TOKEN_LORE";
             KrodItems.ArcadeToken.tags = [ItemTag.Utility, ItemTag.AIBlacklist];
             KrodItems.ArcadeToken._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.ArcadeToken.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/OldArcadeToken.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.ArcadeToken.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
             ItemAPI.Add(new CustomItem(KrodItems.ArcadeToken, new ItemDisplayRuleDict(null)));
 
@@ -50,7 +52,7 @@ namespace Krod.Items.Tier1
                 if (remaining > 1)
                 {
                     behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
-                    master.inventory.RemoveItem(KrodItems.ArcadeToken);
+                    master.inventory.RemoveItemPermanent(KrodItems.ArcadeToken);
                     PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position,
                         context.purchasedObject.gameObject,
                         KrodItems.ArcadeToken.itemIndex);

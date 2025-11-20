@@ -15,7 +15,7 @@ namespace Krod.Equipment
         public static PickupIndex yellowScrap = PickupCatalog.FindPickupIndex("ItemIndex.ScrapYellow");
         public bool PassesFilter(GenericPickupController candidateInfo)
         {
-            PickupDef d = PickupCatalog.GetPickupDef(candidateInfo.pickupIndex);
+            PickupDef d = PickupCatalog.GetPickupDef(candidateInfo._pickupState.pickupIndex);
             PickupIndex idx = d.pickupIndex;
             if (idx == whiteScrap ||
                 idx == greenScrap ||
@@ -50,7 +50,9 @@ namespace Krod.Equipment
                 KrodEquipment.AileensGlassEyeCracked.cooldown = 60;
                 KrodEquipment.AileensGlassEyeCracked.canDrop = false;
                 KrodEquipment.AileensGlassEyeCracked.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEyeCracked.png");
+#pragma warning disable CS0618 // Type or member is obsolete
                 KrodEquipment.AileensGlassEyeCracked.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AileensGlassEyeCracked.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
                 KrodEquipment.AileensGlassEyeCracked.canBeRandomlyTriggered = false;
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
 
@@ -94,12 +96,12 @@ namespace Krod.Equipment
                     return false;
                 }
                 Transform currentTransform = self.currentTarget.rootObject.transform;
-                PickupDef d = PickupCatalog.GetPickupDef(self.currentTarget.pickupController.pickupIndex);
+                PickupDef d = PickupCatalog.GetPickupDef(self.currentTarget.pickupController._pickupState.pickupIndex);
                 ItemTier tier = d.itemTier;
-                PickupIndex scrap = PickupCatalog.FindScrapIndexForItemTier(tier);
                 if (NetworkServer.active)
                 {
-                    self.currentTarget.pickupController.SyncPickupIndex(scrap);
+                    UniquePickup scrap = new UniquePickup(PickupCatalog.FindScrapIndexForItemTier(tier));
+                    self.currentTarget.pickupController.SyncPickupState(scrap);
                 }
                 return true;
             }
@@ -121,7 +123,9 @@ namespace Krod.Equipment
             KrodEquipment.AileensGlassEye.cooldown = 60;
             KrodEquipment.AileensGlassEye.canDrop = true;
             KrodEquipment.AileensGlassEye.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Equipment/AileensEye.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.AileensGlassEye.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AileensGlassEye.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             KrodEquipment.AileensGlassEye.canBeRandomlyTriggered = false;
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
 
@@ -153,7 +157,7 @@ namespace Krod.Equipment
             };
             DirectorSpawnRequest dsc = new(isc, rule, RoR2Application.rng);
             GameObject created = DirectorCore.instance.TrySpawnObject(dsc);
-            body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex);
+            body.inventory.SetEquipmentIndex(KrodEquipment.AileensGlassEyeCracked.equipmentIndex, true);
             EffectManager.SpawnEffect(createScrapperEffect, new EffectData()
             {
                 origin = created.gameObject.transform.position,

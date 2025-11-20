@@ -19,7 +19,7 @@ namespace Krod.Items.Tier1
             public void OnEnable()
             {
                 if (!body || body.HasBuff(buff) || !body.inventory) { return; }
-                int c = body.inventory.GetItemCount(KrodItems.DiscountCoffee);
+                int c = body.inventory.GetItemCountEffective(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
                     body.AddTimedBuff(buff, 50f + (c * 10f));
@@ -46,10 +46,12 @@ namespace Krod.Items.Tier1
             KrodItems.DiscountCoffee.pickupToken = "DISCOUNT_COFFEE_PICKUP";
             KrodItems.DiscountCoffee.descriptionToken = "DISCOUNT_COFFEE_DESC";
             KrodItems.DiscountCoffee.loreToken = "DISCOUNT_COFFEE_LORE";
-            KrodItems.DiscountCoffee.tags = [ItemTag.Utility];
+            KrodItems.DiscountCoffee.tags = [ItemTag.Utility, ItemTag.MobilityRelated];
             KrodItems.DiscountCoffee._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.DiscountCoffee.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
+#pragma warning disable CS0618
             KrodItems.DiscountCoffee.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/DiscountCoffee.prefab");
+#pragma warning restore CS0618
             ItemAPI.Add(new CustomItem(KrodItems.DiscountCoffee, new ItemDisplayRuleDict(null)));
 
             buff = ScriptableObject.CreateInstance<BuffDef>();
@@ -90,7 +92,7 @@ namespace Krod.Items.Tier1
             Inventory inventory = characterBody.inventory ? characterBody.inventory : null;
             if (characterBody && inventory)
             {
-                int c = characterBody.inventory.GetItemCount(KrodItems.DiscountCoffee);
+                int c = characterBody.inventory.GetItemCountEffective(KrodItems.DiscountCoffee);
                 if (c > 0)
                 {
                     if (!characterBody.HasBuff(buff))

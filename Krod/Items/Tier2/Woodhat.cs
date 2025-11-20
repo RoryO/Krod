@@ -36,7 +36,7 @@ namespace Krod.Items.Tier2
                     if (body.isSprinting) { return; }
                     Inventory inv = body.inventory;
                     if (!inv) { return; }
-                    int c = inv.GetItemCount(KrodItems.Woodhat);
+                    int c = inv.GetItemCountEffective(KrodItems.Woodhat);
                     int b = body.GetBuffCount(buffDef);
                     if (b < (c * 2))
                     {
@@ -60,7 +60,9 @@ namespace Krod.Items.Tier2
             KrodItems.Woodhat._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.Woodhat.tags = [ItemTag.Utility];
             KrodItems.Woodhat.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/WoodHat.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.Woodhat.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/WoodHat.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.Woodhat, new ItemDisplayRuleDict(null)));
 
             buffDef = ScriptableObject.CreateInstance<BuffDef>();

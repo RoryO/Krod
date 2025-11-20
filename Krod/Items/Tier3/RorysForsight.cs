@@ -16,10 +16,10 @@ namespace Krod.Items.Tier3
         public class ChestForsightBehavior : MonoBehaviour
         {
             public List<CharacterBody> revealersWithSaleStar = [];
-            public List<List<PickupDef>> revealedItems = [];
+            public List<List<UniquePickup>> revealedItems = [];
             public CharacterBody lastPingedBy;
 
-            public List<PickupDef> RevealedItemsForCharacter(CharacterBody character)
+            public List<UniquePickup> RevealedItemsForCharacter(CharacterBody character)
             {
                 var idx = revealersWithSaleStar.FindIndex(e => e == character);
                 if (idx == -1)
@@ -32,7 +32,7 @@ namespace Krod.Items.Tier3
                 }
             }
 
-            public void AddRevealedItemsForCharacter(CharacterBody character, List<PickupDef> items)
+            public void AddRevealedItemsForCharacter(CharacterBody character, List<UniquePickup> items)
             {
                 int idx = revealersWithSaleStar.FindIndex(e => e == character);
                 if (idx != -1)
@@ -51,7 +51,7 @@ namespace Krod.Items.Tier3
             public struct RevealedPurchaseCost
             {
                 public int cost;
-                public PickupDef item;
+                public UniquePickup item;
             }
 
             public List<RevealedPurchaseCost> revealedCosts = [];
@@ -69,7 +69,9 @@ namespace Krod.Items.Tier3
             KrodItems.RorysForesight.loreToken = "RORYS_FORESIGHT_LORE";
             KrodItems.RorysForesight._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.RorysForesight.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/RorysForsight.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.RorysForesight.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/RorysForesight.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist];
             ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
@@ -91,9 +93,10 @@ namespace Krod.Items.Tier3
             // y compiler error tho
             // ShrineChanceBehavior.onShrineChancePurchaseGlobal(true, activator);
             PickupDropletController.CreatePickupDroplet(
-                b.revealedCosts[b.lastPurchasedIndex].item.pickupIndex,
+                b.revealedCosts[b.lastPurchasedIndex].item,
                 self.dropletOrigin.position,
-                self.dropletOrigin.forward * 20f
+                self.dropletOrigin.forward * 20f,
+                false
             );
 
             EffectManager.SpawnEffect(self.effectPrefabShrineRewardNormal, new EffectData
@@ -149,7 +152,7 @@ namespace Krod.Items.Tier3
                 {
                     b = indicator.pingTarget.AddComponent<ChanceShrineForsightBehavior>();
                 }
-                int chanceDolls = body.inventory.GetItemCount(DLC2Content.Items.ExtraShrineItem);
+                int chanceDolls = body.inventory.GetItemCountEffective(DLC2Content.Items.ExtraShrineItem);
                 int purchasesRemaining = shrineBehavior.maxPurchaseCount - shrineBehavior.successfulPurchaseCount;
                 if (purchasesRemaining == 0) { return; }
                 int currentCost = shrineBehavior.purchaseInteraction.Networkcost;
@@ -167,7 +170,8 @@ namespace Krod.Items.Tier3
                                     b.revealedCosts.Add(new()
                                     {
                                         cost = currentCost,
-                                        item = shrineBehavior.chanceDollDropTable.GenerateDrop(shrineBehavior.rng).pickupDef
+                                        item = shrineBehavior.chanceDollDropTable.GeneratePickup(shrineBehavior.rng)
+
                                     });
                                 }
                                 else
@@ -175,7 +179,7 @@ namespace Krod.Items.Tier3
                                     b.revealedCosts.Add(new()
                                     {
                                         cost = currentCost,
-                                        item = shrineBehavior.dropTable.GenerateDrop(shrineBehavior.rng).pickupDef
+                                        item = shrineBehavior.dropTable.GeneratePickup(shrineBehavior.rng)
                                     });
                                 }
                             }
@@ -184,7 +188,7 @@ namespace Krod.Items.Tier3
                                 b.revealedCosts.Add(new()
                                 {
                                     cost = currentCost,
-                                    item = shrineBehavior.dropTable.GenerateDrop(shrineBehavior.rng).pickupDef
+                                    item = shrineBehavior.dropTable.GeneratePickup(shrineBehavior.rng)
                                 });
                             }
                         }
@@ -208,7 +212,7 @@ namespace Krod.Items.Tier3
                             b.revealedCosts.Add(new()
                             {
                                 cost = currentCost,
-                                item = foundIdx.pickupDef
+                                item = new UniquePickup(foundIdx)
                             });
                         }
                     }
@@ -226,21 +230,23 @@ namespace Krod.Items.Tier3
                 int tokenCount = 1;
                 for (int i = b.lastPurchasedIndex; i < b.revealedCosts.Count; i = i + 1)
                 {
-                    PickupDef item = b.revealedCosts[i].item;
+                    UniquePickup item = b.revealedCosts[i].item;
+                    PickupDef def = PickupCatalog.GetPickupDef(item.pickupIndex);
                     string hexColor = null;
-                    if (item.itemIndex != ItemIndex.None)
+
+                    if (item.pickupIndex != PickupIndex.none)
                     {
-                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(item.itemTier);
+                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(def.itemTier);
                         hexColor = ColorCatalog.GetColorHexString(tier.colorIndex);
-                        CharacterMasterNotificationQueue.PushItemNotification(ms, item.itemIndex);
+                        CharacterMasterNotificationQueue.PushItemNotification(ms, def.itemIndex);
                     }
                     else
                     {
-                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, item.equipmentIndex);
+                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, def.equipmentIndex);
                     }
                     itemMessages.Add("{" + (tokenCount) + "}: <color=#" + (hexColor != null ? hexColor : equipmentColor) + ">{" + (tokenCount + 1) + "}</color>");
                     paramTokens.Add("$" + TextSerialization.ToStringNumeric(b.revealedCosts[i].cost));
-                    paramTokens.Add(Language.GetString(item.nameToken));
+                    paramTokens.Add(Language.GetString(def.nameToken));
                     tokenCount += 2;
                 }
                 Chat.SimpleChatMessage msg = new()
@@ -252,7 +258,7 @@ namespace Krod.Items.Tier3
             }
             else
             {
-                List<PickupDef> revealedItems = [];
+                List<UniquePickup> revealedItems = [];
                 if (chestBehavior)
                 {
                     ChestForsightBehavior chestForsight = indicator.pingTarget.GetComponent<ChestForsightBehavior>();
@@ -260,12 +266,13 @@ namespace Krod.Items.Tier3
                     {
                         chestForsight = indicator.pingTarget.AddComponent<ChestForsightBehavior>();
                     }
-                    PickupIndex idx = chestBehavior.dropPickup;
+                    UniquePickup pickup = chestBehavior.currentPickup;
+
                     revealedItems = chestForsight.RevealedItemsForCharacter(body);
                     if (revealedItems.Count == 0)
                     {
-                        revealedItems.Add(PickupCatalog.GetPickupDef(idx));
-                        int saleStars = body.inventory.GetItemCount(DLC2Content.Items.LowerPricedChests);
+                        revealedItems.Add(pickup);
+                        int saleStars = body.inventory.GetItemCountEffective(DLC2Content.Items.LowerPricedChests);
                         if (saleStars > 0)
                         {
                             // derp
@@ -282,15 +289,15 @@ namespace Krod.Items.Tier3
                     }
                     if (shopTerminalBehavior.hidden)
                     {
-                        revealedItems.Add(PickupCatalog.GetPickupDef(shopTerminalBehavior.CurrentPickupIndex()));
+                        revealedItems.Add(shopTerminalBehavior.CurrentPickup());
                         shopTerminalBehavior.SetHidden(false);
                     }
                 }
                 else if (optionChestBehavior)
                 {
-                    for (int i = 0; i < optionChestBehavior.generatedDrops.Length; i = i + 1)
+                    for (int i = 0; i < optionChestBehavior.generatedPickups.Count; i = i + 1)
                     {
-                        revealedItems.Add(PickupCatalog.GetPickupDef(optionChestBehavior.generatedDrops[i]));
+                        revealedItems.Add(optionChestBehavior.generatedPickups[i]);
                     }
                 }
                 StringBuilder tokenMsg = new("<style=cIsDamage>{0} revealed:</style> ");
@@ -301,18 +308,20 @@ namespace Krod.Items.Tier3
                 for (int i = 0; i < revealedItems.Count; i = i + 1)
                 {
                     string hexColor = null;
-                    if (revealedItems[i].itemIndex != ItemIndex.None)
+                    UniquePickup item = revealedItems[i];
+                    PickupDef def = PickupCatalog.GetPickupDef(item.pickupIndex);
+                    if (def.itemIndex != ItemIndex.None)
                     {
-                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(revealedItems[i].itemTier);
+                        ItemTierDef tier = ItemTierCatalog.GetItemTierDef(def.itemTier);
                         hexColor = ColorCatalog.GetColorHexString(tier.colorIndex);
-                        CharacterMasterNotificationQueue.PushItemNotification(ms, revealedItems[i].itemIndex);
+                        CharacterMasterNotificationQueue.PushItemNotification(ms, def.itemIndex);
                     }
                     else
                     {
-                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, revealedItems[i].equipmentIndex);
+                        CharacterMasterNotificationQueue.PushEquipmentNotification(ms, def.equipmentIndex);
                     }
                     itemMessages[i] = "<color=#" + (hexColor != null ? hexColor : equipmentColor) + ">{" + (i + 1) + "}</color>";
-                    paramTokens[i + 1] = Language.GetString(revealedItems[i].nameToken);
+                    paramTokens[i + 1] = Language.GetString(def.nameToken);
                 }
                 Chat.SimpleChatMessage m = new()
                 {
@@ -324,7 +333,7 @@ namespace Krod.Items.Tier3
 
             if (didRevealObject)
             {
-                int c = body.inventory.GetItemCount(KrodItems.RorysForesight) - 1;
+                int c = body.inventory.GetItemCountEffective(KrodItems.RorysForesight) - 1;
                 float pctReduction = (float)System.Math.Tanh(c * 0.2f);
                 body.RemoveBuff(isAvailableBuff);
                 body.AddTimedBuff(cooldownBuff, 60 - (60 * pctReduction));

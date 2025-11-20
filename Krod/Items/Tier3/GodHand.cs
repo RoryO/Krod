@@ -22,7 +22,7 @@ namespace Krod.Items.Tier3
             {
                 if (primaryStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
-                int c = body.inventory.GetItemCount(KrodItems.GodHand);
+                int c = body.inventory.GetItemCountEffective(KrodItems.GodHand);
                 if (!locator || !locator.secondary) { return; }
                 if (locator.secondary.stock != locator.secondary.maxStock)
                 {
@@ -36,7 +36,7 @@ namespace Krod.Items.Tier3
                 if (secondaryStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
                 if (!locator || !locator.utility) { return; }
-                int c = body.inventory.GetItemCount(KrodItems.GodHand);
+                int c = body.inventory.GetItemCountEffective(KrodItems.GodHand);
                 if (locator.utility.stock != locator.utility.maxStock)
                 {
                     locator.utility.rechargeStopwatch += (0.5f + (0.5f * c));
@@ -48,7 +48,7 @@ namespace Krod.Items.Tier3
                 if (utilityStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
                 if (!locator) { return; }
-                int c = body.inventory.GetItemCount(KrodItems.GodHand);
+                int c = body.inventory.GetItemCountEffective(KrodItems.GodHand);
                 if (locator.secondary && locator.secondary.stock != locator.secondary.maxStock)
                 {
                     locator.secondary.rechargeStopwatch += (0.5f + (0.5f * c));
@@ -66,7 +66,7 @@ namespace Krod.Items.Tier3
                 if (specialStopwatch > 0) { return; }
                 SkillLocator locator = body.skillLocator;
                 if (!locator) { return; }
-                int c = body.inventory.GetItemCount(KrodItems.GodHand);
+                int c = body.inventory.GetItemCountEffective(KrodItems.GodHand);
 
                 if (locator.primary) { locator.primary.Reset(); }
                 if (locator.secondary) { locator.secondary.Reset(); }
@@ -107,7 +107,9 @@ namespace Krod.Items.Tier3
             KrodItems.GodHand.tags = [ItemTag.Damage];
             KrodItems.GodHand._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.GodHand.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/AlienGodHand.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.GodHand.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/AlienGodHand.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.GodHand, new ItemDisplayRuleDict(null)));
         }
 

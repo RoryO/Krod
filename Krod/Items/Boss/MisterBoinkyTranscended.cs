@@ -62,7 +62,7 @@ namespace Krod.Items.Boss
 
         public void OnInventoryChanged()
         {
-            if (currentInventory.GetItemCount(KrodItems.MisterBoinkyTranscended) > 0)
+            if (currentInventory.GetItemCountEffective(KrodItems.MisterBoinkyTranscended) > 0)
             {
                 grantAt = Run.FixedTimeStamp.now + 5f;
                 RoR2Application.onFixedUpdate += FixedUpdate;
@@ -137,13 +137,13 @@ namespace Krod.Items.Boss
             public void Update()
             {
                 if (!body || !body.inventory) { return; }
-                int boinkyCount = body.inventory.GetItemCount(KrodItems.MisterBoinky);
-                int rebornCount = body.inventory.GetItemCount(KrodItems.MisterBoinkyReborn);
-                int ascendedCount = body.inventory.GetItemCount(KrodItems.MisterBoinkyAscended);
+                int boinkyCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinky);
+                int rebornCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyReborn);
+                int ascendedCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended);
                 if (boinkyCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, boinkyCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinky, boinkyCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, boinkyCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinky, boinkyCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinky.itemIndex,
@@ -153,8 +153,8 @@ namespace Krod.Items.Boss
                 }
                 if (rebornCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, rebornCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyReborn, rebornCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, rebornCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, rebornCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyReborn.itemIndex,
@@ -164,8 +164,8 @@ namespace Krod.Items.Boss
                 }
                 if (ascendedCount > 0)
                 {
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, ascendedCount);
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyAscended, ascendedCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, ascendedCount);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyAscended, ascendedCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyAscended.itemIndex,
@@ -231,7 +231,9 @@ namespace Krod.Items.Boss
             KrodItems.MisterBoinkyTranscended._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/BossTierDef.asset").WaitForCompletion();
             KrodItems.MisterBoinkyTranscended.tags = [ItemTag.WorldUnique];
             KrodItems.MisterBoinkyTranscended.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/MisterBoinkyTranscended.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.MisterBoinkyTranscended.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
+#pragma warning restore CS0618 // Type or member is obsolete
             unlockableDef = ScriptableObject.CreateInstance<UnlockableDef>();
             unlockableDef.cachedName = "KrodItems.MisterBoinkyTranscended";
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/MisterBoinkyTranscendedAD.png");

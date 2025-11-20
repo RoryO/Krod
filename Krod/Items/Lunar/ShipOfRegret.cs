@@ -27,7 +27,7 @@ namespace Krod.Items.Lunar
                 if (!body.inventory) { return; }
                 if (n == 0) { return; }
 
-                regretAccumulated += 6 * n * (uint)body.inventory.GetItemCount(KrodItems.ShipOfRegret);
+                regretAccumulated += 6 * n * (uint)body.inventory.GetItemCountEffective(KrodItems.ShipOfRegret);
                 Log.Info($"add: total regret {regretAccumulated}");
                 if (regretAccumulated > largeChestCost)
                 {
@@ -95,7 +95,9 @@ namespace Krod.Items.Lunar
             KrodItems.ShipOfRegret.tags = [];
             KrodItems.ShipOfRegret._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/LunarTierDef.asset").WaitForCompletion();
             KrodItems.ShipOfRegret.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Lunar/ShipOfRegret.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.ShipOfRegret.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Lunar/ShipOfRegret.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.ShipOfRegret, new ItemDisplayRuleDict(null)));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Lunar/ShipOfRegret.png");

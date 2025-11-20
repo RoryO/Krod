@@ -103,11 +103,11 @@ namespace Krod
             CharacterBody body = interactor.GetComponent<CharacterBody>();
             if (body && body.inventory)
             {
-                int c = body.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+                int c = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyConsumed);
                 if (c > 0)
                 {
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyConsumed, c);
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyReborn, c);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyConsumed, c);
+                    body.inventory.GiveItemTemp(KrodItems.MisterBoinkyReborn.itemIndex, c);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyConsumed.itemIndex,
@@ -127,11 +127,11 @@ namespace Krod
             CharacterBody body = interactor.GetComponent<CharacterBody>();
             if (body && body.inventory)
             {
-                int c = body.inventory.GetItemCount(KrodItems.MisterBoinkyAscended);
+                int c = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended);
                 if (c > 0)
                 {
-                    body.inventory.RemoveItem(KrodItems.MisterBoinkyAscended, c);
-                    body.inventory.GiveItem(KrodItems.MisterBoinkyTranscended, c);
+                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyAscended, c);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, c);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyAscended.itemIndex,
@@ -159,12 +159,12 @@ namespace Krod
             {
                 CharacterMaster cm = CharacterMaster.readOnlyInstancesList[i];
                 if (!cm.inventory) { return; }
-                if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed) > 0)
+                if (cm.inventory.GetItemCountEffective(KrodItems.MisterBoinkyConsumed) > 0)
                 {
                     maybeCreateReviveShrine = true;
                     break;
                 }
-                if (cm.inventory.GetItemCount(KrodItems.MisterBoinkyAscended) > 0)
+                if (cm.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended) > 0)
                 {
                     maybeCreateBloodShrine = true;
                     break;
@@ -280,7 +280,7 @@ namespace Krod
                 if (buffDef == RorysForsight.cooldownBuff &&
                    self &&
                    self.inventory &&
-                   self.inventory.GetItemCount(KrodItems.RorysForesight) > 0)
+                   self.inventory.GetItemCountEffective(KrodItems.RorysForesight) > 0)
                 {
                     self.AddBuff(RorysForsight.isAvailableBuff);
                 }
@@ -315,8 +315,8 @@ namespace Krod
             orig(self);
             if (!self || !self.master) { return; }
             self.master.luck = 0;
-            self.master.luck += self.inventory.GetItemCount(RoR2Content.Items.Clover);
-            self.master.luck -= self.inventory.GetItemCount(RoR2Content.Items.LunarBadLuck);
+            self.master.luck += self.inventory.GetItemCountEffective(RoR2Content.Items.Clover);
+            self.master.luck -= self.inventory.GetItemCountEffective(RoR2Content.Items.LunarBadLuck);
             if (self.HasBuff(WeightedDice.addLuckBuff))
             {
                 self.master.luck += 1;
@@ -377,7 +377,7 @@ namespace Krod
             Inventory inventory = body.inventory;
             if (inventory)
             {
-                int c = inventory.GetItemCount(KrodItems.ShipOfRegret);
+                int c = inventory.GetItemCountEffective(KrodItems.ShipOfRegret);
                 ShipOfRegret.Behavior b = body.GetComponent<ShipOfRegret.Behavior>();
                 if (c == 0 || !b)
                 {
@@ -505,25 +505,25 @@ namespace Krod
 
             if (sender.HasBuff(DiscountCoffee.buff))
             {
-                int c = sender.inventory.GetItemCount(KrodItems.DiscountCoffee);
+                int c = sender.inventory.GetItemCountEffective(KrodItems.DiscountCoffee);
                 args.attackSpeedMultAdd += c * 0.15f;
                 args.sprintSpeedAdd += c * 0.25f;
             }
 
             if (sender.isSprinting)
             {
-                int numMotorcycle = sender.inventory.GetItemCount(KrodItems.ToyMotorcycle);
+                int numMotorcycle = sender.inventory.GetItemCountEffective(KrodItems.ToyMotorcycle);
                 if (numMotorcycle > 0)
                 {
                     int c = 0;
                     foreach (var i in ItemCatalog.tier2ItemList)
                     {
-                        c += sender.inventory.GetItemCount(i);
+                        c += sender.inventory.GetItemCountEffective(i);
                     }
-                    int white = sender.inventory.GetItemCount(RoR2Content.Items.ScrapWhite);
-                    int green = sender.inventory.GetItemCount(RoR2Content.Items.ScrapGreen);
-                    int red = sender.inventory.GetItemCount(RoR2Content.Items.ScrapRed);
-                    int yellow = sender.inventory.GetItemCount(RoR2Content.Items.ScrapYellow);
+                    int white = sender.inventory.GetItemCountEffective(RoR2Content.Items.ScrapWhite);
+                    int green = sender.inventory.GetItemCountEffective(RoR2Content.Items.ScrapGreen);
+                    int red = sender.inventory.GetItemCountEffective(RoR2Content.Items.ScrapRed);
+                    int yellow = sender.inventory.GetItemCountEffective(RoR2Content.Items.ScrapYellow);
 
                     args.moveSpeedMultAdd += .05f + (c * (.05f * numMotorcycle)) +
                         (white * 0.03f) +
@@ -531,7 +531,7 @@ namespace Krod
                         (red * 0.5f) +
                         (yellow * 0.5f);
                 }
-                int fins = sender.inventory.GetItemCount(KrodItems.CaudalFin);
+                int fins = sender.inventory.GetItemCountEffective(KrodItems.CaudalFin);
                 if (fins > 0)
                 {
                     CaudalFin.Behavior behavior = sender.GetComponent<CaudalFin.Behavior>();
@@ -545,13 +545,13 @@ namespace Krod
 
             if (sender.HasBuff(TimsCrucible.buffDef))
             {
-                int m = sender.inventory.GetItemCount(KrodItems.TimsCrucible);
+                int m = sender.inventory.GetItemCountEffective(KrodItems.TimsCrucible);
                 args.attackSpeedMultAdd += 0.3f * m;
                 args.armorAdd += 20 * m;
                 args.moveSpeedMultAdd += 0.2f * m;
             }
 
-            if (sender.inventory.GetItemCount(KrodItems.NinjaShowerScrub) > 0)
+            if (sender.inventory.GetItemCountEffective(KrodItems.NinjaShowerScrub) > 0)
             {
                 args.critAdd += 5f;
             }
@@ -562,7 +562,7 @@ namespace Krod
                 args.damageMultAdd += requitalStacks * .1f;
             }
 
-            args.armorAdd += 4 * sender.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+            args.armorAdd += 4 * sender.inventory.GetItemCountEffective(KrodItems.MisterBoinkyConsumed);
         }
 
         private static void PurchaseInteraction_OnInteractionBegin(On.RoR2.PurchaseInteraction.orig_OnInteractionBegin orig, PurchaseInteraction self, Interactor activator)
@@ -578,7 +578,7 @@ namespace Krod
             if (master &&
                 inventory &&
                 master.inventory.currentEquipmentIndex != DLC1Content.Equipment.MultiShopCard.equipmentIndex &&
-                inventory.GetItemCount(KrodItems.ArcadeToken) > 0 &&
+                inventory.GetItemCountEffective(KrodItems.ArcadeToken) > 0 &&
                 context.purchasedObject)
             {
                 ArcadeToken.OnPurchase(context);
@@ -614,18 +614,18 @@ namespace Krod
             {
                 if (NetworkServer.active)
                 {
-                    self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCount(KrodItems.DiscountCoffee));
-                    self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCount(KrodItems.LooseCards));
-                    self.AddItemBehavior<MisterBoinky.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinky));
-                    self.AddItemBehavior<MisterBoinkyReborn.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyReborn));
-                    self.AddItemBehavior<MisterBoinkyAscended.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyAscended));
-                    self.AddItemBehavior<MisterBoinkyTranscended.Behavior>(self.inventory.GetItemCount(KrodItems.MisterBoinkyTranscended));
-                    self.AddItemBehavior<TheExtra.Behavior>(self.inventory.GetItemCount(KrodItems.TheExtra));
-                    self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCount(KrodItems.NinjaShowerScrub));
-                    self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCount(KrodItems.ShipOfRegret));
-                    self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCount(KrodItems.WeightedDice));
-                    self.AddItemBehavior<Woodhat.Behavior>(self.inventory.GetItemCount(KrodItems.Woodhat));
-                    if (self.inventory.GetItemCount(KrodItems.RorysForesight) > 0)
+                    self.AddItemBehavior<DiscountCoffee.Behavior>(self.inventory.GetItemCountEffective(KrodItems.DiscountCoffee));
+                    self.AddItemBehavior<LooseCards.Behavior>(self.inventory.GetItemCountEffective(KrodItems.LooseCards));
+                    self.AddItemBehavior<MisterBoinky.Behavior>(self.inventory.GetItemCountEffective(KrodItems.MisterBoinky));
+                    self.AddItemBehavior<MisterBoinkyReborn.Behavior>(self.inventory.GetItemCountEffective(KrodItems.MisterBoinkyReborn));
+                    self.AddItemBehavior<MisterBoinkyAscended.Behavior>(self.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended));
+                    self.AddItemBehavior<MisterBoinkyTranscended.Behavior>(self.inventory.GetItemCountEffective(KrodItems.MisterBoinkyTranscended));
+                    self.AddItemBehavior<TheExtra.Behavior>(self.inventory.GetItemCountEffective(KrodItems.TheExtra));
+                    self.AddItemBehavior<NinjaShowerScrub.Behavior>(self.inventory.GetItemCountEffective(KrodItems.NinjaShowerScrub));
+                    self.AddItemBehavior<ShipOfRegret.Behavior>(self.inventory.GetItemCountEffective(KrodItems.ShipOfRegret));
+                    self.AddItemBehavior<WeightedDice.Behavior>(self.inventory.GetItemCountEffective(KrodItems.WeightedDice));
+                    self.AddItemBehavior<Woodhat.Behavior>(self.inventory.GetItemCountEffective(KrodItems.Woodhat));
+                    if (self.inventory.GetItemCountEffective(KrodItems.RorysForesight) > 0)
                     {
                         if (!self.HasBuff(RorysForsight.cooldownBuff) &&
                            !self.HasBuff(RorysForsight.isAvailableBuff))
@@ -638,14 +638,14 @@ namespace Krod
                         self.RemoveBuff(RorysForsight.cooldownBuff);
                         self.RemoveBuff(RorysForsight.isAvailableBuff);
                     }
-                    if (self.inventory.GetItemCount(KrodItems.CaudalFin) > 0)
+                    if (self.inventory.GetItemCountEffective(KrodItems.CaudalFin) > 0)
                     {
                         self.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                     }
                 }
                 AncientRecordingSystem.OnInventoryChanged(self);
-                self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCount(KrodItems.CaudalFin));
-                self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCount(KrodItems.GodHand));
+                self.AddItemBehavior<CaudalFin.Behavior>(self.inventory.GetItemCountEffective(KrodItems.CaudalFin));
+                self.AddItemBehavior<GodHand.Behavior>(self.inventory.GetItemCountEffective(KrodItems.GodHand));
             }
         }
 
@@ -675,11 +675,11 @@ namespace Krod
             {
                 if (self.characterBody.inventory)
                 {
-                    int c = self.characterBody.inventory.GetItemCount(KrodItems.MisterBoinkyConsumed);
+                    int c = self.characterBody.inventory.GetItemCountEffective(KrodItems.MisterBoinkyConsumed);
                     if (c > 0)
                     {
-                        self.characterBody.inventory.RemoveItem(KrodItems.MisterBoinkyConsumed, c);
-                        self.characterBody.inventory.GiveItem(KrodItems.MisterBoinkyReborn, c);
+                        self.characterBody.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyConsumed, c);
+                        self.characterBody.inventory.GiveItemTemp(KrodItems.MisterBoinkyReborn.itemIndex, c);
                         CharacterMasterNotificationQueue.SendTransformNotification(
                             self.characterBody.master,
                             KrodItems.MisterBoinkyConsumed.itemIndex,

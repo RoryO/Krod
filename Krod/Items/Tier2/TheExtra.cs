@@ -27,7 +27,7 @@ namespace Krod.Items.Tier2
                     {
                         extraStopwatch = 0;
                         if (!body || !body.teamComponent) { return; }
-                        int stacks = body.inventory.GetItemCount(KrodItems.TheExtra);
+                        int stacks = body.inventory.GetItemCountEffective(KrodItems.TheExtra);
 
                         // Similar to gas formula
                         float damage = (1 + stacks) * body.damage * 0.75f;
@@ -100,7 +100,9 @@ namespace Krod.Items.Tier2
             KrodItems.TheExtra.tags = [ItemTag.Damage, ItemTag.AIBlacklist];
             KrodItems.TheExtra._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
+#pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.TheExtra.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/TheExtra.prefab");
+#pragma warning restore CS0618 // Type or member is obsolete
             ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
 
             blastSFX = KUtils.SFXEffect("The Extra Blast", "KTheExtraBlast");
