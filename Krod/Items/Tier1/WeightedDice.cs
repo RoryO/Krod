@@ -60,7 +60,7 @@ namespace Krod.Items.Tier1
             KrodItems.WeightedDice.pickupToken = "WEIGHTED_DICE_PICKUP";
             KrodItems.WeightedDice.descriptionToken = "WEIGHTED_DICE_DESC";
             KrodItems.WeightedDice.loreToken = "WEIGHTED_DICE_LORE";
-            KrodItems.WeightedDice.tags = [ItemTag.Utility];
+            KrodItems.WeightedDice.tags = [ItemTag.Utility, ItemTag.CanBeTemporary];
             KrodItems.WeightedDice._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.WeightedDice.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/WeightedDice.prefab");

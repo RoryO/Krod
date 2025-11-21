@@ -19,7 +19,7 @@ namespace Krod.Items.Tier3
             KrodItems.TimsCrucible.pickupToken = "TIMS_CRUCIBLE_PICKUP";
             KrodItems.TimsCrucible.descriptionToken = "TIMS_CRUCIBLE_DESC";
             KrodItems.TimsCrucible.loreToken = "TIMS_CRUCIBLE_LORE";
-            KrodItems.TimsCrucible.tags = [ItemTag.Utility];
+            KrodItems.TimsCrucible.tags = [ItemTag.Utility, ItemTag.CanBeTemporary];
             KrodItems.TimsCrucible._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.TimsCrucible.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/TimsCrucible.png");
 #pragma warning disable CS0618 // Type or member is obsolete

@@ -73,7 +73,8 @@ namespace Krod.Items.Tier1
             KrodItems.LooseCards.pickupToken = "LOOSE_CARDS_PICKUP";
             KrodItems.LooseCards.descriptionToken = "LOOSE_CARDS_DESC";
             KrodItems.LooseCards.loreToken = "LOOSE_CARDS_LORE";
-            KrodItems.LooseCards.tags = [ItemTag.Damage];
+            KrodItems.LooseCards.tags = [ItemTag.Damage, ItemTag.CanBeTemporary];
+
             KrodItems.LooseCards._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.LooseCards.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/LooseCards.png");
 #pragma warning disable CS0618 // Type or member is obsolete

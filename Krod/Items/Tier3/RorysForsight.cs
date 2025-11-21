@@ -72,7 +72,7 @@ namespace Krod.Items.Tier3
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.RorysForesight.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/RorysForesight.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
-            KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist];
+            KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist, ItemTag.CanBeTemporary];
             ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
             isAvailableBuff.isDebuff = false;

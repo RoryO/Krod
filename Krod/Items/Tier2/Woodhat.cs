@@ -58,7 +58,7 @@ namespace Krod.Items.Tier2
             KrodItems.Woodhat.descriptionToken = "WOODHAT_DESC";
             KrodItems.Woodhat.loreToken = "WOODHAT_LORE";
             KrodItems.Woodhat._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
-            KrodItems.Woodhat.tags = [ItemTag.Utility];
+            KrodItems.Woodhat.tags = [ItemTag.Utility, ItemTag.CanBeTemporary];
             KrodItems.Woodhat.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/WoodHat.png");
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.Woodhat.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/WoodHat.prefab");

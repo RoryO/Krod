@@ -46,7 +46,7 @@ namespace Krod.Items.Tier1
             KrodItems.DiscountCoffee.pickupToken = "DISCOUNT_COFFEE_PICKUP";
             KrodItems.DiscountCoffee.descriptionToken = "DISCOUNT_COFFEE_DESC";
             KrodItems.DiscountCoffee.loreToken = "DISCOUNT_COFFEE_LORE";
-            KrodItems.DiscountCoffee.tags = [ItemTag.Utility, ItemTag.MobilityRelated];
+            KrodItems.DiscountCoffee.tags = [ItemTag.Utility, ItemTag.MobilityRelated, ItemTag.CanBeTemporary];
             KrodItems.DiscountCoffee._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier1Def.asset").WaitForCompletion();
             KrodItems.DiscountCoffee.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/DiscountCoffee.png");
 #pragma warning disable CS0618

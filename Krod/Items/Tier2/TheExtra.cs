@@ -97,7 +97,7 @@ namespace Krod.Items.Tier2
             KrodItems.TheExtra.pickupToken = "THE_EXTRA_PICKUP";
             KrodItems.TheExtra.descriptionToken = "THE_EXTRA_DESC";
             KrodItems.TheExtra.loreToken = "THE_EXTRA_LORE";
-            KrodItems.TheExtra.tags = [ItemTag.Damage, ItemTag.AIBlacklist];
+            KrodItems.TheExtra.tags = [ItemTag.Damage, ItemTag.AIBlacklist, ItemTag.CanBeTemporary];
             KrodItems.TheExtra._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.TheExtra.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/TheExtra.png");
 #pragma warning disable CS0618 // Type or member is obsolete

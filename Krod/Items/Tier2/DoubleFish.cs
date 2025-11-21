@@ -55,7 +55,7 @@ namespace Krod.Items.Tier2
             KrodItems.DoubleFish.pickupToken = "DOUBLEFISH_PICKUP";
             KrodItems.DoubleFish.descriptionToken = "DOUBLEFISH_DESC";
             KrodItems.DoubleFish.loreToken = "DOUBLEFISH_LORE";
-            KrodItems.DoubleFish.tags = [ItemTag.Damage];
+            KrodItems.DoubleFish.tags = [ItemTag.Damage, ItemTag.CanBeTemporary];
             KrodItems.DoubleFish._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.DoubleFish.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/DoubleFish.png");
 #pragma warning disable CS0618 // Type or member is obsolete

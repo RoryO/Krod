@@ -104,7 +104,7 @@ namespace Krod.Items.Tier3
             KrodItems.GodHand.pickupToken = "GOD_HAND_PICKUP";
             KrodItems.GodHand.descriptionToken = "GOD_HAND_DESC";
             KrodItems.GodHand.loreToken = "GOD_HAND_LORE";
-            KrodItems.GodHand.tags = [ItemTag.Damage];
+            KrodItems.GodHand.tags = [ItemTag.Damage, ItemTag.CanBeTemporary];
             KrodItems.GodHand._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier3Def.asset").WaitForCompletion();
             KrodItems.GodHand.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/AlienGodHand.png");
 #pragma warning disable CS0618 // Type or member is obsolete

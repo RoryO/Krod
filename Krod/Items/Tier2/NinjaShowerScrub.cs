@@ -139,7 +139,7 @@ namespace Krod.Items.Tier2
             KrodItems.NinjaShowerScrub.pickupToken = "NINJA_SHOWER_PICKUP";
             KrodItems.NinjaShowerScrub.descriptionToken = "NINJA_SHOWER_DESC";
             KrodItems.NinjaShowerScrub.loreToken = "NINJA_SHOWER_LORE";
-            KrodItems.NinjaShowerScrub.tags = [ItemTag.Damage];
+            KrodItems.NinjaShowerScrub.tags = [ItemTag.Damage, ItemTag.CanBeTemporary];
             KrodItems.NinjaShowerScrub._itemTierDef = Addressables.LoadAssetAsync<ItemTierDef>("RoR2/Base/Common/Tier2Def.asset").WaitForCompletion();
             KrodItems.NinjaShowerScrub.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/NinjaShowerScrub.png");
 #pragma warning disable CS0618 // Type or member is obsolete
