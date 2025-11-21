@@ -171,7 +171,7 @@ namespace Krod.Items.Tier2
                 if (!t) { return; }
                 if (Run.instance.GetRunStopwatch() > t.evolveAt)
                 {
-                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyAscended, stack);
+                    body.inventory.GiveItemTemp(KrodItems.MisterBoinkyAscended.itemIndex, stack);
                     body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, stack);
                     Destroy(t);
                     CharacterMasterNotificationQueue.SendTransformNotification(

@@ -142,7 +142,7 @@ namespace Krod.Items.Boss
                 int ascendedCount = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended);
                 if (boinkyCount > 0)
                 {
-                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, boinkyCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, (int)Math.Ceiling(boinkyCount / 2.0));
                     body.inventory.RemoveItemPermanent(KrodItems.MisterBoinky, boinkyCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
@@ -153,7 +153,7 @@ namespace Krod.Items.Boss
                 }
                 if (rebornCount > 0)
                 {
-                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, rebornCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, (int)Math.Ceiling(rebornCount / 2.0));
                     body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyReborn, rebornCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
@@ -164,8 +164,9 @@ namespace Krod.Items.Boss
                 }
                 if (ascendedCount > 0)
                 {
-                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, ascendedCount);
-                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyAscended, ascendedCount);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, 
+                        (int)Math.Floor(ascendedCount / 2.0));
+                    body.inventory.RemoveItemTemp(KrodItems.MisterBoinkyAscended.itemIndex, ascendedCount);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyAscended.itemIndex,

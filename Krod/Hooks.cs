@@ -10,6 +10,7 @@ using UnityEngine;
 using Krod.Items.Lunar;
 using Krod.Items.Boss;
 using UnityEngine.AddressableAssets;
+using System;
 
 namespace Krod
 {
@@ -130,8 +131,8 @@ namespace Krod
                 int c = body.inventory.GetItemCountEffective(KrodItems.MisterBoinkyAscended);
                 if (c > 0)
                 {
-                    body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyAscended, c);
-                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, c);
+                    body.inventory.RemoveItemTemp(KrodItems.MisterBoinkyAscended.itemIndex, c);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyTranscended, (int)Math.Ceiling(c / 2.0));
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyAscended.itemIndex,
