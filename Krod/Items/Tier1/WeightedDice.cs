@@ -20,14 +20,18 @@ namespace Krod.Items.Tier1
 
             public void Reroll()
             {
+                if (!body.inventory) { return; }
                 body.RecalculateStats();
+                int permanentStack = body.inventory.GetItemCountPermanent(KrodItems.WeightedDice.itemIndex);
+                int tempStack = body.inventory.GetItemCountTemp(KrodItems.WeightedDice.itemIndex);
                 if (Util.CheckRoll(30f, body.master.luck, body.master))
                 {
+                    float totalDuration = 10 + (20 * permanentStack) + (10 * permanentStack);
                     body.AddTimedBuff(addLuckBuff, 10 + (20 * stack));
                 }
-                else if (Util.CheckRoll(10f, body.master.luck * -1, body.master))
+                else if (permanentStack > 0 && Util.CheckRoll(10f, body.master.luck * -1, body.master))
                 {
-                    body.AddTimedBuff(removeLuckBuff, 60 - (60 * .2f * (stack - 1)));
+                    body.AddTimedBuff(removeLuckBuff, 60 - (60 * .2f * (permanentStack - 1)));
                 }
                 rerollStopwatch = 0;
             }
