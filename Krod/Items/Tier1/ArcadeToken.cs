@@ -41,27 +41,41 @@ namespace Krod.Items.Tier1
         public static void OnPurchase(CostTypeDef.PayCostContext context)
         {
             CharacterMaster master = context.activatorMaster;
-            ShopTerminalBehavior behavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
-            if (behavior && behavior.serverMultiShopController)
+            bool didPurchase = false;
+            ShopTerminalBehavior shopBehavior = context.purchasedObject.GetComponent<ShopTerminalBehavior>();
+            DroneVendorTerminalBehavior droneVendorBehavior = context.purchasedObject.GetComponent<DroneVendorTerminalBehavior>();
+            if (shopBehavior && shopBehavior.serverMultiShopController)
             {
-                int remaining = (
-                    from obj in behavior.serverMultiShopController.terminalGameObjects
-                    where (obj.GetComponent<PurchaseInteraction>()?.Networkavailable ?? false)
-                    select obj
-                ).Count();
-                if (remaining > 1)
+                didPurchase = true;
+                shopBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
+                    context.purchasedObject.GetComponent<PurchaseInteraction>(),
+                    false);
+            }
+            if (droneVendorBehavior && droneVendorBehavior.serverMultiShopController)
+            {
+                didPurchase = true; 
+                droneVendorBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
+                    context.purchasedObject.GetComponent<PurchaseInteraction>(), 
+                    false);
+            }
+            if (didPurchase)
+            {
+                if (master.inventory.GetItemCountTemp(KrodItems.ArcadeToken.itemIndex) > 0)
                 {
-                    behavior.serverMultiShopController.SetCloseOnTerminalPurchase(context.purchasedObject.GetComponent<PurchaseInteraction>(), false);
-                    master.inventory.RemoveItemPermanent(KrodItems.ArcadeToken);
-                    PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position,
-                        context.purchasedObject.gameObject,
-                        KrodItems.ArcadeToken.itemIndex);
-                    EffectManager.SpawnEffect(insertTokenEffect, new()
-                    {
-                        origin = context.activatorBody.gameObject.transform.position,
-                        scale = 1f
-                    }, true);
+                    master.inventory.RemoveItemTemp(KrodItems.ArcadeToken.itemIndex);
                 }
+                else
+                {
+                    master.inventory.RemoveItemPermanent(KrodItems.ArcadeToken);
+                }
+                PurchaseInteraction.CreateItemTakenOrb(context.activatorBody.gameObject.transform.position,
+                    context.purchasedObject.gameObject,
+                    KrodItems.ArcadeToken.itemIndex);
+                EffectManager.SpawnEffect(insertTokenEffect, new()
+                {
+                    origin = context.activatorBody.gameObject.transform.position,
+                    scale = 1f
+                }, true);
             }
         }
     }
