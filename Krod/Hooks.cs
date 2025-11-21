@@ -107,7 +107,7 @@ namespace Krod
                 if (c > 0)
                 {
                     body.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyConsumed, c);
-                    body.inventory.GiveItemTemp(KrodItems.MisterBoinkyReborn.itemIndex, c);
+                    body.inventory.GiveItemPermanent(KrodItems.MisterBoinkyReborn.itemIndex, c);
                     CharacterMasterNotificationQueue.SendTransformNotification(
                         body.master,
                         KrodItems.MisterBoinkyConsumed.itemIndex,
@@ -679,7 +679,7 @@ namespace Krod
                     if (c > 0)
                     {
                         self.characterBody.inventory.RemoveItemPermanent(KrodItems.MisterBoinkyConsumed, c);
-                        self.characterBody.inventory.GiveItemTemp(KrodItems.MisterBoinkyReborn.itemIndex, c);
+                        self.characterBody.inventory.GiveItemPermanent(KrodItems.MisterBoinkyReborn.itemIndex, c);
                         CharacterMasterNotificationQueue.SendTransformNotification(
                             self.characterBody.master,
                             KrodItems.MisterBoinkyConsumed.itemIndex,
