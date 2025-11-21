@@ -11,6 +11,15 @@ namespace Krod.Items.Tier2
     {
         public class DoubleFishBehavior : MonoBehaviour
         {
+            public float soundFatigueStopwatch = 1f;
+
+            public void Update()
+            {
+                if (soundFatigueStopwatch < 1f)
+                {
+                    soundFatigueStopwatch += Time.deltaTime;
+                }
+            }
             public void Start() { }
             public void HitAgain(DamageReport damageReport) {
                 StartCoroutine(DelayedHit(damageReport));
@@ -36,11 +45,15 @@ namespace Krod.Items.Tier2
                 {
                     di.position = damageReport.victim.transform.position;
                     damageReport.victimBody.healthComponent.TakeDamage(di);
-                    EffectManager.SpawnEffect(strikeEffect, new()
+                    if (soundFatigueStopwatch >= 1f)
                     {
-                        origin = damageReport.victim.transform.position,
-                        scale = 1f
-                    }, true);
+                        soundFatigueStopwatch = 0;
+                        EffectManager.SpawnEffect(strikeEffect, new()
+                        {
+                            origin = damageReport.victim.transform.position,
+                            scale = 1f
+                        }, true);
+                    }
                 }
             }
         }
