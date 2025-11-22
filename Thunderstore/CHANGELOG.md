@@ -1,3 +1,29 @@
+## 0.3.0
+
+"So good to see you once again!"
+
+- Fixes compatibility with game version 1.4.0 Alloyed Collective
+- Marked most items as allowed for duplication, which adds them to mechanics
+  that generate temp items
+- If there are only temporary stacks of Weighted Dice in an inventory, it will
+  not apply negative luck. Temporary Weighted Dice do not contribute to the
+  negative luck time.
+  - Temp items are function as grab everything and not care. You aren't
+    evaluating if you want something. It feels bad to grab this from a pile of
+    items and then get punished
+  - Effectively a large temp stack of Weighted Dice is at worst neutral,
+    otherwise positive. Go ahead and buy a stack of them from the temp item
+    vendor and tear everything up
+- Temporary stacks of Weighted Dice add half as much time to the positive luck buff
+- Old Arcade Token uses temporary stacks on use before permanent ones
+- Old Arcade Token works with drone multi-shops
+- Red Boinky is now temporary after evolution
+  - Risk trying to keep feeding the rage, or calm him down with the final
+    evolution to make him permanent
+- Reduced frequency of some sounds to reduce noise fatigue
+  - No longer a constant wet slapping when having high stacks of Double Fish
+- Fixes Alien God Hand not working for network clients
+
 ## 0.2.1
 
 - Fix for Alien God Hand causing errors with characters that do not have all skills
@@ -13,7 +39,7 @@
   
 ## 0.1
 
-- Update to game libarary 1.3.9
+- Update to game library 1.3.9
 - Tried to normalize all sounds for 1.3.9 update
   - Something changed with 1.3.9 and everything is still too loud, hopefully mitigates it some
 - Added Ship of Regret and Tim's Crucible final art
