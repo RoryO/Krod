@@ -46,17 +46,33 @@ namespace Krod.Items.Tier1
             DroneVendorTerminalBehavior droneVendorBehavior = context.purchasedObject.GetComponent<DroneVendorTerminalBehavior>();
             if (shopBehavior && shopBehavior.serverMultiShopController)
             {
-                didPurchase = true;
-                shopBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
-                    context.purchasedObject.GetComponent<PurchaseInteraction>(),
-                    false);
+                int remaining = (
+                    from obj in shopBehavior.serverMultiShopController.terminalGameObjects
+                    where (obj.GetComponent<PurchaseInteraction>()?.Networkavailable ?? false)
+                    select obj
+                ).Count();
+                if (remaining > 1)
+                {
+                    didPurchase = true;
+                    shopBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
+                        context.purchasedObject.GetComponent<PurchaseInteraction>(),
+                        false);
+                }
             }
             if (droneVendorBehavior && droneVendorBehavior.serverMultiShopController)
             {
-                didPurchase = true; 
-                droneVendorBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
-                    context.purchasedObject.GetComponent<PurchaseInteraction>(), 
-                    false);
+                int remaining = (
+                    from obj in droneVendorBehavior.serverMultiShopController._terminals
+                    where (obj.hasBeenPurchased == false)
+                    select obj
+                ).Count();
+                if (remaining > 1)
+                {
+                    didPurchase = true;
+                    droneVendorBehavior.serverMultiShopController.SetCloseOnTerminalPurchase(
+                        context.purchasedObject.GetComponent<PurchaseInteraction>(),
+                        false);
+                }
             }
             if (didPurchase)
             {
