@@ -17,7 +17,8 @@ namespace Krod.Equipment
         {
             PickupDef d = PickupCatalog.GetPickupDef(candidateInfo._pickupState.pickupIndex);
             PickupIndex idx = d.pickupIndex;
-            if (idx == whiteScrap ||
+            if (candidateInfo._pickupState.isTempItem ||
+                idx == whiteScrap ||
                 idx == greenScrap ||
                 idx == redScrap ||
                 idx == yellowScrap)
