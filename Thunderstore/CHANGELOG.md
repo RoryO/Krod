@@ -1,3 +1,22 @@
+## 0.3.2
+
+"Don't you dare point that at me"
+
+- Aileen's Glass Eye no longer targets temp items
+- Fixes taking an Arcade Token when purchasing the last open terminal in a shop
+- Discount Coffee is slightly stronger when adding temp items (Attack speed
+  increase 15% for each permanent, 25% with temp. Sprint speed increase 25% for
+  each permanent, 35% with temp)
+
+## 0.3.1
+
+"I know the pieces fit, cause I watched them fall away"
+
+- Upload the correct DLL file, which actually contains the 0.3.0 changes
+  - The previous DLL file was months old, before 1.4.0. This also fixes non
+    functional printers. 1.4.0 changed how printers work, so any mod
+    compatibility shims could not fix it.
+
 ## 0.3.0
 
 "So good to see you once again!"
@@ -14,7 +33,8 @@
   - Effectively a large temp stack of Weighted Dice is at worst neutral,
     otherwise positive. Go ahead and buy a stack of them from the temp item
     vendor and tear everything up
-- Temporary stacks of Weighted Dice add half as much time to the positive luck buff
+- Temporary stacks of Weighted Dice add half as much time to the positive luck
+  buff
 - Old Arcade Token uses temporary stacks on use before permanent ones
 - Old Arcade Token works with drone multi-shops
 - Red Boinky is now temporary after evolution
