@@ -506,9 +506,12 @@ namespace Krod
 
             if (sender.HasBuff(DiscountCoffee.buff))
             {
-                int c = sender.inventory.GetItemCountEffective(KrodItems.DiscountCoffee);
+                int c = sender.inventory.GetItemCountPermanent(KrodItems.DiscountCoffee);
                 args.attackSpeedMultAdd += c * 0.15f;
                 args.sprintSpeedAdd += c * 0.25f;
+                int t = sender.inventory.GetItemCountTemp(KrodItems.DiscountCoffee);
+                args.attackSpeedMultAdd += t * 0.25f;
+                args.sprintSpeedAdd += t * 0.35f;
             }
 
             if (sender.isSprinting)
