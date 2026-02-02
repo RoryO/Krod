@@ -109,6 +109,7 @@ namespace Krod.Equipment
                 stopperMask = LayerIndex.world.mask,
                 tracerEffectPrefab = tracerTrail,
                 procCoefficient = 0,
+                maxDistance = 10_000,
             };
             at.AddModdedDamageType(damageType);
             at.Fire();

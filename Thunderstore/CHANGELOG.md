@@ -4,7 +4,7 @@
   distributing a fixed number. Changed scaling from increasing radius to
   increasing the number given.
   - Also will not give to drones not marked as combat drones.
-
+- Fix Jeremiah's Accident range being too short
 
 ## 0.3.2
 
