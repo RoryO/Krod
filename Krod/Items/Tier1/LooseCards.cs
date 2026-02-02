@@ -33,7 +33,9 @@ namespace Krod.Items.Tier1
                 {
                     body.AddBuff(orangeBuff);
                 }
-                else if (dotIndex is DotController.DotIndex.Bleed or DotController.DotIndex.SuperBleed)
+                else if (dotIndex is DotController.DotIndex.Bleed or 
+                    DotController.DotIndex.SuperBleed or 
+                    DotController.DotIndex.Fracture)
                 {
                     body.AddBuff(redBuff);
                 }
