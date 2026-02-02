@@ -1,3 +1,11 @@
+## 0.4.0
+
+- Ninja Shower Scrub changed from giving +1 all allies within a radius to
+  distributing a fixed number. Changed scaling from increasing radius to
+  increasing the number given.
+  - Also will not give to drones not marked as combat drones.
+
+
 ## 0.3.2
 
 "Don't you dare point that at me"

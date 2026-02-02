@@ -50,7 +50,7 @@
 
     "NINJA_SHOWER_NAME": "Ninja Shower Scrub",
     "NINJA_SHOWER_PICKUP": "Give shurikens to yourself and nearby allies on critical hit.",
-    "NINJA_SHOWER_DESC": "<style=cIsDamage>Adds 5% crit chance</style>. On a critical hit, <style=cIsDamage>give 1</style> <style=cStack>(+1 per stack)</style> <style=cIsDamage>shuriken</style> to all allies within 20m.",
+    "NINJA_SHOWER_DESC": "<style=cIsDamage>Adds 5% crit chance</style>. On a critical hit, <style=cIsDamage>distribute 3</style> <style=cStack>(+2 per stack)</style> <style=cIsDamage>shuriken</style> to allies within 20m.",
     "NINJA_SHOWER_LORE": "Nina, lets pass. The concept is flimsy nonsense. Also the whole ninja fad is well long gone at this point so that won't save it.\n\n> Bill, sending along a production sample and commercial sketch from a startup with their first product. Seems fun! What do you think?\n\n>> Three men in a room, identified by the color of a bandana on their head. PURPLE and RED sitting on a couch, playing a video game console. BLUE in the corner, focused on a computer screen.\n\n>> Off frame, a voice\n\n>> UNKNOWN: Heeeeeyyyyyyyy\n\n>> PURPLE and RED turn to each other.\n\n>> RED: Did he just say \"hey\"?\n\n>> BLUE looks up for a moment.\n\n>> BLUE: What?\n\n>> ORANGE, wet, in a towel, enters from off frame.\n\n>> ORANGE: So I was in the shower and I was thinking about you guys!\n\n>> PURPLE and RED look at each other and burst out laughing.\n\n>> BLUE looks up for a moment.\n\n>> BLUE: What?\n\n>> New! Ninja Shower Scrub! <<Christy I need a slogan here>>",
 
     "ACHIEVEMENT_FIND_MISTERBOINKY_REBORN_NAME": "I will see you soon",

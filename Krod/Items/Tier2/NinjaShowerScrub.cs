@@ -112,20 +112,39 @@ namespace Krod.Items.Tier2
             public void TriggerDistribution()
             {
                 if (cooldownStopwatch > 0f) { return; }
-                if (!body.teamComponent) { return; }
+                if (!body.teamComponent || !body.inventory) { return; }
                 var f = TeamComponent.GetTeamMembers(body.teamComponent.teamIndex);
-
-                for (int i = 0; i < f.Count; i++)
+                var numItems = body.inventory.GetItemCountEffective(KrodItems.NinjaShowerScrub);
+                var maxAllowed = 1 + (numItems * 2);
+                var distributed = 0;
+                while (distributed < maxAllowed)
                 {
-                    CharacterBody b = f[i].body;
-                    if (b == null) { continue; }
-                    if (Vector3.Distance(body.transform.position, b.transform.position) > 20f) { continue; }
-                    Behavior behavior = b.GetComponent<Behavior>();
-                    if (behavior == null)
+                    bool foundCandidate = false;
+                    for (int i = 0; i < f.Count; i++)
                     {
-                        b.AddItemBehavior<Behavior>(stack);
+                        CharacterBody candidate = f[i].body;
+                        if (candidate == null) { continue; }
+                        if (Vector3.Distance(body.transform.position, candidate.transform.position) > 20f) { continue; }
+                        if (candidate.IsDrone)
+                        {
+                            var def = DroneCatalog.GetDroneDef(DroneCatalog.GetDroneIndexFromBodyIndex(candidate.bodyIndex));
+                            if (def.droneType != DroneType.Combat) { continue; }
+                        }
+                        Behavior behavior = candidate.GetComponent<Behavior>();
+                        if (behavior == null)
+                        {
+                            candidate.AddItemBehavior<Behavior>(stack);
+                        }
+                        var existingBuffs = candidate.GetBuffCount(DLC1Content.Buffs.PrimarySkillShurikenBuff.buffIndex);
+                        if (existingBuffs >= maxAllowed) { break; }
+
+                        candidate.SetBuffCount(DLC1Content.Buffs.PrimarySkillShurikenBuff.buffIndex, existingBuffs + 1);
+                        distributed++;
+                        foundCandidate = true;
+
+                        if (distributed >= maxAllowed) { break; }
                     }
-                    b.SetBuffCount(DLC1Content.Buffs.PrimarySkillShurikenBuff.buffIndex, stack);
+                    if (!foundCandidate) { break; }
                 }
                 cooldownStopwatch = 1f;
             }
