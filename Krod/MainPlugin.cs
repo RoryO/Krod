@@ -36,6 +36,8 @@ namespace Krod
 
             Assets.Init();
 
+            KrodContent.Awake();
+
             LooseCards.Awake();
             MisterBoinky.Awake();
             ArcadeToken.Awake();

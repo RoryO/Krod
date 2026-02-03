@@ -63,6 +63,7 @@ namespace Krod.Items.Tier2
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.Woodhat.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/WoodHat.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.Woodhat.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.Woodhat, new ItemDisplayRuleDict(null)));
 
             buffDef = ScriptableObject.CreateInstance<BuffDef>();

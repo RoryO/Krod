@@ -205,6 +205,7 @@ namespace Krod.Items.Tier2
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier2/MisterBoinkyRebornAD.png");
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyReborn.unlockableDef = unlockableDef;
+            KrodItems.MisterBoinkyReborn.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyReborn, new ItemDisplayRuleDict(null)));
         }
     }

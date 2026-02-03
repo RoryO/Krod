@@ -164,6 +164,7 @@ namespace Krod.Items.Tier2
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.NinjaShowerScrub.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/NinjaShowerScrub.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.NinjaShowerScrub.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.NinjaShowerScrub, new ItemDisplayRuleDict(null)));
         }
 

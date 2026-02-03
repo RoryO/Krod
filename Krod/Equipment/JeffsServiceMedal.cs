@@ -25,6 +25,7 @@ namespace Krod.Equipment
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.JeffsServiceMedal.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeffsServiceMedal.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodEquipment.JeffsServiceMedal.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomEquipment(KrodEquipment.JeffsServiceMedal, new ItemDisplayRuleDict(null)));
         }
 

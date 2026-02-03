@@ -192,6 +192,7 @@ namespace Krod.Items.Tier3
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier3/MisterBoinkyAscendedAD.png");
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyAscended.unlockableDef = unlockableDef;
+            KrodItems.MisterBoinkyAscended.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyAscended, new ItemDisplayRuleDict(null)));
 
             buffDef = ScriptableObject.CreateInstance<BuffDef>();

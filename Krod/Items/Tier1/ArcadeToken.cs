@@ -25,6 +25,7 @@ namespace Krod.Items.Tier1
             KrodItems.ArcadeToken.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/OldArcadeToken.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.ArcadeToken.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/ArcadeToken.png");
+            KrodItems.ArcadeToken.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.ArcadeToken, new ItemDisplayRuleDict(null)));
 
             insertTokenEffect = new("Token Use Effect", 

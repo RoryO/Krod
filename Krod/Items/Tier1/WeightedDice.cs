@@ -71,6 +71,7 @@ namespace Krod.Items.Tier1
             KrodItems.WeightedDice.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/WeightedDice.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.WeightedDice.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/WeightedDice.png");
+            KrodItems.WeightedDice.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.WeightedDice, new ItemDisplayRuleDict(null)));
 
             addLuckBuff = ScriptableObject.CreateInstance<BuffDef>();

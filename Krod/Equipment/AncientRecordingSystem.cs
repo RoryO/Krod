@@ -88,6 +88,8 @@ namespace Krod.Equipment
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodEquipment.AncientRecordingSystem.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/AncientRecordingEquipment.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodEquipment.AncientRecordingSystem.requiredExpansion = KrodContent.expansionDef;
+
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
             customDamageType = DamageAPI.ReserveDamageType();
 

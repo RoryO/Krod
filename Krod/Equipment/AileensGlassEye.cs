@@ -56,6 +56,7 @@ namespace Krod.Equipment
 #pragma warning restore CS0618 // Type or member is obsolete
                 KrodEquipment.AileensGlassEyeCracked.canBeRandomlyTriggered = false;
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
+                KrodEquipment.AileensGlassEyeCracked.requiredExpansion = KrodContent.expansionDef;
 
                 ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEyeCracked, new ItemDisplayRuleDict(null)));
             }
@@ -130,6 +131,7 @@ namespace Krod.Equipment
             KrodEquipment.AileensGlassEye.canBeRandomlyTriggered = false;
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
 
+            KrodEquipment.AileensGlassEye.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
 
             createScrapperEffect = new("Create Scrapper Effect", 

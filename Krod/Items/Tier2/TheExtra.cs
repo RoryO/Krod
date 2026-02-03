@@ -103,6 +103,7 @@ namespace Krod.Items.Tier2
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.TheExtra.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/TheExtra.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.TheExtra.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.TheExtra, new ItemDisplayRuleDict(null)));
 
             blastSFX = KUtils.SFXEffect("The Extra Blast", "KTheExtraBlast");

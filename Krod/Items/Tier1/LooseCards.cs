@@ -3,7 +3,6 @@ using R2API;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Networking;
 using System.Runtime.CompilerServices;
 
 namespace Krod.Items.Tier1
@@ -82,6 +81,7 @@ namespace Krod.Items.Tier1
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.LooseCards.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/LooseCards.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.LooseCards.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict(null)));
 
             redBuff = ScriptableObject.CreateInstance<BuffDef>();

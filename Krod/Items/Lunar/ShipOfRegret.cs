@@ -98,6 +98,7 @@ namespace Krod.Items.Lunar
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.ShipOfRegret.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Lunar/ShipOfRegret.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.ShipOfRegret.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.ShipOfRegret, new ItemDisplayRuleDict(null)));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.iconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Lunar/ShipOfRegret.png");

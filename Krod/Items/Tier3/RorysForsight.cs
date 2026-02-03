@@ -73,6 +73,7 @@ namespace Krod.Items.Tier3
             KrodItems.RorysForesight.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/RorysForesight.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist, ItemTag.CanBeTemporary];
+            KrodItems.RorysForesight.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
             isAvailableBuff.isDebuff = false;
@@ -159,29 +160,19 @@ namespace Krod.Items.Tier3
                 int costMultiplier = 1;
                 while (b.revealedCosts.Count < purchasesRemaining)
                 {
-                    if (shrineBehavior.dropTable)
+                    if (shrineBehavior.dropTable && 
+                        shrineBehavior.rng.nextNormalizedFloat > shrineBehavior.failureChance)
                     {
-                        if (shrineBehavior.rng.nextNormalizedFloat > shrineBehavior.failureChance)
+                        if (shrineBehavior.chanceDollDropTable && chanceDolls > 0)
                         {
-                            if (shrineBehavior.chanceDollDropTable && chanceDolls > 0)
+                            if (Util.CheckRoll(30 + chanceDolls * 10, body.master))
                             {
-                                if (Util.CheckRoll(30 + chanceDolls * 10, body.master))
+                                b.revealedCosts.Add(new()
                                 {
-                                    b.revealedCosts.Add(new()
-                                    {
-                                        cost = currentCost,
-                                        item = shrineBehavior.chanceDollDropTable.GeneratePickup(shrineBehavior.rng)
+                                    cost = currentCost,
+                                    item = shrineBehavior.chanceDollDropTable.GeneratePickup(shrineBehavior.rng)
 
-                                    });
-                                }
-                                else
-                                {
-                                    b.revealedCosts.Add(new()
-                                    {
-                                        cost = currentCost,
-                                        item = shrineBehavior.dropTable.GeneratePickup(shrineBehavior.rng)
-                                    });
-                                }
+                                });
                             }
                             else
                             {
@@ -191,6 +182,14 @@ namespace Krod.Items.Tier3
                                     item = shrineBehavior.dropTable.GeneratePickup(shrineBehavior.rng)
                                 });
                             }
+                        }
+                        else
+                        {
+                            b.revealedCosts.Add(new()
+                            {
+                                cost = currentCost,
+                                item = shrineBehavior.dropTable.GeneratePickup(shrineBehavior.rng)
+                            });
                         }
                     }
                     else

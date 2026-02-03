@@ -240,6 +240,7 @@ namespace Krod.Items.Boss
             unlockableDef.achievementIcon = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Boss/MisterBoinkyTranscendedAD.png");
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyTranscended.unlockableDef = unlockableDef;
+            KrodItems.MisterBoinkyTranscended.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyTranscended, new ItemDisplayRuleDict(null)));
 
             radiantBuff = ScriptableObject.CreateInstance<BuffDef>();

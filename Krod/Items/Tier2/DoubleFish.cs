@@ -74,6 +74,7 @@ namespace Krod.Items.Tier2
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.DoubleFish.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/DoubleFish.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.DoubleFish.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
 
             fishDamageType = DamageAPI.ReserveDamageType();

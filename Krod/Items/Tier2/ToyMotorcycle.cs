@@ -23,6 +23,7 @@ namespace Krod.Items.Tier2
 #pragma warning disable CS0618 // Type or member is obsolete
             KrodItems.ToyMotorcycle.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/ToyMotorcycle.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
+            KrodItems.ToyMotorcycle.requiredExpansion = KrodContent.expansionDef;
             ItemAPI.Add(new CustomItem(KrodItems.ToyMotorcycle, new ItemDisplayRuleDict(null)));
         }
     }

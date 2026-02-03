@@ -126,6 +126,9 @@
     "MISTERBOINKY_TRANSCENDED_NAME": "Mister Boinky Transcended",
     "MISTERBOINKY_TRANSCENDED_PICKUP": "Blocks one high damage hit, then become invulnerable and Radiant for a short while. While Radiant, nearby monsters gain Sedatum. Monsters with high Sedatum die a peaceful death.",
     "MISTERBOINKY_TRANSCENDED_DESC": "<style=cIsHealing>Blocks one hit</style> dealing 25% or more damage, then become <style=cIsHealing>invulnerable</style> and <style=cShrine>Radiant</style> for 10 seconds <style=cStack>(+10 seconds per stack)</style>. While <style=cShrine>Radiant</style>, monsters within 30m gain stacks of <style=cShrine>Sedatum</style> every second. Regular monsters with 10 stacks of <style=cShrine>Sedatum</style> and bosses with 30 stacks will <style=cDeath>unconditionally die</style> without triggering on kill effects.",
-    "MISTERBOINKY_TRANSCENDED_LORE": "hello.\n\ni was nothing. you noticed me.\n\ni was weak. you protected me.\n\ni was distant from you. you stayed with me.\n\nnow i am something. i show to you benevolence.\n\nnow i am strong. i share to you potence.\n\nnow i am with you. i give to you providence.\n\nnow. we are ready. \n\nlet us leave together."
+    "MISTERBOINKY_TRANSCENDED_LORE": "hello.\n\ni was nothing. you noticed me.\n\ni was weak. you protected me.\n\ni was distant from you. you stayed with me.\n\nnow i am something. i show to you benevolence.\n\nnow i am strong. i share to you potence.\n\nnow i am with you. i give to you providence.\n\nnow. we are ready. \n\nlet us leave together.",
+
+    "KROD_EXPANSION_NAME": "Krod",
+    "KROD_EXPANSION_DESCRIPTION":  "It is Krod"
   }
 }
