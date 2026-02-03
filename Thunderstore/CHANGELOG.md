@@ -5,9 +5,9 @@
   increasing the number given.
   - Also will not give to drones not marked as combat drones.
 - Fix Jeremiah's Accident range being too short
+- Adjust Jeremiah's Accident rumble to fall off quicker over distance
 - Make Loose TCG Cards buff indicator more accurate with buffs from Alloyed
   Collective
-  
 
 ## 0.3.2
 
