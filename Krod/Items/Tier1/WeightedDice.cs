@@ -22,18 +22,19 @@ namespace Krod.Items.Tier1
             {
                 if (!body.inventory) { return; }
                 body.RecalculateStats();
+                rerollStopwatch = 0;
                 int permanentStack = body.inventory.GetItemCountPermanent(KrodItems.WeightedDice.itemIndex);
                 int tempStack = body.inventory.GetItemCountTemp(KrodItems.WeightedDice.itemIndex);
+                if (permanentStack == 0 && tempStack == 0) { return; }
                 if (Util.CheckRoll(30f, body.master.luck, body.master))
                 {
                     float totalDuration = 10 + (20 * permanentStack) + (10 * permanentStack);
-                    body.AddTimedBuff(addLuckBuff, 10 + (20 * stack));
+                    body.AddTimedBuff(addLuckBuff, 10 + (20 * permanentStack + tempStack));
                 }
                 else if (permanentStack > 0 && Util.CheckRoll(10f, body.master.luck * -1, body.master))
                 {
                     body.AddTimedBuff(removeLuckBuff, 60 - (60 * .2f * (permanentStack - 1)));
                 }
-                rerollStopwatch = 0;
             }
 
             public void Update()
