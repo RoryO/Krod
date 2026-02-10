@@ -1,5 +1,8 @@
 ## 0.4.0
 
+"Wide eyed and hopeful"
+
+- Created Krod expansion definition
 - Ninja Shower Scrub changed from giving +1 all allies within a radius to
   distributing a fixed number. Changed scaling from increasing radius to
   increasing the number given.
