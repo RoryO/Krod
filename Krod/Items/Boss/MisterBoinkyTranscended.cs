@@ -241,7 +241,7 @@ namespace Krod.Items.Boss
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyTranscended.unlockableDef = unlockableDef;
             KrodItems.MisterBoinkyTranscended.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyTranscended, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyTranscended, new ItemDisplayRuleDict([])));
 
             radiantBuff = ScriptableObject.CreateInstance<BuffDef>();
             radiantBuff.isDebuff = false;

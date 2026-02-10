@@ -165,7 +165,20 @@ namespace Krod.Items.Tier2
             KrodItems.NinjaShowerScrub.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/NinjaShowerScrub.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.NinjaShowerScrub.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.NinjaShowerScrub, new ItemDisplayRuleDict(null)));
+            ItemDisplayRuleDict rules = new ItemDisplayRuleDict(
+            [
+                new ItemDisplayRule
+                {
+                    ruleType = ItemDisplayRuleType.ParentedPrefab,
+                    followerPrefab = KrodItems.NinjaShowerScrub.pickupModelPrefab,
+                    followerPrefabAddress = new AssetReferenceGameObject(""),
+                    childName = "Chest",
+                    localPos = new Vector3(0, 0, 0),
+                    localAngles = new Vector3(0, 0, 0),
+                    localScale = new Vector3(1, 1, 1)
+                }
+            ]);
+            ItemAPI.Add(new CustomItem(KrodItems.NinjaShowerScrub, rules));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -58,7 +58,7 @@ namespace Krod.Equipment
                 visualizerPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Recycle/RecyclerIndicator.prefab").WaitForCompletion();
                 KrodEquipment.AileensGlassEyeCracked.requiredExpansion = KrodContent.expansionDef;
 
-                ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEyeCracked, new ItemDisplayRuleDict(null)));
+                ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEyeCracked, new ItemDisplayRuleDict([])));
             }
 
             public static void UpdateTargets(EquipmentSlot self, EquipmentIndex targetingEquipmentIndex, bool userShouldAnticipateTarget)
@@ -132,7 +132,7 @@ namespace Krod.Equipment
             isc = Addressables.LoadAssetAsync<InteractableSpawnCard>("RoR2/Base/Scrapper/iscScrapper.asset").WaitForCompletion();
 
             KrodEquipment.AileensGlassEye.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.AileensGlassEye, new ItemDisplayRuleDict([])));
 
             createScrapperEffect = new("Create Scrapper Effect", 
                 typeof(EffectComponent), 

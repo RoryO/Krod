@@ -90,7 +90,7 @@ namespace Krod.Equipment
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodEquipment.AncientRecordingSystem.requiredExpansion = KrodContent.expansionDef;
 
-            ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.AncientRecordingSystem, new ItemDisplayRuleDict([])));
             customDamageType = DamageAPI.ReserveDamageType();
 
             effect1 = KUtils.SFXEffect("Recorder FX Effect 1", "KCrowd1");

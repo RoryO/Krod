@@ -96,7 +96,7 @@ namespace Krod.Items.Tier1
                 KrodItems.MisterBoinkyConsumed.pickupModelPrefab = Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Mystery/PickupMystery.prefab").WaitForCompletion();
 #pragma warning restore CS0618 // Type or member is obsolete
                 KrodItems.MisterBoinkyConsumed.requiredExpansion = KrodContent.expansionDef;
-                ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict(null)));
+                ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyConsumed, new ItemDisplayRuleDict([])));
             }
         }
         public static void Awake()
@@ -118,7 +118,7 @@ namespace Krod.Items.Tier1
             KrodItems.MisterBoinky.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/MisterBoinky.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.MisterBoinky.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinky, new ItemDisplayRuleDict([])));
         }
     }
 }

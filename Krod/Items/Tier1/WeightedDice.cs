@@ -72,7 +72,7 @@ namespace Krod.Items.Tier1
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.WeightedDice.pickupIconSprite = Assets.bundle.LoadAsset<Sprite>("Assets/Items/Tier1/WeightedDice.png");
             KrodItems.WeightedDice.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.WeightedDice, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.WeightedDice, new ItemDisplayRuleDict([])));
 
             addLuckBuff = ScriptableObject.CreateInstance<BuffDef>();
             addLuckBuff.name = "Weighted Dice Good Roll";

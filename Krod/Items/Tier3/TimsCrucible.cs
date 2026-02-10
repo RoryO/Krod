@@ -26,7 +26,7 @@ namespace Krod.Items.Tier3
             KrodItems.TimsCrucible.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/TimsCrucible.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.TimsCrucible.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.TimsCrucible, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.TimsCrucible, new ItemDisplayRuleDict([])));
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.canStack = false;
             buffDef.isDebuff = false;

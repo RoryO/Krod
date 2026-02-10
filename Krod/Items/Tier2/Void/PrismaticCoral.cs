@@ -35,7 +35,7 @@ namespace Krod.Items.Tier2.Void
             KrodItems.PrismaticCoral.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/PrismaticCoral.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.PrismaticCoral.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.PrismaticCoral, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.PrismaticCoral, new ItemDisplayRuleDict([])));
 
             ItemDef regen = Addressables.LoadAssetAsync<ItemDef>("RoR2/DLC1/RegeneratingScrap/RegeneratingScrap.asset").WaitForCompletion();
             ItemDef consumed = Addressables.LoadAssetAsync<ItemDef>("RoR2/DLC1/RegeneratingScrap/RegeneratingScrapConsumed.asset").WaitForCompletion();

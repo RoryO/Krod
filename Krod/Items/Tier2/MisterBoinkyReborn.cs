@@ -206,7 +206,7 @@ namespace Krod.Items.Tier2
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyReborn.unlockableDef = unlockableDef;
             KrodItems.MisterBoinkyReborn.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyReborn, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyReborn, new ItemDisplayRuleDict([])));
         }
     }
 }

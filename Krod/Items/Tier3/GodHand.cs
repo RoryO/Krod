@@ -111,7 +111,7 @@ namespace Krod.Items.Tier3
             KrodItems.GodHand.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier3/AlienGodHand.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.GodHand.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.GodHand, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.GodHand, new ItemDisplayRuleDict([])));
         }
 
         public static void OnSkillActivated(CharacterBody self, GenericSkill skill)

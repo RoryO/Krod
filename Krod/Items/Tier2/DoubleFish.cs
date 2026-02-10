@@ -75,7 +75,7 @@ namespace Krod.Items.Tier2
             KrodItems.DoubleFish.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/DoubleFish.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.DoubleFish.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.DoubleFish, new ItemDisplayRuleDict([])));
 
             fishDamageType = DamageAPI.ReserveDamageType();
             strikeEffect = new("Double Fish Strike Effect", 

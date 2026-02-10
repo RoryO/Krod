@@ -193,7 +193,7 @@ namespace Krod.Items.Tier3
             ContentAddition.AddUnlockableDef(unlockableDef);
             KrodItems.MisterBoinkyAscended.unlockableDef = unlockableDef;
             KrodItems.MisterBoinkyAscended.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyAscended, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.MisterBoinkyAscended, new ItemDisplayRuleDict([])));
 
             buffDef = ScriptableObject.CreateInstance<BuffDef>();
             buffDef.isDebuff = false;

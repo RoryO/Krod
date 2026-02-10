@@ -74,7 +74,20 @@ namespace Krod.Items.Tier3
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.RorysForesight.tags = [ItemTag.Utility, ItemTag.AIBlacklist, ItemTag.CanBeTemporary];
             KrodItems.RorysForesight.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, new ItemDisplayRuleDict(null)));
+            ItemDisplayRuleDict rules = new ItemDisplayRuleDict(
+            [
+                new ItemDisplayRule
+                {
+                    ruleType = ItemDisplayRuleType.ParentedPrefab,
+                    followerPrefab = KrodItems.RorysForesight.pickupModelPrefab,
+                    followerPrefabAddress = new AssetReferenceGameObject(""),
+                    childName = "Chest",
+                    localPos = new Vector3(0, 0, 0),
+                    localAngles = new Vector3(0, 0, 0),
+                    localScale = new Vector3(1, 1, 1)
+                }
+            ]);
+            ItemAPI.Add(new CustomItem(KrodItems.RorysForesight, rules));
             isAvailableBuff = ScriptableObject.CreateInstance<BuffDef>();
             isAvailableBuff.isDebuff = false;
             isAvailableBuff.canStack = false;

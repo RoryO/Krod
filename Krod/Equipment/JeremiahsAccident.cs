@@ -49,7 +49,7 @@ namespace Krod.Equipment
             KrodEquipment.JeremiahsAccident.pickupModelPrefab =  Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccident.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodEquipment.JeremiahsAccident.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomEquipment(KrodEquipment.JeremiahsAccident, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomEquipment(KrodEquipment.JeremiahsAccident, new ItemDisplayRuleDict([])));
             damageType = DamageAPI.ReserveDamageType();
             tracerTrail = Assets.bundle.LoadAsset<GameObject>("Assets/Equipment/JeremiahsAccidentTrail.prefab");
             if (!tracerTrail)

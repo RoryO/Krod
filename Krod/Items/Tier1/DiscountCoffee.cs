@@ -53,7 +53,7 @@ namespace Krod.Items.Tier1
             KrodItems.DiscountCoffee.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/DiscountCoffee.prefab");
 #pragma warning restore CS0618
             KrodItems.DiscountCoffee.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.DiscountCoffee, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.DiscountCoffee, new ItemDisplayRuleDict([])));
 
             buff = ScriptableObject.CreateInstance<BuffDef>();
             buff.isDebuff = false;

@@ -82,7 +82,7 @@ namespace Krod.Items.Tier1
             KrodItems.LooseCards.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier1/LooseCards.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.LooseCards.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.LooseCards, new ItemDisplayRuleDict([])));
 
             redBuff = ScriptableObject.CreateInstance<BuffDef>();
             redBuff.isDebuff = false;

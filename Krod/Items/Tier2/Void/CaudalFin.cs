@@ -111,7 +111,7 @@ namespace Krod.Items.Tier2.Void
             KrodItems.CaudalFin.pickupModelPrefab = Assets.bundle.LoadAsset<GameObject>("Assets/Items/Tier2/CaudalFin.prefab");
 #pragma warning restore CS0618 // Type or member is obsolete
             KrodItems.CaudalFin.requiredExpansion = KrodContent.expansionDef;
-            ItemAPI.Add(new CustomItem(KrodItems.CaudalFin, new ItemDisplayRuleDict(null)));
+            ItemAPI.Add(new CustomItem(KrodItems.CaudalFin, new ItemDisplayRuleDict([])));
 
             ItemDef feather = Addressables.LoadAssetAsync<ItemDef>("RoR2/Base/Feather/Feather.asset").WaitForCompletion();
 
